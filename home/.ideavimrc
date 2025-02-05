@@ -28,6 +28,7 @@ nmap <leader>grh <Action>(Vcs.RollbackChangedLines)
 nmap <leader>ff <Action>(SearchEverywhere)
 nmap <leader>fg <Action>(GotoFile)
 nmap <leader>fs <Action>(FindInPath)
+nmap <leader>fw <Action>(FindInPath)
 nmap <leader>fa <Action>(GotoAction)
 nmap <leader>fb <Action>(RecentFiles)
 
