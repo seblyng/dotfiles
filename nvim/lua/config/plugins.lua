@@ -62,7 +62,7 @@ return {
             ignored_next_char = "[%w%.%{%[%(%\"%']",
         },
     },
-    { "lambdalisue/suda.vim", keys = { { "w!!", "SudaWrite", mode = "ca" } }, lazy = false },
+    { "lambdalisue/vim-suda", keys = { { "w!!", "SudaWrite", mode = "ca" } }, lazy = false },
 
     -- Tpope
     { "tpope/vim-repeat" },

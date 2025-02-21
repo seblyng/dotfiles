@@ -85,12 +85,14 @@ return {
             ft = "lua",
             opts = {
                 library = {
-                    { path = "luvit-meta/library", words = { "vim%.uv" } },
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                    { path = "${3rd}/busted/library" },
+                    { path = "${3rd}/luassert/library" },
                     { path = "snacks.nvim", words = { "Snacks" } },
+                    { path = "nvim-test" },
                 },
             },
         },
-        { "Bilal2453/luvit-meta", lazy = true },
         { "b0o/schemastore.nvim" },
         { "williamboman/mason.nvim", config = true, cmd = "Mason", dependencies = { "roslyn.nvim" } },
         { "williamboman/mason-lspconfig.nvim", config = true, cmd = { "LspInstall", "LspUninstall" } },

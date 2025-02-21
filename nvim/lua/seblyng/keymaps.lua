@@ -85,7 +85,6 @@ end, {
 vim.keymap.set("n", "<leader>tg", function()
     vim.g.use_git_root = not vim.g.use_git_root
     local cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()
-    vim.g.seb_root_dir = cwd
     vim.notify(string.format("Searching from %s", cwd))
 end)
 

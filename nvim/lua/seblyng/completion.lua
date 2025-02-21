@@ -1,3 +1,5 @@
+local group = vim.api.nvim_create_augroup("SebCompletion", { clear = true })
+
 local function feedkeys(key)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "n", true)
 end
@@ -38,9 +40,10 @@ local triggerchars = {
 local current_win_data = nil
 
 vim.api.nvim_create_autocmd("LspAttach", {
+    group = group,
     callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id) --[[@as vim.lsp.Client]]
-        if not client:supports_method("textDocument/completion") then
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if not client or not client:supports_method("textDocument/completion") then
             return
         end
 
@@ -55,18 +58,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
         if lsp_triggerchars then
             vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters, triggerchars)
         end
-        vim.lsp.completion.enable(true, args.data.client_id, args.buf, {
-            -- TODO: Sort of annoying with the "flickering" when it does multiple requests
+
+        vim.lsp.completion.enable(true, client.id, args.buf, {
             autotrigger = true,
             convert = function(item)
                 local kind_name = vim.lsp.protocol.CompletionItemKind[item.kind]
-                local kind = ok and string.format("%s %s", kinds.presets.default[kind_name], kind_name) or kind_name
+                local kind = ok and string.format("%s", kinds.presets.default[kind_name]) or kind_name
                 return { kind = kind, kind_hlgroup = string.format("CmpItemKind%s", kind_name) }
             end,
         })
 
         vim.api.nvim_create_autocmd("CompleteChanged", {
-            group = vim.api.nvim_create_augroup("SebCompleteChangedPopup", { clear = true }),
+            group = group,
             buffer = args.buf,
             callback = function()
                 vim.schedule(function()
