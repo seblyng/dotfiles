@@ -37,7 +37,11 @@ vim.api.nvim_create_autocmd("VimResized", { group = group, command = "tabdo winc
 vim.api.nvim_create_autocmd("FileType", {
     group = group,
     pattern = { "text", "tex", "markdown", "gitcommit" },
-    command = "setlocal spell",
+    callback = function()
+        if vim.bo.buftype ~= "nofile" then
+            vim.wo[0][0].spell = true
+        end
+    end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {

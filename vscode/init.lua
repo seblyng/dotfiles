@@ -1,3 +1,5 @@
+local vscode = require("vscode")
+
 ---------- OPTIONS ----------
 
 vim.opt.ignorecase = true
@@ -28,12 +30,27 @@ vim.keymap.set({ "n", "x", "i" }, "ª", "<A-k>", { remap = true, desc = "Fix <A-
 vim.keymap.set({ "n", "x", "i" }, "∆", "<A-j>", { remap = true, desc = "Fix <A-j> mapping on mac" })
 vim.keymap.set({ "n", "x", "i" }, "˚", "<A-k>", { remap = true, desc = "Fix <A-k> mapping on mac" })
 
-vim.keymap.set("n", "<leader>x", ":source ~/dotfiles/vscode/init.lua<CR>")
-vim.keymap.set("n", "gcc", "<Cmd>call VSCodeNotify('editor.action.commentLine')<CR>")
-vim.keymap.set({ "x", "o" }, "gc", "<Cmd>call VSCodeNotify('editor.action.commentLine')<CR>")
+-- TODO(seb): Fix for it to only execute:
+-- "when": "editorTextFocus && editorLangId == 'sql'"
+vim.keymap.set({ "n", "x" }, "<leader>x", function()
+	vscode.action("mssql.runQuery")
+end)
 
-vim.keymap.set({ "n", "i", "x" }, "<A-j>", "<Cmd>call VSCodeNotify('editor.action.moveLinesDownAction')<CR>")
-vim.keymap.set({ "n", "i", "x" }, "<A-k>", "<Cmd>call VSCodeNotify('editor.action.moveLinesUpAction')<CR>")
+vim.keymap.set("n", "gcc", function()
+	vscode.action("editor.action.commentLine")
+end)
+
+vim.keymap.set({ "x", "o" }, "gc", function()
+	vscode.action("editor.action.commentLine")
+end)
+
+vim.keymap.set({ "n", "i", "x" }, "<A-j>", function()
+	vscode.action("editor.action.moveLinesDownAction")
+end)
+
+vim.keymap.set({ "n", "i", "x" }, "<A-k>", function()
+	vscode.action("editor.action.moveLinesUpAction")
+end)
 
 ---------- AUTOCMDS ----------
 

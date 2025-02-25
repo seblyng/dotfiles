@@ -42,32 +42,7 @@
                                     }
                                 },
                                 "to": {
-                                    "key_code": "quote",
-                                    "modifiers": "command"
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Use cmd+` to toggle between different windows of same app",
-                                "from": {
                                     "key_code": "grave_accent_and_tilde",
-                                    "modifiers": {
-                                        "mandatory": "command",
-                                        "optional": "shift"
-                                    }
-                                },
-                                "to": {
-                                    "key_code": "quote",
                                     "modifiers": "command"
                                 },
                                 "type": "basic"
