@@ -58,7 +58,7 @@ return {
         event = "InsertEnter",
         opts = {
             disable_filetype = { "snacks_picker_input" },
-            map_cr = not vim.g.use_builtin_completion,
+            map_cr = vim.g.seblj_completion ~= "native",
             ignored_next_char = "[%w%.%{%[%(%\"%']",
         },
     },

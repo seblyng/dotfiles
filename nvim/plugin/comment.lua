@@ -1,24 +1,8 @@
 local get_option = vim.filetype.get_option
 
-local react = {
-    jsx_element = "{/* %s */}",
-    jsx_fragment = "{/* %s */}",
-    jsx_attribute = "// %s",
-    call_expression = "// %s",
-    statement_block = "// %s",
-    spread_element = "// %s",
-}
-
-local config = {
-    tsx = react,
-    javascript = react,
-}
-
 local uncomment_calculation_config = {
     c = { "// %s", "/* %s */" },
-    c_sharp = { "// %s", "/* %s */" },
-    tsx = { "// %s", "{/* %s */}" },
-    javascript = { "// %s", "{/* %s */}" },
+    cs = { "// %s", "/* %s */" },
 }
 
 local function uncomment_calculation(language)
@@ -43,24 +27,9 @@ function vim.filetype.get_option(ft, option)
         return get_option(ft, option)
     end
 
-    local lang = vim.treesitter.language.get_lang(ft) or ft
-
-    local commentstring = uncomment_calculation(lang)
+    local commentstring = uncomment_calculation(ft)
     if commentstring then
         return commentstring
-    end
-
-    -- First non whitespace character
-    local row = vim.api.nvim_win_get_cursor(0)[1] - 1
-    local col = vim.fn.match(vim.api.nvim_get_current_line(), "\\S")
-
-    local spec = config[lang]
-    local ok, node = pcall(vim.treesitter.get_node, { ignore_injections = false, pos = { row, col } })
-    while ok and spec and node do
-        if spec[node:type()] then
-            return spec[node:type()]
-        end
-        node = node:parent()
     end
 
     return get_option(ft, "commentstring")

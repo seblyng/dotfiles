@@ -19,19 +19,19 @@ vim.keymap.set({ "n", "x", "i" }, "“", "<A-[>", { remap = true, desc = "Fix <A
 vim.keymap.set({ "n", "x", "i" }, "«", "<A-\\>", { remap = true, desc = [[Fix <A-\> mapping on mac]] })
 
 vim.keymap.set("n", "<C-i>", "<C-i>")
+vim.keymap.set("n", "<C-t>", ":tabedit<CR>", { desc = "Create new tab" })
 vim.keymap.set("n", "<Tab>", "gt", { desc = "Next tab" })
 vim.keymap.set("n", "<S-TAB>", "gT", { desc = "Previous tab" })
-vim.keymap.set("n", "<leader>=", "<C-w>=", { desc = "Resize all splits" })
 vim.keymap.set("n", "<CR>", '{->v:hlsearch ? ":nohl\\<CR>" : "\\<CR>"}()', { expr = true, desc = "Remove highlights" })
 vim.keymap.set("n", "gb", "<C-t>", { desc = "Go back in tag-stack" })
 vim.keymap.set("n", "gp", "`[v`]", { desc = "Reselect pasted text" })
-vim.keymap.set("n", "<C-t>", ":tabedit<CR>", { desc = "Create new tab" })
 
 vim.keymap.set({ "n", "x" }, "x", '"_x')
 vim.keymap.set({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete into black hole register" })
 vim.keymap.set({ "n", "x" }, "<leader>c", '"_c', { desc = "Change into black hole register" })
 vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Delete into black hole register on visual paste" })
 
+vim.keymap.set("n", "<leader>=", "<C-w>=", { desc = "Resize all splits" })
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Navigate to left split" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Navigate to bottom split" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Navigate to top split" })

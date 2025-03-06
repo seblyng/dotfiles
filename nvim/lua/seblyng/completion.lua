@@ -78,7 +78,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                         vim.api.nvim_win_set_cursor(current_win_data.winid, { 1, 0 })
                     end
 
-                    local info = vim.fn.complete_info({ "selected" })
                     local complete = vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item")
                     if complete == nil then
                         return
@@ -90,35 +89,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
                         return
                     end
 
-                    local contents = vim.split(docs, "\n", { trimempty = true })
-                    local scratch = vim.api.nvim_create_buf(false, true)
-                    local stylized_docs = table.concat(vim.lsp.util.stylize_markdown(scratch, contents, {}), "\n")
-
-                    local win_data = vim.api.nvim__complete_set(info["selected"], { info = stylized_docs })
-                    if not win_data.winid or not vim.api.nvim_win_is_valid(win_data.winid) then
+                    local win = vim.api.nvim__complete_set(vim.fn.complete_info().selected, { info = docs })
+                    if not win.winid or not vim.api.nvim_win_is_valid(win.winid) then
                         return
                     end
-                    current_win_data = win_data
+                    current_win_data = win
 
-                    local height = vim.api.nvim_win_get_height(win_data.winid)
+                    local conceal_height = vim.api.nvim_win_text_height(win.winid, {}).all
                     local max_height = math.floor(40 * (40 / vim.o.lines))
-                    if height > max_height then
-                        vim.api.nvim_win_set_height(win_data.winid, max_height)
-                    end
-                    -- max_width = math.floor((40 * 2) * (vim.o.columns / (40 * 2 * 16 / 9))),
+                    local height = conceal_height > max_height and max_height or conceal_height
+                    vim.api.nvim_win_set_height(win.winid, height)
 
-                    vim.bo[win_data.bufnr].modifiable = true
-                    vim.wo[win_data.winid].conceallevel = 2
+                    vim.wo[win.winid].conceallevel = 2
+                    vim.treesitter.start(win.bufnr, "markdown")
 
-                    vim.lsp.util.stylize_markdown(win_data.bufnr, contents, {})
-                    vim.api.nvim_win_set_config(win_data.winid, { border = CUSTOM_BORDER })
+                    vim.api.nvim_win_set_config(win.winid, { border = CUSTOM_BORDER })
 
-                    vim.bo[win_data.bufnr].modifiable = false
                     -- Simple scrolling in the preview window
                     local scroll = function(key, dir)
                         vim.keymap.set("i", key, function()
-                            if vim.api.nvim_buf_is_valid(win_data.bufnr) then
-                                vim.api.nvim_buf_call(win_data.bufnr, function()
+                            if vim.api.nvim_buf_is_valid(win.bufnr) then
+                                vim.api.nvim_buf_call(win.bufnr, function()
                                     vim.cmd(string.format("normal! %s zt", dir))
                                 end)
                             else

@@ -2,7 +2,12 @@ P = function(...)
     vim.print(...)
 end
 
--- vim.g.use_builtin_completion = true
+---@type "blink" | "cmp" | "native"
+vim.g.seblj_completion = "blink"
+
+if vim.g.seblj_completion == "native" then
+    require("seblyng.completion")
+end
 
 COLORSCHEME = "catppuccin"
 CUSTOM_BORDER = vim.env.TERM == "xterm-ghostty" and { "", "▄", "", "▌", "", "▀", "", "▐" }

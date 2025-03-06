@@ -1,5 +1,4 @@
-if vim.g.use_builtin_completion then
-    require("seblyng.completion")
+if vim.g.seblj_completion ~= "cmp" then
     return {}
 end
 
@@ -19,7 +18,9 @@ return {
                     gopls = { align_type_to_right = false },
                     clangd = { align_type_to_right = false },
                     ["rust-analyzer"] = { align_type_to_right = false },
+                    fallback = false,
                 },
+                max_width = 90,
             },
         },
     },
@@ -65,22 +66,12 @@ return {
             formatting = {
                 fields = { "kind", "abbr" },
                 format = (function()
-                    local enable_colors = true
-
-                    if enable_colors then
-                        vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bold = true })
-                        vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { bold = true })
-                        ---@diagnostic disable-next-line: missing-fields
-                        require("colorful-menu").setup({ max_width = 90, ls = { fallback = false } })
-                    end
                     return function(entry, vim_item)
-                        if enable_colors then
-                            local highlights_info = require("colorful-menu").cmp_highlights(entry)
+                        local highlights_info = require("colorful-menu").cmp_highlights(entry)
 
-                            if highlights_info then
-                                vim_item.abbr_hl_group = highlights_info.highlights
-                                vim_item.abbr = highlights_info.text
-                            end
+                        if highlights_info then
+                            vim_item.abbr_hl_group = highlights_info.highlights
+                            vim_item.abbr = highlights_info.text
                         end
                         return require("lspkind").cmp_format({ mode = "symbol" })(entry, vim_item)
                     end

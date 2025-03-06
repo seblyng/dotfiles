@@ -9,4 +9,3 @@
 ((html_tag) @markup.raw
   (#any-of? @markup.raw "<code>" "</code>")
   (#set! conceal "`"))
-
