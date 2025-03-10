@@ -11,31 +11,9 @@ vim.keymap.set("i", "<CR>", function()
         return feedkeys("<C-y>")
     else
         local ok, npairs = pcall(require, "nvim-autopairs")
-        if ok then
-            if vim.fn.pumvisible() == 1 then
-                local close = vim.api.nvim_replace_termcodes("<C-e>", true, false, true)
-                return vim.api.nvim_feedkeys(close .. npairs.autopairs_cr(), "n", true)
-            else
-                return npairs.autopairs_cr()
-            end
-        else
-            if vim.fn.pumvisible() == 1 then
-                return feedkeys("<C-e><CR>")
-            else
-                return feedkeys("<CR>")
-            end
-        end
+        return ok and npairs.autopairs_cr() or feedkeys("<CR>")
     end
 end, { expr = true, replace_keycodes = false, desc = "Accept completion" })
-
--- I want autocompletion, so do a hack to add all these chars to the servers triggerchars
--- stylua: ignore
-local triggerchars = {
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F',
-    'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-    'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '_'
-}
 
 local current_win_data = nil
 
@@ -54,11 +32,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         local ok, kinds = pcall(require, "lspkind")
-        local lsp_triggerchars = vim.tbl_get(client, "server_capabilities", "completionProvider", "triggerCharacters")
-        if lsp_triggerchars then
-            vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters, triggerchars)
-        end
-
         vim.lsp.completion.enable(true, client.id, args.buf, {
             autotrigger = true,
             convert = function(item)
@@ -121,6 +94,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     scroll("<C-d>", "5j")
                     scroll("<C-u>", "5k")
                 end)
+            end,
+        })
+
+        if #vim.api.nvim_get_autocmds({ buffer = args.buf, event = "InsertCharPre", group = group }) ~= 0 then
+            return
+        end
+
+        vim.api.nvim_create_autocmd("InsertCharPre", {
+            buffer = args.buf,
+            group = group,
+            callback = function()
+                if vim.fn.pumvisible() == 1 then
+                    return
+                end
+                local triggers = vim.tbl_get(client, "server_capabilities", "completionProvider", "triggerCharacters")
+                if vim.v.char:match("[%w_]") and not vim.list_contains(triggers or {}, vim.v.char) then
+                    vim.schedule(function()
+                        vim.lsp.completion.trigger()
+                    end)
+                end
             end,
         })
     end,
