@@ -5,200 +5,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Change § to ` on built-in keyboard with english layout",
-                                "from": { "key_code": "non_us_backslash" },
-                                "to": { "key_code": "grave_accent_and_tilde" },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Use cmd+` to toggle between different windows of same app on builtin",
-                                "from": {
-                                    "key_code": "non_us_backslash",
-                                    "modifiers": {
-                                        "mandatory": "command",
-                                        "optional": "shift"
-                                    }
-                                },
-                                "to": {
-                                    "key_code": "grave_accent_and_tilde",
-                                    "modifiers": "command"
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^nb$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Use cmd+` to toggle between different windows of same app",
-                                "from": {
-                                    "key_code": "grave_accent_and_tilde",
-                                    "modifiers": {
-                                        "mandatory": "command",
-                                        "optional": "shift"
-                                    }
-                                },
-                                "to": {
-                                    "key_code": "non_us_backslash",
-                                    "modifiers": "command"
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Change ± to ~ on built-in keyboard with english layout",
-                                "from": {
-                                    "key_code": "non_us_backslash",
-                                    "modifiers": { "mandatory": "shift" }
-                                },
-                                "to": {
-                                    "key_code": "grave_accent_and_tilde",
-                                    "modifiers": "shift"
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^nb$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Change command + 8 to { on norwegian layout",
-                                "from": {
-                                    "key_code": "8",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": {
-                                    "key_code": "8",
-                                    "modifiers": ["left_shift", "left_option"]
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^nb$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Change command + 9 to } on norwegian layout",
-                                "from": {
-                                    "key_code": "9",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": {
-                                    "key_code": "9",
-                                    "modifiers": ["left_shift", "left_option"]
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^nb$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Change option + ´ to ´ on norwegian layout",
-                                "from": {
-                                    "key_code": "equal_sign",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": { "key_code": "equal_sign" },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^nb$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
-                                "description": "Change ´ to backslash on norwegian layout",
-                                "from": { "key_code": "equal_sign" },
-                                "to": {
-                                    "key_code": "7",
-                                    "modifiers": ["left_shift", "left_option"]
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
-                            {
-                                "description": "Lock with Ctrl+Option+L",
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "mandatory": ["left_control", "left_option"] }
-                                },
-                                "to": {
-                                    "key_code": "q",
-                                    "modifiers": ["left_control", "left_command"]
-                                },
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
+                        "description": "Hyper key remappings",
                         "manipulators": [
                             {
                                 "description": "Caps to hyper key (shift+command+control+options)",
@@ -211,11 +18,7 @@
                                     "modifiers": ["left_command", "left_control", "left_option"]
                                 },
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
+                            },
                             {
                                 "description": "Hyper + enter for caps",
                                 "from": {
@@ -231,14 +34,15 @@
                         ]
                     },
                     {
+                        "conditions": [
+                            {
+                                "input_sources": [{ "language": "^en$" }],
+                                "type": "input_source_if"
+                            }
+                        ],
+                        "description": "Shortcut remappings for norwegian characters (with English input)",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "Cmd + ; for ø",
                                 "from": {
                                     "key_code": "semicolon",
@@ -249,18 +53,8 @@
                                     "modifiers": ["left_option"]
                                 },
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
+                            },
                             {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "Cmd + shift + ; for Ø",
                                 "from": {
                                     "key_code": "semicolon",
@@ -271,18 +65,8 @@
                                     "modifiers": ["left_option", "left_shift"]
                                 },
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
+                            },
                             {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "Cmd + a for å",
                                 "from": {
                                     "key_code": "open_bracket",
@@ -293,18 +77,8 @@
                                     "modifiers": ["left_option"]
                                 },
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
+                            },
                             {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "Cmd + Shift + a for Å",
                                 "from": {
                                     "key_code": "open_bracket",
@@ -315,18 +89,8 @@
                                     "modifiers": ["left_option", "left_shift"]
                                 },
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
+                            },
                             {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "Cmd + ' for æ",
                                 "from": {
                                     "key_code": "quote",
@@ -337,18 +101,8 @@
                                     "modifiers": ["left_option"]
                                 },
                                 "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "manipulators": [
+                            },
                             {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "^en$" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "Cmd + Shift + ' for Æ",
                                 "from": {
                                     "key_code": "quote",
@@ -385,6 +139,12 @@
                 }
             ],
             "name": "Default profile",
+            "simple_modifications": [
+                {
+                    "from": { "key_code": "non_us_backslash" },
+                    "to": [{ "key_code": "grave_accent_and_tilde" }]
+                }
+            ],
             "virtual_hid_keyboard": {
                 "country_code": 0,
                 "keyboard_type_v2": "ansi"
