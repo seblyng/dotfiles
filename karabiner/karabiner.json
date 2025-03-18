@@ -139,6 +139,7 @@
                 }
             ],
             "name": "Default profile",
+            "selected": true,
             "simple_modifications": [
                 {
                     "from": { "key_code": "non_us_backslash" },

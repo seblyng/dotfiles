@@ -4,7 +4,7 @@ local function feedkeys(key)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "n", true)
 end
 
-vim.keymap.set("i", "<C-space>", vim.lsp.completion.trigger)
+vim.keymap.set("i", "<C-space>", vim.lsp.completion.get)
 
 vim.keymap.set("i", "<CR>", function()
     if vim.fn.complete_info()["selected"] ~= -1 then
@@ -111,7 +111,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 local triggers = vim.tbl_get(client, "server_capabilities", "completionProvider", "triggerCharacters")
                 if vim.v.char:match("[%w_]") and not vim.list_contains(triggers or {}, vim.v.char) then
                     vim.schedule(function()
-                        vim.lsp.completion.trigger()
+                        vim.lsp.completion.get()
                     end)
                 end
             end,
