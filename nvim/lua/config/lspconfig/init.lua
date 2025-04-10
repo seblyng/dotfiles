@@ -53,6 +53,8 @@ return {
             cmp_ok and cmp_nvim_lsp.default_capabilities() or blink_ok and blink_cmp.get_lsp_capabilities() or {}
         )
 
+        vim.lsp.config("*", { capabilities = capabilities })
+
         require("mason-lspconfig").setup_handlers({
             function(server)
                 local config = vim.tbl_deep_extend("error", {

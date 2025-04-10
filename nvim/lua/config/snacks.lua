@@ -83,7 +83,7 @@ return {
 
         { "<leader>fd", function()
             local exclude = { "hammerspoon[/\\]Spoons", "fonts[\\/]*", "icons[/\\]*" }
-            Snacks.picker.files({ cwd = "~/dotfiles", exclude = exclude, title = "Dotfiles" })
+            Snacks.picker.files({ cwd = "~/dotfiles", exclude = exclude, title = "Dotfiles", hidden = true })
         end, { desc = "Picker: Dotfiles" } },
 
         { "<leader>fp", function() Snacks.picker.files({

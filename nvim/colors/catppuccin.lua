@@ -155,7 +155,7 @@ highlight({
     MsgSeparator = {},
     NonText = { fg = c.color13 },
     Normal = { bg = c.color5, fg = c.color2 },
-    NormalFloat = { bg = c.color15, fg = c.color2 },
+    NormalFloat = { bg = c.color15 },
     NormalNC = { bg = c.color5, fg = c.color2 },
     Number = { fg = c.color8 },
     Operator = { fg = c.color17 },

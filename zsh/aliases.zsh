@@ -12,6 +12,12 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
+# TODO: Look into this for parallels
+# osascript -e 'mount volume "smb://Windows 11._smb._tcp.local"'
+
+# NOTE: This was actually kind of nice
+[ -z "$NVIM" ] && [[ $OS = "Darwin" ]] && alias nvim="~/dotfiles/scripts/nvim_session"
+
 alias cht="~/dotfiles/scripts/cht.sh"
 alias ssh_kitty="kitty +kitten ssh"
 alias icat="kitty +kitten icat --align=left"

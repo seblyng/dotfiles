@@ -9,23 +9,14 @@ if vim.g.seblj_completion == "native" then
     require("seblyng.completion")
 end
 
+local windows = vim.uv.os_uname().sysname == "Windows_NT"
+local ghostty = vim.env.TERM == "xterm-ghostty"
+local kitty = vim.env.TERM == "xterm-kitty"
+
 COLORSCHEME = "catppuccin"
-CUSTOM_BORDER = vim.env.TERM == "xterm-ghostty" and { "", "▄", "", "▌", "", "▀", "", "▐" }
+CUSTOM_BORDER = windows and not kitty and not ghostty and "rounded"
+    or ghostty and { "", "▄", "", "▌", "", "▀", "", "▐" }
     or { "", "", "", "", "", "", "", "" }
-
-local pmenu_hl = vim.api.nvim_get_hl(0, { name = "Pmenu" }).bg
-vim.api.nvim_set_hl(0, "StatusLine", { bg = pmenu_hl })
-
-local windows = vim.uv.os_uname().sysname == "Windows_NT" and vim.env.TERM ~= "xterm-kitty"
-if windows then
-    CUSTOM_BORDER = "rounded"
-    local hl = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
-    vim.api.nvim_set_hl(0, "FloatBorder", { bg = hl })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = hl })
-else
-    vim.api.nvim_set_hl(0, "FloatBorder", { fg = pmenu_hl })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = pmenu_hl })
-end
 
 -- Override vim.keymap.set to have silent as default
 local map = vim.keymap.set
@@ -36,4 +27,21 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
         opts.silent = true
     end
     map(mode, lhs, rhs, opts)
+end
+
+-- I know that these are deprecated, I just don't want the warning all the time
+-- Do a very big hack until the plugins I use updates to newer API's
+local deprecations = {
+    "vim.lsp.start_client()",
+    "client.notify",
+    "client.is_stopped",
+}
+
+local deprecate = vim.deprecate
+---@diagnostic disable-next-line: duplicate-set-field
+vim.deprecate = function(name, ...)
+    if vim.list_contains(deprecations, name) then
+        return nil
+    end
+    return deprecate(name, ...)
 end
