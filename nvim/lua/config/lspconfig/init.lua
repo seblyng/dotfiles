@@ -45,37 +45,15 @@ vim.diagnostic.config({
 return {
     "neovim/nvim-lspconfig",
     config = function()
-        local cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
         local blink_ok, blink_cmp = pcall(require, "blink.cmp")
-        local capabilities = vim.tbl_deep_extend(
-            "force",
-            vim.lsp.protocol.make_client_capabilities(),
-            cmp_ok and cmp_nvim_lsp.default_capabilities() or blink_ok and blink_cmp.get_lsp_capabilities() or {}
-        )
-
-        vim.lsp.config("*", { capabilities = capabilities })
+        local capabilities = blink_ok and blink_cmp.get_lsp_capabilities()
+            or vim.lsp.protocol.make_client_capabilities()
 
         require("mason-lspconfig").setup_handlers({
             function(server)
                 local config = vim.tbl_deep_extend("error", {
                     capabilities = capabilities,
                 }, require("config.lspconfig.settings")[server] or {})
-
-                -- Something weird with rust-analyzer and nvim-cmp capabilites
-                -- Makes the completion experience awful
-                if server == "rust_analyzer" and cmp_ok then
-                    config.capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {
-                        resolveSupport = {
-                            properties = {
-                                "additionalTextEdits",
-                                "textEdits",
-                                "tooltip",
-                                "location",
-                                "command",
-                            },
-                        },
-                    })
-                end
 
                 require("lspconfig")[server].setup(config)
             end,

@@ -2,7 +2,7 @@ P = function(...)
     vim.print(...)
 end
 
----@type "blink" | "cmp" | "native"
+---@type "blink" | "native"
 vim.g.seblj_completion = "blink"
 
 if vim.g.seblj_completion == "native" then

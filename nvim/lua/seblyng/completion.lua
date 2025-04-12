@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             convert = function(item)
                 local kind_name = vim.lsp.protocol.CompletionItemKind[item.kind]
                 local kind = ok and string.format("%s", kinds.presets.default[kind_name]) or kind_name
-                return { kind = kind, kind_hlgroup = string.format("CmpItemKind%s", kind_name) }
+                return { kind = kind, kind_hlgroup = string.format("BlinkCmpItemKind%s", kind_name) }
             end,
         })
 
