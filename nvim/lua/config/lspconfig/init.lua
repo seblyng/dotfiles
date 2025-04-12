@@ -45,17 +45,21 @@ vim.diagnostic.config({
 return {
     "neovim/nvim-lspconfig",
     config = function()
+        require("config.lspconfig.configs")
+
         local blink_ok, blink_cmp = pcall(require, "blink.cmp")
         local capabilities = blink_ok and blink_cmp.get_lsp_capabilities()
             or vim.lsp.protocol.make_client_capabilities()
 
+        -- Servers that are not yet setup with vim.lsp.config
+        local legacy = { "eslint", "volar" }
         require("mason-lspconfig").setup_handlers({
             function(server)
-                local config = vim.tbl_deep_extend("error", {
-                    capabilities = capabilities,
-                }, require("config.lspconfig.settings")[server] or {})
-
-                require("lspconfig")[server].setup(config)
+                if vim.list_contains(legacy, server) then
+                    require("lspconfig")[server].setup({ capabilities = capabilities })
+                else
+                    vim.lsp.enable(server)
+                end
             end,
         })
     end,
