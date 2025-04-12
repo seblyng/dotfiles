@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function()
         keymap("i", "<C-s>", function()
             vim.lsp.buf.signature_help({ border = CUSTOM_BORDER })
-        end, { desc = "Hover" })
+        end, { desc = "Signature" })
 
         keymap("n", "gh", function()
             vim.lsp.buf.hover({ border = CUSTOM_BORDER })

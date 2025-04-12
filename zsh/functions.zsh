@@ -15,18 +15,6 @@ diff_commit() {
     fi
 }
 
-fzf_gitmoji() {
-    local cmd="cat $HOME/dotfiles/zsh/gitmoji.json | jq -r '.[] | \"\(.emoji) \(.code) \(.description)\"'"
-    local result="$(eval "$cmd" | fzf | xargs echo | grep -Eo ':\w+:')"
-
-    zle reset-prompt
-    [ -n "$result" ] && LBUFFER+=$result
-}
-
-zle -N fzf_gitmoji
-installed zvm_bindkey && zvm_bindkey viins '^G' fzf_gitmoji
-bindkey '^G' fzf_gitmoji
-
 # Kill specified port
 kill_port() {
     kill $(lsof -t -i:$1)

@@ -57,7 +57,12 @@ return {
 
             cmdline = { enabled = false },
             snippets = { preset = "luasnip" },
-            sources = { default = { "lsp", "path", "snippets", "buffer" } },
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer" },
+                providers = {
+                    path = { opts = { trailing_slash = false, label_trailing_slash = true } },
+                },
+            },
         }
     end,
 }

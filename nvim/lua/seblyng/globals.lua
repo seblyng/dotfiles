@@ -32,7 +32,6 @@ end
 -- I know that these are deprecated, I just don't want the warning all the time
 -- Do a very big hack until the plugins I use updates to newer API's
 local deprecations = {
-    "vim.lsp.start_client()",
     "client.notify",
     "client.is_stopped",
 }
