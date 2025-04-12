@@ -45,6 +45,8 @@ zstyle '*' single-ignored show
 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
+fpath+=($HOME/.docker/completions)
+
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
 
