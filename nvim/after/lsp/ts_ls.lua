@@ -1,16 +1,5 @@
----------- LANGUAGE SERVERS ----------
-
-vim.lsp.config("rust_analyzer", {
-    settings = {
-        ["rust-analyzer"] = {
-            check = {
-                command = "clippy",
-            },
-        },
-    },
-})
-
-vim.lsp.config("ts_ls", {
+---@type vim.lsp.Config
+return {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
     init_options = {
         plugins = {
@@ -24,12 +13,4 @@ vim.lsp.config("ts_ls", {
             },
         },
     },
-})
-
-vim.lsp.config("jsonls", {
-    settings = {
-        json = {
-            schemas = require("schemastore").json.schemas(),
-        },
-    },
-})
+}

@@ -45,11 +45,11 @@ vim.diagnostic.config({
 return {
     "neovim/nvim-lspconfig",
     config = function()
-        require("config.lspconfig.configs")
-
         local blink_ok, blink_cmp = pcall(require, "blink.cmp")
         local capabilities = blink_ok and blink_cmp.get_lsp_capabilities()
             or vim.lsp.protocol.make_client_capabilities()
+
+        vim.lsp.config("*", { capabilities = capabilities })
 
         -- Servers that are not yet setup with vim.lsp.config
         local legacy = { "eslint", "volar" }
