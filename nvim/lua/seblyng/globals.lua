@@ -29,6 +29,12 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
     map(mode, lhs, rhs, opts)
 end
 
+local signature = vim.lsp.buf.signature_help
+---@diagnostic disable-next-line: duplicate-set-field
+vim.lsp.buf.signature_help = function(config)
+    signature(vim.tbl_deep_extend("force", config or {}, { border = CUSTOM_BORDER }))
+end
+
 -- I know that these are deprecated, I just don't want the warning all the time
 -- Do a very big hack until the plugins I use updates to newer API's
 local deprecations = {

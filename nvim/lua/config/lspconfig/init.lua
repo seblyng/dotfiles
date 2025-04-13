@@ -10,10 +10,6 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("DefaultLspAttach", { clear = true }),
     callback = function()
-        keymap("i", "<C-s>", function()
-            vim.lsp.buf.signature_help({ border = CUSTOM_BORDER })
-        end, { desc = "Signature" })
-
         keymap("n", "gh", function()
             vim.lsp.buf.hover({ border = CUSTOM_BORDER })
         end, { desc = "Hover" })
@@ -43,45 +39,40 @@ vim.diagnostic.config({
 })
 
 return {
-    "neovim/nvim-lspconfig",
-    config = function()
-        local blink_ok, blink_cmp = pcall(require, "blink.cmp")
-        local capabilities = blink_ok and blink_cmp.get_lsp_capabilities()
-            or vim.lsp.protocol.make_client_capabilities()
-
-        vim.lsp.config("*", { capabilities = capabilities })
-
-        -- Servers that are not yet setup with vim.lsp.config
-        local legacy = { "eslint", "volar" }
-        require("mason-lspconfig").setup_handlers({
-            function(server)
-                if vim.list_contains(legacy, server) then
-                    require("lspconfig")[server].setup({ capabilities = capabilities })
-                else
-                    vim.lsp.enable(server)
-                end
-            end,
-        })
-    end,
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-        {
-            "folke/lazydev.nvim",
-            ft = "lua",
-            opts = {
-                library = {
-                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                    { path = "${3rd}/busted/library" },
-                    { path = "${3rd}/luassert/library" },
-                    { path = "snacks.nvim", words = { "Snacks" } },
-                    { path = "nvim-test" },
-                },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {
+            handlers = {
+                function(server)
+                    local legacy = { "eslint", "volar" }
+                    if vim.list_contains(legacy, server) then
+                        require("lspconfig")[server].setup({ capabilities = vim.lsp.config["*"].capabilities })
+                    else
+                        vim.lsp.enable(server)
+                    end
+                end,
             },
         },
-        { "b0o/schemastore.nvim" },
-        { "williamboman/mason.nvim", config = true, cmd = "Mason", dependencies = { "roslyn.nvim" } },
-        { "williamboman/mason-lspconfig.nvim", config = true, cmd = { "LspInstall", "LspUninstall" } },
-        { "seblyng/nvim-lsp-extras", opts = { global = { border = CUSTOM_BORDER } }, dev = true },
-        { "onsails/lspkind.nvim" },
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            { "neovim/nvim-lspconfig" },
+            { "williamboman/mason.nvim", opts = {}, cmd = "Mason", dependencies = { "roslyn.nvim" } },
+        },
+    },
+    { "seblyng/nvim-lsp-extras", opts = { global = { border = CUSTOM_BORDER } }, dev = true },
+    { "b0o/schemastore.nvim", lazy = true },
+    { "onsails/lspkind.nvim", lazy = true },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                { path = "${3rd}/busted/library" },
+                { path = "${3rd}/luassert/library" },
+                { path = "snacks.nvim", words = { "Snacks" } },
+                { path = "nvim-test" },
+            },
+        },
     },
 }

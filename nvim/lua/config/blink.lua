@@ -3,25 +3,10 @@ if vim.g.seblj_completion ~= "blink" then
 end
 
 return {
-    "saghen/blink.cmp",
-    event = "InsertEnter",
-    build = "cargo +nightly build --release",
-    dependencies = {
-        {
-            "xzbdmw/colorful-menu.nvim",
-            opts = {
-                ls = {
-                    gopls = { align_type_to_right = false },
-                    clangd = { align_type_to_right = false },
-                    ["rust-analyzer"] = { align_type_to_right = false },
-                    fallback = false,
-                },
-                max_width = 90,
-            },
-        },
-    },
-    opts = function()
-        return {
+    {
+        "saghen/blink.cmp",
+        build = "cargo +nightly build --release",
+        opts = {
             keymap = {
                 preset = "default",
                 ["<CR>"] = { "accept", "fallback" },
@@ -63,6 +48,19 @@ return {
                     path = { opts = { trailing_slash = false, label_trailing_slash = true } },
                 },
             },
-        }
-    end,
+        },
+    },
+    {
+        "xzbdmw/colorful-menu.nvim",
+        lazy = true,
+        opts = {
+            ls = {
+                gopls = { align_type_to_right = false },
+                clangd = { align_type_to_right = false },
+                ["rust-analyzer"] = { align_type_to_right = false },
+                fallback = false,
+            },
+            max_width = 90,
+        },
+    },
 }

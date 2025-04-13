@@ -1,9 +1,9 @@
 return {
-    { "seblyng/nvim-tabline", config = true, event = "TabNew", dev = true },
+    { "seblyng/nvim-tabline", opts = {}, event = "TabNew", dev = true },
 
     -- TODO: Either make it work with injections or look into only using this if it is a "leptos" file
-    -- { "rayliwell/tree-sitter-rstml", config = true, dev = true },
-    { "seblyng/nvim-ts-autotag", config = true, event = { "BufReadPost", "BufNewFile" }, dev = true },
+    -- { "rayliwell/tree-sitter-rstml", opts = {}, dev = true },
+    { "seblyng/nvim-ts-autotag", opts = {}, event = { "BufReadPost", "BufNewFile" }, dev = true },
 
     {
         "github/copilot.vim",
@@ -18,8 +18,8 @@ return {
     { "akinsho/git-conflict.nvim", opts = {}, event = { "BufReadPre", "BufWritePre" } },
 
     -- Packageinfo
-    { "saecki/crates.nvim", config = true, event = "BufReadPre Cargo.toml" },
-    { "vuki656/package-info.nvim", config = true, event = "BufReadPre package.json" },
+    { "saecki/crates.nvim", opts = {}, event = "BufReadPre Cargo.toml" },
+    { "vuki656/package-info.nvim", opts = {}, event = "BufReadPre package.json" },
 
     { "nvim-tree/nvim-web-devicons", lazy = true },
 

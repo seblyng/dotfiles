@@ -17,7 +17,6 @@ return {
             end,
         })
 
-        ---@diagnostic disable-next-line: missing-fields
         require("snacks").setup({
             -- bigfile = { enabled = true },
             picker = {
