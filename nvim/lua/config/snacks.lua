@@ -20,7 +20,7 @@ return {
         require("snacks").setup({
             -- bigfile = { enabled = true },
             picker = {
-                main = { file = false },
+                main = { file = false, current = true },
                 ui_select = false,
                 win = {
                     input = {

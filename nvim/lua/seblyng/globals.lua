@@ -40,6 +40,7 @@ end
 local deprecations = {
     "client.notify",
     "client.is_stopped",
+    "vim.lsp.start_client()",
 }
 
 local deprecate = vim.deprecate

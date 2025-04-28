@@ -41,18 +41,7 @@ vim.diagnostic.config({
 return {
     {
         "williamboman/mason-lspconfig.nvim",
-        opts = {
-            handlers = {
-                function(server)
-                    local legacy = { "eslint", "volar" }
-                    if vim.list_contains(legacy, server) then
-                        require("lspconfig")[server].setup({ capabilities = vim.lsp.config["*"].capabilities })
-                    else
-                        vim.lsp.enable(server)
-                    end
-                end,
-            },
-        },
+        opts = { handlers = { vim.lsp.enable } },
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "neovim/nvim-lspconfig" },

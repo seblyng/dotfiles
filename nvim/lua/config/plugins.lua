@@ -79,4 +79,5 @@ return {
     },
     { "tpope/vim-scriptease" },
     { "tpope/vim-sleuth" },
+    { "tpope/vim-dispatch" },
 }

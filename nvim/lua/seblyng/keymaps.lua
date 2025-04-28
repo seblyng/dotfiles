@@ -128,40 +128,27 @@ vim.keymap.set("ca", "TERM", "term")
 vim.keymap.set("ca", "TERm", "term")
 vim.keymap.set("ca", "TErm", "term")
 vim.keymap.set("ca", "Term", "term")
-vim.keymap.set("ca", "make", "Make")
 vim.keymap.set("ia", "TODO:", "TODO(seb):")
-
--- Open term in splits
-local opts = { nargs = "*", bang = true }
 
 ---@param key string
 ---@param direction "new" | "vnew" | "tabnew"
 local function create_command(key, direction)
-    local function completion(_, cmdline, _)
-        local completions = utils.wrap_lcd(function()
-            local run_command = vim.split(cmdline, key .. " ")[2]
-            return utils.get_zsh_completion(run_command)
-        end)
-        return completions
-    end
-    opts.complete = completion
     vim.api.nvim_create_user_command(key, function(x)
         utils.wrap_lcd(function()
             utils.term({ direction = direction, focus = true, cmd = x.args, new = true })
         end)
-    end, opts)
+    end, {
+        nargs = "*",
+        bang = true,
+        complete = function(_, cmdline, _)
+            local completions = utils.wrap_lcd(function()
+                local run_command = vim.split(cmdline, key .. " ")[2]
+                return utils.get_zsh_completion(run_command)
+            end)
+            return completions
+        end,
+    })
 end
 create_command("T", "new")
 create_command("VT", "vnew")
 create_command("TT", "tabnew")
-vim.api.nvim_create_user_command("Make", function(x)
-    local makeprg = vim.opt.makeprg:get()
-    if x.args ~= "" then
-        vim.opt.makeprg = x.args
-    end
-    vim.cmd.make({ bang = true, mods = { silent = true } })
-    vim.opt.makeprg = makeprg
-    vim.cmd.copen()
-end, {
-    nargs = "*",
-})
