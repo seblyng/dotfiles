@@ -2,10 +2,12 @@ if vim.g.seblj_completion ~= "blink" then
     return {}
 end
 
+local is_windows = vim.uv.os_uname().sysname == "Windows_NT"
 return {
     {
         "saghen/blink.cmp",
-        build = "cargo +nightly build --release",
+        version = is_windows and '1.*' or nil,
+        build = not is_windows and "cargo +nightly build --release" or nil,
         opts = {
             keymap = {
                 preset = "default",
