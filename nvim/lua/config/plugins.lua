@@ -29,24 +29,8 @@ return {
         opts = { exclude_filetypes = { "yaml" } },
         event = { "BufReadPre", "BufNewFile" },
     },
-    {
-        "Bekaboo/dropbar.nvim",
-        opts = {
-            bar = {
-                enable = function(buf, win)
-                    return not vim.api.nvim_win_get_config(win).zindex
-                        and vim.bo[buf].buftype == ""
-                        and vim.api.nvim_buf_get_name(buf) ~= ""
-                        and not vim.wo[win].diff
-                end,
-            },
-        },
-        cond = not (vim.uv.os_uname().sysname == "Windows_NT"),
-    },
-    {
-        "j-hui/fidget.nvim",
-        opts = { notification = { override_vim_notify = true } },
-    },
+    { "Bekaboo/dropbar.nvim", opts = {} },
+    { "j-hui/fidget.nvim", opts = { notification = { override_vim_notify = true } } },
 
     -- Functionality
     { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", ft = "markdown" },
@@ -56,11 +40,7 @@ return {
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
-        opts = {
-            disable_filetype = { "snacks_picker_input" },
-            map_cr = vim.g.seblj_completion ~= "native",
-            ignored_next_char = "[%w%.%{%[%(%\"%']",
-        },
+        opts = { map_cr = vim.g.seblj_completion ~= "native", ignored_next_char = "[%w%.%{%[%(%\"%']" },
     },
     { "lambdalisue/vim-suda", keys = { { "w!!", "SudaWrite", mode = "ca" } }, lazy = false },
 
