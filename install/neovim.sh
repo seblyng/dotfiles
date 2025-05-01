@@ -6,8 +6,8 @@ source ~/dotfiles/install/utils.sh
 install_neovim_dependencies() {
     printf "\n${BLUE}Installing neovim dependencies ${NC}\n\n"
     case "$OS" in
-    Linux*) $INSTALL ninja-build gettext libtool libtool-bin cmake g++ pkg-config unzip curl doxygen >/dev/null ;;
-    Darwin*) $INSTALL ninja libtool cmake pkg-config gettext curl >/dev/null ;;
+    Linux*) $INSTALL ninja-build gettext cmake curl build-essential >/dev/null ;;
+    Darwin*) $INSTALL ninja cmake gettext curl >/dev/null ;;
     *)
         echo "$OS not supported to download dependencies for neovim"
         return
@@ -26,7 +26,7 @@ build_neovim() {
     if [[ ! -d "$HOME/Applications/neovim" ]]; then
         printf "\n${BLUE}Starting to build neovim ${NC}\n\n"
         cd ~/Applications/neovim
-        make CMAKE_BUILD_TYPE=RelWithDebInfo >/dev/null
+        make CMAKE_BUILD_TYPE=Release >/dev/null
         sudo make install >/dev/null
     fi
 }

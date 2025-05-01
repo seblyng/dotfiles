@@ -49,10 +49,6 @@ install_fzf
 printf "\n${BLUE}Installing rust ${NC}\n\n"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y >/dev/null 2>&1
 
-# Emojify
-printf "\n${BLUE}Installing emojify ${NC}\n\n"
-sudo sh -c "curl https://raw.githubusercontent.com/mrowa44/emojify/master/emojify -o /usr/local/bin/emojify && chmod +x /usr/local/bin/emojify"
-
 # Cargo is not exported into path right after installing, so just use fullpath
 # for it
 
