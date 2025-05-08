@@ -42,7 +42,8 @@
     rc = rebase --continue
     ra = rebase --abort
     ma = merge --abort
-    cleanup = !git branch --merged | grep -v '\\*\\|master\\|main\\|develop' | xargs -n 1 git branch -d
+    ds = diff --staged
+    cleanup = "!git branch --merged | grep -Ev '(^\\*|master|main)' | xargs -n1 git branch -d"
 
 [include]
     path = ~/dotfiles/delta/themes/catppuccin.gitconfig

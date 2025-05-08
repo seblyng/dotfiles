@@ -1,3 +1,10 @@
+EXTUI_ENABLED = true
+
+if EXTUI_ENABLED then
+    require("vim._extui").enable({ msg = { pos = "box" } })
+    -- vim.o.cmdheight = 0
+end
+
 P = function(...)
     vim.print(...)
 end

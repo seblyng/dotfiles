@@ -9,7 +9,7 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("DefaultLspAttach", { clear = true }),
-    callback = function()
+    callback = function(args)
         keymap("n", "gh", function()
             vim.lsp.buf.hover({ border = CUSTOM_BORDER })
         end, { desc = "Hover" })
@@ -17,6 +17,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         keymap("n", "<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end, { desc = "Toggle inlay hints" })
+
+        vim.lsp.document_color.enable(true, args.buf)
     end,
 })
 
@@ -40,12 +42,22 @@ vim.diagnostic.config({
 
 return {
     {
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         opts = { handlers = { vim.lsp.enable } },
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "neovim/nvim-lspconfig" },
-            { "williamboman/mason.nvim", opts = {}, cmd = "Mason", dependencies = { "roslyn.nvim" } },
+            {
+                "mason-org/mason.nvim",
+                opts = {
+                    registries = {
+                        "github:mason-org/mason-registry",
+                        "github:Crashdummyy/mason-registry",
+                    },
+                },
+                cmd = "Mason",
+                dependencies = { "roslyn.nvim" },
+            },
         },
     },
     { "seblyng/nvim-lsp-extras", opts = { global = { border = CUSTOM_BORDER } }, dev = true },

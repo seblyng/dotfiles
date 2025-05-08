@@ -5,9 +5,14 @@ return {
         plugins = {
             {
                 name = "@vue/typescript-plugin",
-                location = string.format(
-                    "%s/node_modules/@vue/language-server",
-                    require("mason-registry").get_package("vue-language-server"):get_install_path()
+                location = vim.fs.joinpath(
+                    vim.fn.stdpath("data"),
+                    "mason",
+                    "packages",
+                    "vue-language-server",
+                    "node_modules",
+                    "@vue",
+                    "language-server"
                 ),
                 languages = { "vue" },
             },

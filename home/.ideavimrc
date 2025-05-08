@@ -38,6 +38,9 @@ nmap [c <Action>(VcsShowPrevChangeMarker)
 nmap ]q <Action>(NextOccurence)
 nmap [q <Action>(PreviousOccurence)
 
+nmap u <Action>($Undo)
+nmap <C-r> <Action>($Redo)
+
 nmap gh <Action>(QuickJavaDoc)
 nmap gd <Action>(GotoDeclaration)
 nmap gri <Action>(GotoImplementation)
