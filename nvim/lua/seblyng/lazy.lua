@@ -1,4 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy", "lazy.nvim")
 if not vim.uv.fs_stat(lazypath) then
     vim.system({
         "git",
@@ -14,7 +14,7 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy.view.config").keys.hover = "gh"
 require("lazy").setup("config", {
     dev = {
-        path = string.format("%s/projects/plugins", os.getenv("HOME")),
+        path = vim.fs.joinpath(os.getenv("HOME"), "projects", "plugins"),
         fallback = true,
     },
     ui = {

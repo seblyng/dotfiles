@@ -76,3 +76,14 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt.formatoptions:remove("r")
     end,
 })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = group,
+    pattern = "term://*",
+    callback = function()
+        vim.opt.ft = "term"
+        vim.cmd("$")
+        vim.cmd.startinsert()
+    end,
+    desc = "Set filetype for term buffer",
+})

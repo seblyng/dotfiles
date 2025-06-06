@@ -1,8 +1,15 @@
 EXTUI_ENABLED = true
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "msgbox", "msgmore" },
+    callback = function()
+        vim.cmd("set winhighlight=NormalFloat:Normal")
+        vim.api.nvim_win_set_config(0, { border = "none" })
+    end,
+})
+
 if EXTUI_ENABLED then
     require("vim._extui").enable({ msg = { pos = "box" } })
-    -- vim.o.cmdheight = 0
 end
 
 P = function(...)

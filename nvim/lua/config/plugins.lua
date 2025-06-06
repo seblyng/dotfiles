@@ -51,7 +51,6 @@ return {
         },
         lazy = false,
     },
-    { "tpope/vim-scriptease" },
     { "tpope/vim-sleuth" },
     { "tpope/vim-dispatch" },
 }

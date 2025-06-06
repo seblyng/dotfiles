@@ -44,7 +44,7 @@ vim.ui.select = function(items, opts, on_choice)
             return vim.notify("No items to choose from")
         end
 
-        if vim.api.nvim_get_mode().mode == "v" then
+        if vim.api.nvim_get_mode().mode ~= "n" then
             vim.api.nvim_input("<ESC>")
         end
         local format_item = opts.format_item or tostring

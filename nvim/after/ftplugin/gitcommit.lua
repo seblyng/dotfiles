@@ -1,5 +1,5 @@
 local function try_insert_branch(branch_name)
-    if vim.regex([[\(chore\|bug\|story\|task\)-\d\{4,5}]]):match_str(branch_name or "") then
+    if vim.regex([[\(chore\|bug\|story\|task\|epic\)-\d\{4,5}]]):match_str(branch_name or "") then
         local line = vim.api.nvim_get_current_line()
         local branch = "[#" .. branch_name:match("^%a+%-(%d+)") .. "]"
         local branch_pattern = "%[#.-%]"

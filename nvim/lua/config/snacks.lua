@@ -70,10 +70,10 @@ return {
         }) end, { desc = "Picker: Grep"} },
 
         -- TODO(seb): J and K doesn't work exactly as expected all the times for me
-        { "<leader>nt", function() Snacks.picker.explorer() end, { desc = "Picker: Explorer"} },
+        { "<leader>nt", function() Snacks.picker.explorer() end, { desc = "Picker: Explorer" } },
 
-        { "<leader>fg", function() Snacks.picker.git_files({ title = vim.fs.basename(vim.fs.root(0, ".git")) }) end, { desc = "Picker: Git Files"} },
-        { "<leader>ff", function() Snacks.picker.files({ title = vim.fs.basename(vim.uv.cwd()) }) end, { desc = "Picker: Files"} },
+        { "<leader>fg", function() Snacks.picker.git_files({ title = vim.fs.basename(vim.fs.root(0, ".git")) }) end, { desc = "Picker: Git Files" } },
+        { "<leader>ff", function() Snacks.picker.files({ title = vim.fs.basename(vim.uv.cwd()) }) end, { desc = "Picker: Files" } },
 
         -- LSP
         { "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Picker: Lsp definition" } },

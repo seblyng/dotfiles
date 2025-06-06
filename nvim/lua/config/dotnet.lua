@@ -2,7 +2,6 @@ return {
     "seblyng/roslyn.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-        filewatching = "off",
         broad_search = true,
         ignore_target = function(sln)
             return string.match(sln, "SmartDok.sln") ~= nil

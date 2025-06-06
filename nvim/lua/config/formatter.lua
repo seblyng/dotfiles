@@ -35,7 +35,7 @@ return {
                 },
             },
             json = "jq",
-            cs = "dotnet-csharpier",
+            cs = "csharpier format",
             c = "clang-format",
             tex = "latexindent -g /dev/null",
             bib = "latexindent -g /dev/null",
