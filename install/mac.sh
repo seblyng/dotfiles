@@ -6,6 +6,7 @@ source ~/dotfiles/install/utils.sh
 if ! installed brew; then
     printf "\n${BLUE}Installing homebrew ${NC}\n\n"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 printf "\n${BLUE}Setting up karabiner ${NC}\n\n"
