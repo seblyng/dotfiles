@@ -54,4 +54,4 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Git delta
 printf "\n${BLUE}Installing git-delta ${NC}\n\n"
-$HOME/.cargo/bin/cargo install -q git-delta
+$HOME/.cargo/bin/cargo install git-delta
