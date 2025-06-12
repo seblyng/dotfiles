@@ -66,6 +66,16 @@ return {
                 end
             end,
         })
+
+        vim.keymap.set("n", "g/", function()
+            local name = vim.api.nvim_buf_get_name(0)
+            require("codecompanion").last_chat().references:add({
+                id = name,
+                path = name,
+                source = "codecompanion.strategies.chat.slash_commands.file",
+                opts = { pinned = true },
+            })
+        end)
     end,
     dependencies = {
         { "nvim-lua/plenary.nvim" },
@@ -76,6 +86,18 @@ return {
                 local diff = require("mini.diff")
                 diff.setup({ source = diff.gen_source.none() })
             end,
+        },
+        {
+            "HakonHarnes/img-clip.nvim",
+            opts = {
+                filetypes = {
+                    codecompanion = {
+                        prompt_for_file_name = false,
+                        template = "[Image]($FILE_PATH)",
+                        use_absolute_path = true,
+                    },
+                },
+            },
         },
     },
 }

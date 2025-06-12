@@ -6,7 +6,7 @@ local is_windows = vim.uv.os_uname().sysname == "Windows_NT"
 return {
     {
         "saghen/blink.cmp",
-        version = is_windows and "1.*" or nil,
+        version = "1.*",
         build = not is_windows and "cargo +nightly build --release" or nil,
         opts = {
             keymap = {

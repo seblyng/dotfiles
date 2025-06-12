@@ -72,7 +72,6 @@ vim.api.nvim_create_autocmd("FileType", {
     group = group,
     pattern = "vue",
     callback = function()
-        vim.opt_local.commentstring = "<!-- %s -->"
         vim.opt.formatoptions:remove("r")
     end,
 })
