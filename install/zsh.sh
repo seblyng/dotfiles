@@ -23,14 +23,14 @@ setup_zsh() {
 install_zsh() {
     if ! installed zsh; then
         printf "\n${BLUE}Installing zsh ${NC}\n\n"
-        $INSTALL zsh >/dev/null
+        $INSTALL zsh
     fi
 }
 
 install_plugins() {
     if [[ ! -d "$HOME/dotfiles/zsh/plugins/zsh-vi-mode" ]]; then
         printf "\n${BLUE}Setting up vim-mode plugin for zsh${NC}\n\n"
-        git clone --quiet https://github.com/jeffreytse/zsh-vi-mode $HOME/dotfiles/zsh/plugins/zsh-vi-mode >/dev/null
+        git clone https://github.com/jeffreytse/zsh-vi-mode $HOME/dotfiles/zsh/plugins/zsh-vi-mode
     fi
 }
 

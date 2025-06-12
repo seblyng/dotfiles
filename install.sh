@@ -12,7 +12,7 @@ if [[ $OS == "Darwin" ]]; then
 fi
 
 # Runs 'brew update' or 'apt-get update' based on OS
-$UPDATE >/dev/null
+$UPDATE
 
 # Installation
 if [[ $1 == "" ]]; then
@@ -27,4 +27,4 @@ elif [[ $1 == 'zsh' ]]; then
 fi
 
 # Hopefully fix insecure directories if there are any
-/bin/zsh -i -c compaudit | xargs chmod g-w,o-w >/dev/null 2>&1
+/bin/zsh -i -c compaudit | xargs chmod g-w,o-w
