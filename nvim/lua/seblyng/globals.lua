@@ -1,7 +1,7 @@
 EXTUI_ENABLED = true
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "msgbox", "msgmore" },
+    pattern = { "msg", "pager" },
     callback = function()
         vim.cmd("set winhighlight=NormalFloat:Normal")
         vim.api.nvim_win_set_config(0, { border = "none" })
@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 if EXTUI_ENABLED then
-    require("vim._extui").enable({ msg = { pos = "box" } })
+    require("vim._extui").enable({ msg = { target = "msg" } })
 end
 
 P = function(...)
