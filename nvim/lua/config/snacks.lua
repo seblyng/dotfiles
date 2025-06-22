@@ -67,8 +67,8 @@ return {
                             ["<c-i>"] = { "toggle_ignored", mode = { "i", "n" } },
 
                             ["<c-m>"] = { "toggle_maximize", mode = { "i", "n" } },
-                            -- ["<c-j>"] = { "cycle_layout_next", mode = { "i", "n" } },
-                            -- ["<c-k>"] = { "cycle_layout_prev", mode = { "i", "n" } },
+                            ["<c-j>"] = { "cycle_layout_next", mode = { "i", "n" } },
+                            ["<c-k>"] = { "cycle_layout_prev", mode = { "i", "n" } },
                         },
                     },
                 },
