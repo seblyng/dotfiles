@@ -446,4 +446,24 @@ highlight({
     BlinkCmpKindUnit = { fg = c.color12 },
     BlinkCmpKindValue = { fg = c.color8 },
     BlinkCmpKindVariable = { fg = c.color10 },
+
+    NeotestAdapterName = { link = "@markup.heading" },
+    NeotestDir = { link = "Directory" },
+    NeotestFile = { link = "Normal" },
+    NeotestFailed = { link = "DiagnosticError" },
+    NeotestPassed = { link = "DiagnosticOk" },
+    NeotestRunning = { link = "DiagnosticWarn" },
+    NeotestSkipped = { link = "DiagnosticInfo" },
+    NeotestMarked = { link = "Constant" },
+    NeotestWatching = { link = "DiagnosticWarn" },
+
+    -- NeotestExpandMarker = { fg = c.color44 },
+    -- NeotestIndent = { fg = c.color34 },
+    -- NeotestNamespace = { fg = c.color43 },
+    -- NeotestTarget = { fg = c.color23 },
+    -- NeotestWinSelect = { bold = true, fg = c.color21 },
+
+    -- NeotestFocused = { bold = true, underline = true },
+    -- NeotestTest = { link = "Normal" },
+    -- NeotestUnknown = { link = "Normal" },
 })

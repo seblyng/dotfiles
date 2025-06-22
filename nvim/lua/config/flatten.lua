@@ -1,3 +1,7 @@
+-- Doesn't work with neotest: https://github.com/willothy/flatten.nvim/issues/106
+if true then
+    return {}
+end
 -- Avoid nested sessions when using term, and do not depend on third party software like nvr
 -- Automatically return to the terminal when doing a rebase or commit. Otherwise, just open it
 -- in the current buffer as it should behave by default
