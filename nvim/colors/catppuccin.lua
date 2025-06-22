@@ -456,10 +456,10 @@ highlight({
     NeotestSkipped = { link = "DiagnosticInfo" },
     NeotestMarked = { link = "Constant" },
     NeotestWatching = { link = "DiagnosticWarn" },
+    NeotestNamespace = { link = "@namespace" },
 
     -- NeotestExpandMarker = { fg = c.color44 },
     -- NeotestIndent = { fg = c.color34 },
-    -- NeotestNamespace = { fg = c.color43 },
     -- NeotestTarget = { fg = c.color23 },
     -- NeotestWinSelect = { bold = true, fg = c.color21 },
 

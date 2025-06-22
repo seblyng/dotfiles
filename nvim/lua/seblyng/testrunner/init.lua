@@ -30,10 +30,10 @@ local function run(debug)
     end, runner.root())
 end
 
-vim.keymap.set("n", "<leader>tt", function()
-    run()
-end)
-
-vim.keymap.set("n", "<leader>td", function()
-    run(true)
-end)
+-- vim.keymap.set("n", "<leader>tt", function()
+--     run()
+-- end)
+--
+-- vim.keymap.set("n", "<leader>td", function()
+--     run(true)
+-- end)
