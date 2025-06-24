@@ -39,11 +39,11 @@ local function setup()
             type = "codelldb",
             request = "launch",
             program = function()
-                local clients = vim.lsp.get_clients({ name = "rust_analyzer" })
-                if not clients or vim.tbl_isempty(clients) then
+                local client = vim.lsp.get_clients({ name = "rust_analyzer" })[1]
+                if not client then
                     return
                 end
-                local res = clients[1]:request_sync(
+                local res = client:request_sync(
                     "experimental/runnables",
                     { textDocument = vim.lsp.util.make_text_document_params() },
                     nil,

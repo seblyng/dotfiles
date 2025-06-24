@@ -56,7 +56,6 @@ return {
                     },
                 },
                 cmd = "Mason",
-                dependencies = { "roslyn.nvim" },
             },
         },
     },
