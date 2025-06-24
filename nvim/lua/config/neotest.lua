@@ -1,11 +1,13 @@
 ---@diagnostic disable: missing-fields
 return {
     "nvim-neotest/neotest",
+    cmd = { "Neotest" },
+    keys = { "<leader>tt", "<leader>td" },
     dependencies = {
         "nvim-neotest/nvim-nio",
         "nvim-lua/plenary.nvim",
         { "rouge8/neotest-rust", dev = true },
-        { "nsidorenco/neotest-vstest", dev = true },
+        { "nsidorenco/neotest-vstest" },
     },
     config = function()
         vim.keymap.set("n", "<leader>tt", function()
