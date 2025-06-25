@@ -67,7 +67,13 @@ vim.keymap.set({ "n", "x" }, "K", "10gk")
 vim.keymap.set({ "n", "x", "o" }, "H", "^", { desc = "Move to beginning of line" })
 vim.keymap.set({ "n", "x", "o" }, "L", "$", { desc = "Move to end of line" })
 
-vim.keymap.set("n", "<leader>x", utils.save_and_exec, { desc = "Save and execute file" })
+vim.keymap.set("n", "<leader>x", function()
+    utils.save_and_exec("normal")
+end, { desc = "Save and execute file" })
+
+vim.keymap.set("x", "<leader>x", function()
+    utils.save_and_exec("visual")
+end, { desc = "Save and execute file" })
 
 vim.keymap.set("n", "<leader>z", "<cmd>Inspect<CR>", { desc = "Print syntax under cursor" })
 

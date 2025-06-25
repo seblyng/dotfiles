@@ -6,6 +6,9 @@ local is_windows = vim.uv.os_uname().sysname == "Windows_NT"
 return {
     {
         "saghen/blink.cmp",
+        dependencies = {
+            { "kristijanhusak/vim-dadbod-completion" },
+        },
         version = "1.*",
         build = not is_windows and "cargo +nightly build --release" or nil,
         opts = {
@@ -46,8 +49,12 @@ return {
             snippets = { preset = "luasnip" },
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
+                per_filetype = {
+                    sql = { "dadbod", "buffer" },
+                },
                 providers = {
                     path = { opts = { trailing_slash = false, label_trailing_slash = true } },
+                    dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
                 },
             },
         },

@@ -106,44 +106,51 @@ end, {
 })
 
 local runner = {
-    typst = "typst compile $file",
-    lua = ":source %",
-    vim = ":source %",
-    python = "python3 $file",
-    c = "gcc $file -o $output && ./$output; rm $output",
-    javascript = "bun $file",
-    typescript = "bun $file",
-    rust = function()
-        local command = "rustc $file && ./$output; rm $output"
-        local match = vim.system({ "cargo", "verify-project" }):wait().stdout:match('{"success":"true"}')
-        return match and "cargo run" or command
-    end,
-    go = function()
-        local command = "go run $file"
-        local dir = vim.fs.root(0, { "go.mod" })
-        return dir and "go run " .. dir or command
-    end,
-    sh = "sh $file",
-    http = function(file)
-        if string.match(file, "mobileapi/login.http") then
-            return "hitman -t master $file"
-        else
-            return "hitman $file"
-        end
-    end,
-    graphql = "hitman $file",
+    normal = {
+        typst = "typst compile $file",
+        lua = ":source %",
+        vim = ":source %",
+        python = "python3 $file",
+        c = "gcc $file -o $output && ./$output; rm $output",
+        javascript = "bun $file",
+        typescript = "bun $file",
+        rust = function()
+            local command = "rustc $file && ./$output; rm $output"
+            local match = vim.system({ "cargo", "verify-project" }):wait().stdout:match('{"success":"true"}')
+            return match and "cargo run" or command
+        end,
+        go = function()
+            local command = "go run $file"
+            local dir = vim.fs.root(0, { "go.mod" })
+            return dir and "go run " .. dir or command
+        end,
+        sh = "sh $file",
+        http = function(file)
+            if string.match(file, "mobileapi/login.http") then
+                return "hitman -t master $file"
+            else
+                return "hitman $file"
+            end
+        end,
+        graphql = "hitman $file",
+        sql = [[:call feedkeys("\<Plug>(DBUI_ExecuteQuery)", "n")]],
+    },
+    visual = {
+        sql = [[:call feedkeys("\<Plug>(DBUI_ExecuteQuery)", "v")]],
+    },
 }
 
 -- Save and execute file based on filetype
-function M.save_and_exec()
+---@param mode "normal" | "visual"
+function M.save_and_exec(mode)
     local ft = vim.bo.filetype
     vim.cmd.write({ mods = { emsg_silent = true, noautocmd = true } })
     vim.notify("Executing file")
     local file = vim.api.nvim_buf_get_name(0)
     M.wrap_lcd(function()
-        local command = type(runner[ft]) == "function" and runner[ft](file) or runner[ft]
+        local command = type(runner[mode][ft]) == "function" and runner[mode][ft](file) or runner[mode][ft]
         if not command then
-            return vim.notify(string.format("No config found for %s", ft))
+            return vim.notify(string.format("No config found for %s in %s mode", ft, mode))
         end
 
         local output = vim.fn.fnamemodify(file, ":t:r") --[[@as string]]
