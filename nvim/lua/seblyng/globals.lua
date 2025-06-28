@@ -27,7 +27,6 @@ local windows = vim.uv.os_uname().sysname == "Windows_NT"
 local ghostty = vim.env.TERM == "xterm-ghostty"
 local kitty = vim.env.TERM == "xterm-kitty"
 
-COLORSCHEME = "catppuccin"
 CUSTOM_BORDER = windows and not kitty and not ghostty and "rounded"
     or ghostty and { "", "▄", "", "▌", "", "▀", "", "▐" }
     or { "", "", "", "", "", "", "", "" }

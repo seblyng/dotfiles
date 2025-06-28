@@ -7,7 +7,7 @@ return {
     {
         "saghen/blink.cmp",
         dependencies = {
-            { "kristijanhusak/vim-dadbod-completion" },
+            { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
         },
         version = "1.*",
         build = not is_windows and "cargo +nightly build --release" or nil,
