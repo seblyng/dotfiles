@@ -1,3 +1,5 @@
+vim.g.colors_name = "catppuccin"
+
 local function highlight(colors)
     for name, opts in pairs(colors) do
         vim.api.nvim_set_hl(0, name, opts)
