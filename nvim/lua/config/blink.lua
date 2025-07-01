@@ -2,7 +2,6 @@ if vim.g.seblj_completion ~= "blink" then
     return {}
 end
 
-local is_windows = vim.uv.os_uname().sysname == "Windows_NT"
 return {
     {
         "saghen/blink.cmp",
@@ -10,7 +9,6 @@ return {
             { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
         },
         version = "1.*",
-        build = not is_windows and "cargo +nightly build --release" or nil,
         opts = {
             keymap = {
                 preset = "default",
