@@ -23,7 +23,7 @@ return {
 
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
-    { "Bekaboo/dropbar.nvim", opts = { bar = { attach_events = { "BufWinEnter", "BufWritePost" } } } },
+    { "Bekaboo/dropbar.nvim", opts = { bar = {} } },
     { "j-hui/fidget.nvim", opts = { notification = { override_vim_notify = not EXTUI_ENABLED } } },
 
     -- Functionality
