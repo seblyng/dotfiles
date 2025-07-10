@@ -60,8 +60,7 @@ return {
                 }),
             },
             floating = {
-                ---@diagnostic disable-next-line: assign-type-mismatch
-                border = CUSTOM_BORDER,
+                border = vim.opt.winborder:get(),
             },
             icons = {
                 running_animated = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },

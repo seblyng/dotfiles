@@ -22,6 +22,6 @@ return {
         },
         use_default_keymaps = false,
         view_options = { show_hidden = true },
-        preview = { border = CUSTOM_BORDER },
+        preview = { border = vim.opt.winborder:get() },
     },
 }

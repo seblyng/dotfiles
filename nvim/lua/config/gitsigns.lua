@@ -2,9 +2,6 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufWritePre" },
     opts = {
-        preview_config = {
-            border = CUSTOM_BORDER,
-        },
         on_attach = function(bufnr)
             local gs = package.loaded.gitsigns
             local function map(m, l, r, opts)

@@ -33,3 +33,11 @@ vim.opt.wrap = false
 vim.opt.title = true
 vim.opt.titlestring = "%F"
 vim.opt.exrc = true
+
+local windows = vim.uv.os_uname().sysname == "Windows_NT"
+local ghostty = vim.env.TERM == "xterm-ghostty"
+local kitty = vim.env.TERM == "xterm-kitty"
+
+vim.opt.winborder = windows and not kitty and not ghostty and "rounded"
+    or ghostty and { "", "▄", "", "▌", "", "▀", "", "▐" }
+    or { "", "", "", "", "", "", "", "" }

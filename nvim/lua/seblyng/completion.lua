@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     vim.wo[win.winid].conceallevel = 2
                     vim.treesitter.start(win.bufnr, "markdown")
 
-                    vim.api.nvim_win_set_config(win.winid, { border = CUSTOM_BORDER })
+                    vim.api.nvim_win_set_config(win.winid, { border = vim.opt.winborder:get() })
 
                     -- Simple scrolling in the preview window
                     local scroll = function(key, dir)

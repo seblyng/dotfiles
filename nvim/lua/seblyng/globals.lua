@@ -1,10 +1,9 @@
 EXTUI_ENABLED = true
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "msg", "pager" },
+    pattern = { "pager" },
     callback = function()
         vim.cmd("set winhighlight=NormalFloat:Normal")
-        vim.api.nvim_win_set_config(0, { border = "none" })
     end,
 })
 
@@ -23,14 +22,6 @@ if vim.g.seblj_completion == "native" then
     require("seblyng.completion")
 end
 
-local windows = vim.uv.os_uname().sysname == "Windows_NT"
-local ghostty = vim.env.TERM == "xterm-ghostty"
-local kitty = vim.env.TERM == "xterm-kitty"
-
-CUSTOM_BORDER = windows and not kitty and not ghostty and "rounded"
-    or ghostty and { "", "▄", "", "▌", "", "▀", "", "▐" }
-    or { "", "", "", "", "", "", "", "" }
-
 -- Override vim.keymap.set to have silent as default
 local map = vim.keymap.set
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -40,12 +31,6 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
         opts.silent = true
     end
     map(mode, lhs, rhs, opts)
-end
-
-local signature = vim.lsp.buf.signature_help
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.signature_help = function(config)
-    signature(vim.tbl_deep_extend("force", config or {}, { border = CUSTOM_BORDER }))
 end
 
 -- I know that these are deprecated, I just don't want the warning all the time

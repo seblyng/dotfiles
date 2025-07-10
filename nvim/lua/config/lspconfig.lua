@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("DefaultLspAttach", { clear = true }),
     callback = function(args)
         keymap("n", "gh", function()
-            vim.lsp.buf.hover({ border = CUSTOM_BORDER })
+            vim.lsp.buf.hover()
         end, { desc = "Hover" })
 
         keymap("n", "<leader>th", function()
@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.diagnostic.config({
     virtual_text = { spacing = 4, prefix = "●" },
     ---@diagnostic disable-next-line: assign-type-mismatch
-    float = { border = CUSTOM_BORDER, source = "if_many" },
+    float = { source = "if_many" },
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "✘",
@@ -59,7 +59,7 @@ return {
             },
         },
     },
-    { "seblyng/nvim-lsp-extras", opts = { global = { border = CUSTOM_BORDER } }, dev = true },
+    { "seblyng/nvim-lsp-extras", opts = {}, dev = true },
     { "b0o/schemastore.nvim", lazy = true },
     { "onsails/lspkind.nvim", lazy = true },
     {

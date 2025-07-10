@@ -22,11 +22,11 @@ return {
                 documentation = {
                     auto_show = true,
                     auto_show_delay_ms = 50,
-                    window = { border = CUSTOM_BORDER },
+                    window = { border = vim.opt.winborder:get() },
                 },
                 menu = {
                     max_height = 1000,
-                    border = CUSTOM_BORDER,
+                    border = vim.opt.winborder:get(),
                     draw = {
                         columns = { { "kind_icon" }, { "label", gap = 1 } },
                         components = {

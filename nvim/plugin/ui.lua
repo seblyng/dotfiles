@@ -63,7 +63,6 @@ vim.ui.select = function(items, opts, on_choice)
         local lines = { title, string.rep(options.border_line, width), unpack(choices) }
         local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, opts.syntax, {
             max_width = options.max_width,
-            border = CUSTOM_BORDER,
         })
 
         vim.api.nvim_set_current_win(winnr)
@@ -110,7 +109,6 @@ vim.ui.input = function(opts, on_confirm)
 
         local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, opts.syntax, {
             width = width,
-            border = CUSTOM_BORDER,
             height = math.ceil(#opts.prompt / width) + 2,
             wrap = false,
         })

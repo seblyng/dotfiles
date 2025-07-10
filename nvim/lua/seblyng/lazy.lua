@@ -18,7 +18,7 @@ require("lazy").setup("config", {
         fallback = true,
     },
     ui = {
-        border = CUSTOM_BORDER,
+        border = vim.opt.winborder:get(),
         backdrop = 100,
     },
 })
