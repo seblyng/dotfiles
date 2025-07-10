@@ -18,11 +18,13 @@ return {
                 documentation = {
                     auto_show = true,
                     auto_show_delay_ms = 50,
-                    window = { border = vim.opt.winborder:get() },
+                    window = {
+                        border = vim.o.winborder:find(",") and vim.opt.winborder:get() or vim.o.winborder,
+                    },
                 },
                 menu = {
                     max_height = 1000,
-                    border = vim.opt.winborder:get(),
+                    border = vim.o.winborder:find(",") and vim.opt.winborder:get() or vim.o.winborder,
                     draw = {
                         columns = { { "kind_icon" }, { "label", gap = 1 } },
                         components = {

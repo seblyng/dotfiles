@@ -54,7 +54,7 @@ return {
                         "github:Crashdummyy/mason-registry",
                     },
                     ui = {
-                        border = vim.opt.winborder:get(),
+                        border = vim.o.winborder:find(",") and vim.opt.winborder:get() or vim.o.winborder,
                         backdrop = 100,
                     },
                 },
