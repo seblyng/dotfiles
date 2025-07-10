@@ -23,6 +23,13 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "pager" },
+    callback = function()
+        vim.opt.winhighlight = "NormalFloat:Normal"
+    end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = group,
     pattern = "*",

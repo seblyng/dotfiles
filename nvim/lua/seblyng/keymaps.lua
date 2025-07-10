@@ -1,7 +1,5 @@
 ---------- MAPPINGS ----------
 
-local utils = require("seblyng.utils")
-
 -- Leader is space and localleader is \
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
@@ -68,11 +66,11 @@ vim.keymap.set({ "n", "x", "o" }, "H", "^", { desc = "Move to beginning of line"
 vim.keymap.set({ "n", "x", "o" }, "L", "$", { desc = "Move to end of line" })
 
 vim.keymap.set("n", "<leader>x", function()
-    utils.save_and_exec("normal")
+    require("seblyng.utils").save_and_exec("normal")
 end, { desc = "Save and execute file" })
 
 vim.keymap.set("x", "<leader>x", function()
-    utils.save_and_exec("visual")
+    require("seblyng.utils").save_and_exec("visual")
 end, { desc = "Save and execute file" })
 
 vim.keymap.set("n", "<leader>z", "<cmd>Inspect<CR>", { desc = "Print syntax under cursor" })
@@ -140,6 +138,7 @@ vim.keymap.set("ia", "TODO:", "TODO(seb):")
 ---@param direction "new" | "vnew" | "tabnew"
 local function create_command(key, direction)
     vim.api.nvim_create_user_command(key, function(x)
+        local utils = require("seblyng.utils")
         utils.wrap_lcd(function()
             utils.term({ direction = direction, focus = true, cmd = x.args, new = true })
         end)
@@ -147,6 +146,7 @@ local function create_command(key, direction)
         nargs = "*",
         bang = true,
         complete = function(_, cmdline, _)
+            local utils = require("seblyng.utils")
             local completions = utils.wrap_lcd(function()
                 local run_command = vim.split(cmdline, key .. " ")[2]
                 return utils.get_zsh_completion(run_command)

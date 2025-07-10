@@ -1,7 +1,3 @@
-if vim.g.seblj_completion ~= "blink" then
-    return {}
-end
-
 return {
     {
         "saghen/blink.cmp",

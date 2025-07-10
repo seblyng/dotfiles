@@ -24,7 +24,7 @@ return {
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
     { "Bekaboo/dropbar.nvim", opts = { bar = {} } },
-    { "j-hui/fidget.nvim", opts = { notification = { override_vim_notify = not EXTUI_ENABLED } } },
+    { "j-hui/fidget.nvim", opts = {} },
 
     -- Functionality
     { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", ft = "markdown" },
@@ -34,7 +34,7 @@ return {
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
-        opts = { map_cr = vim.g.seblj_completion ~= "native", ignored_next_char = "[%w%.%{%[%(%\"%']" },
+        opts = { map_cr = true, ignored_next_char = "[%w%.%{%[%(%\"%']" },
     },
     { "lambdalisue/vim-suda", keys = { { "w!!", "SudaWrite", mode = "ca" } }, lazy = false },
 

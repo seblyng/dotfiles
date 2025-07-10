@@ -24,7 +24,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.diagnostic.config({
     virtual_text = { spacing = 4, prefix = "●" },
-    ---@diagnostic disable-next-line: assign-type-mismatch
     float = { source = "if_many" },
     signs = {
         text = {
@@ -53,6 +52,10 @@ return {
                     registries = {
                         "github:mason-org/mason-registry",
                         "github:Crashdummyy/mason-registry",
+                    },
+                    ui = {
+                        border = vim.opt.winborder:get(),
+                        backdrop = 100,
                     },
                 },
                 cmd = "Mason",

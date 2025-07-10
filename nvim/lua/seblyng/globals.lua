@@ -1,25 +1,5 @@
-EXTUI_ENABLED = true
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "pager" },
-    callback = function()
-        vim.cmd("set winhighlight=NormalFloat:Normal")
-    end,
-})
-
-if EXTUI_ENABLED then
-    require("vim._extui").enable({ msg = { target = "msg" } })
-end
-
 P = function(...)
     vim.print(...)
-end
-
----@type "blink" | "native"
-vim.g.seblj_completion = "blink"
-
-if vim.g.seblj_completion == "native" then
-    require("seblyng.completion")
 end
 
 -- Override vim.keymap.set to have silent as default
