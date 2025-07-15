@@ -2,17 +2,6 @@ P = function(...)
     vim.print(...)
 end
 
--- Override vim.keymap.set to have silent as default
-local map = vim.keymap.set
----@diagnostic disable-next-line: duplicate-set-field
-vim.keymap.set = function(mode, lhs, rhs, opts)
-    opts = vim.deepcopy(opts) or {}
-    if opts.silent == nil then
-        opts.silent = true
-    end
-    map(mode, lhs, rhs, opts)
-end
-
 -- I know that these are deprecated, I just don't want the warning all the time
 -- Do a very big hack until the plugins I use updates to newer API's
 local deprecations = {

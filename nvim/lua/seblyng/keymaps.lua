@@ -17,10 +17,10 @@ vim.keymap.set({ "n", "x", "i" }, "“", "<A-[>", { remap = true, desc = "Fix <A
 vim.keymap.set({ "n", "x", "i" }, "«", "<A-\\>", { remap = true, desc = [[Fix <A-\> mapping on mac]] })
 
 vim.keymap.set("n", "<C-i>", "<C-i>")
-vim.keymap.set("n", "<C-t>", ":tabedit<CR>", { desc = "Create new tab" })
+vim.keymap.set("n", "<C-t>", "<cmd>tabedit<CR>", { desc = "Create new tab" })
 vim.keymap.set("n", "<Tab>", "gt", { desc = "Next tab" })
 vim.keymap.set("n", "<S-TAB>", "gT", { desc = "Previous tab" })
-vim.keymap.set("n", "<CR>", '{->v:hlsearch ? ":nohl\\<CR>" : "\\<CR>"}()', { expr = true, desc = "Remove highlights" })
+vim.keymap.set("n", "<CR>", '{->v:hlsearch ? ":nohl\\<CR>" : "\\<CR>"}()', { expr = true, silent = true })
 vim.keymap.set("n", "gb", "<C-t>", { desc = "Go back in tag-stack" })
 vim.keymap.set("n", "gp", "`[v`]", { desc = "Reselect pasted text" })
 
@@ -41,18 +41,18 @@ vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Navigate to top spli
 vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l", { desc = "Navigate to right split" })
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Escape from term-mode" })
 
-vim.keymap.set("n", "<leader>gh", ":help <C-r><C-w><CR>", { desc = "Search in help for word under cursor" })
+vim.keymap.set("n", "<leader>gh", ":help <C-r><C-w><CR>", { desc = "Help for word under cursor", silent = true })
 
 vim.keymap.set("x", "<", "<gv", { desc = "Keep visual mode on dedent" })
 vim.keymap.set("x", ">", ">gv", { desc = "Keep visual mode on indent" })
 
-vim.keymap.set("n", "<A-j>", ":m.+1<CR>==", { desc = "Move current line down" })
-vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move current line down" })
-vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move current line down" })
+vim.keymap.set("n", "<A-j>", ":m.+1<CR>==", { desc = "Move current line down", silent = true })
+vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move current line down", silent = true })
+vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move current line down", silent = true })
 
-vim.keymap.set("n", "<A-k>", ":m.-2<CR>==", { desc = "Move current line up" })
-vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move current line up" })
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move current line up" })
+vim.keymap.set("n", "<A-k>", ":m.-2<CR>==", { desc = "Move current line up", silent = true })
+vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move current line up", silent = true })
+vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move current line up", silent = true })
 
 vim.keymap.set("", "<leader>j", "J", { desc = "Join [count] lines" })
 

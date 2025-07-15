@@ -23,7 +23,7 @@ return {
 
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
-    { "Bekaboo/dropbar.nvim", opts = { bar = {} } },
+    { "Bekaboo/dropbar.nvim", opts = {} },
     { "j-hui/fidget.nvim", opts = {} },
 
     -- Functionality

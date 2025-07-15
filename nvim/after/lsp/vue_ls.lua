@@ -1,9 +1,10 @@
+---@type vim.lsp.Config
 return {
     on_init = function(client)
         client.handlers["tsserver/request"] = function(_, result, ctx)
             local ts_client = vim.lsp.get_clients({ bufnr = ctx.bufnr, name = "vtsls" })[1]
             if ts_client == nil then
-                vim.notify("Could not find `vtsls`. Required for `vue_lsp` to work.", vim.log.levels.ERROR)
+                vim.notify("Could not find `vtsls`. Required for `vue_ls` to work.", vim.log.levels.ERROR)
                 return
             end
 

@@ -102,7 +102,6 @@ return {
             cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd(),
         }) end, { desc = "Picker: Grep"} },
 
-        -- TODO(seb): J and K doesn't work exactly as expected all the times for me
         { "<leader>nt", function() Snacks.picker.explorer() end, { desc = "Picker: Explorer" } },
 
         { "<leader>fg", function() Snacks.picker.git_files({ title = vim.fs.basename(vim.fs.root(0, ".git")) }) end, { desc = "Picker: Git Files" } },

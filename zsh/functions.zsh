@@ -55,6 +55,15 @@ extract () {
     fi
 }
 
+function print_osc7() {
+    if [ "$ZSH_SUBSHELL" -eq 0 ] ; then
+        printf '\033]7;file://%s%s\a' "$HOST" "$PWD"
+    fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook -Uz chpwd print_osc7
+print_osc7
+
 # Syncs pwd with a server over ssh
 share() {
     if [ -z "$1" ]; then

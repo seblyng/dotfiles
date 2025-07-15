@@ -11,8 +11,11 @@ return {
                 vim.keymap.set(m, l, r, opts)
             end
 
-            map("n", "]c", gs.next_hunk, { desc = "Go to next diff hunk" })
-            map("n", "[c", gs.prev_hunk, { desc = "Go to previous diff hunk" })
+            -- stylua: ignore start
+            map("n", "]c", function() gs.nav_hunk("next") end, { desc = "Go to next diff hunk" })
+            map("n", "[c", function() gs.nav_hunk("prev") end, { desc = "Go to previous diff hunk" })
+            -- stylua: ignore end
+
             map("n", "<leader>gm", gs.blame_line, { desc = "Git blame current line" })
             map("n", "<leader>gb", gs.blame, { desc = "Git blame entire file" })
             map("n", "<leader>gd", gs.preview_hunk, { desc = "Preview diff hunk" })

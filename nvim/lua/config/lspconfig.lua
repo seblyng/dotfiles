@@ -42,7 +42,7 @@ vim.diagnostic.config({
 return {
     {
         "mason-org/mason-lspconfig.nvim",
-        opts = { handlers = { vim.lsp.enable } },
+        opts = {},
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             { "neovim/nvim-lspconfig" },
@@ -64,7 +64,6 @@ return {
     },
     { "seblyng/nvim-lsp-extras", opts = {}, dev = true },
     { "b0o/schemastore.nvim", lazy = true },
-    { "onsails/lspkind.nvim", lazy = true },
     {
         "folke/lazydev.nvim",
         ft = "lua",

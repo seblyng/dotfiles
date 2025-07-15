@@ -21,4 +21,7 @@ require("lazy").setup("config", {
         border = vim.o.winborder:find(",") and vim.opt.winborder:get() or vim.o.winborder,
         backdrop = 100,
     },
+    change_detection = {
+        notify = false,
+    },
 })

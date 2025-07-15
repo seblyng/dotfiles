@@ -23,6 +23,25 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "TermRequest" }, {
+    desc = "Handles OSC 7 dir change requests",
+    callback = function(ev)
+        if string.sub(ev.data.sequence, 1, 4) == "\x1b]7;" then
+            local dir = string.gsub(ev.data.sequence, "\x1b]7;file://[^/]*", "")
+            if vim.fn.isdirectory(dir) == 0 then
+                vim.notify("Invalid dir: " .. dir)
+                return
+            end
+            if vim.api.nvim_get_current_buf() == ev.buf then
+                local url = vim.api.nvim_buf_get_name(ev.buf)
+                local scheme, _, rest = url:match("^(.-://)(.-)//(.*)$")
+                local bufname = string.format("%s%s//%s", scheme, vim.fn.fnamemodify(dir, ":~"), rest)
+                vim.api.nvim_buf_set_name(0, bufname)
+            end
+        end
+    end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "pager" },
     callback = function()
