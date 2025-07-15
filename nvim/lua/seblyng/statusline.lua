@@ -51,17 +51,9 @@ local GIT_INFO = {
 }
 
 local applied_highlights = {}
-local background = "StatusLine"
 
 local function highlight()
-    local statusline_hl = "SebStatusline" .. background
-    if not applied_highlights[background] then
-        local colors = vim.api.nvim_get_hl(0, { name = background })
-        local fg = vim.api.nvim_get_hl(0, { name = background }).fg
-        vim.api.nvim_set_hl(0, statusline_hl, { fg = fg or colors.fg, bg = colors.bg })
-        applied_highlights[background] = statusline_hl
-    end
-    return "%#" .. statusline_hl .. "#"
+    return "%#StatusLine#"
 end
 
 --- Only highlight fg for `name`
@@ -71,11 +63,10 @@ local function hl(name)
     if applied_highlights[name] then
         name = applied_highlights[name]
     else
-        local fg = vim.api.nvim_get_hl(0, { name = name }).fg
-        local bg = vim.api.nvim_get_hl(0, { name = background }).bg
+        local colors = vim.api.nvim_get_hl(0, { name = name })
 
         local statusline_hl = "SebStatusline" .. name
-        vim.api.nvim_set_hl(0, statusline_hl, { fg = fg, bg = bg })
+        vim.api.nvim_set_hl(0, statusline_hl, { fg = colors.fg })
         applied_highlights[name] = statusline_hl
         name = statusline_hl
     end
@@ -94,7 +85,7 @@ end
 
 local function get_diagnostics()
     local diags = vim.diagnostic.count(0)
-    local status = vim.iter(DIAGNOSTICS)
+    return vim.iter(DIAGNOSTICS)
         :enumerate()
         :map(function(i, attrs)
             local n = diags[i] or 0
@@ -102,9 +93,7 @@ local function get_diagnostics()
                 return ("%s%s %d"):format(hl(attrs[3]), attrs[2], n)
             end
         end)
-        :totable()
-
-    return #status == 0 and "" or table.concat(status, " ")
+        :join(" ")
 end
 
 local function get_mode()
@@ -117,10 +106,7 @@ local function get_filetype_symbol()
         return ""
     end
 
-    local name = vim.api.nvim_buf_get_name(0)
-    local filename = vim.fn.fnamemodify(name, ":t")
-    local ext = vim.fn.fnamemodify(name, ":e")
-    local icon, iconhl = devicons.get_icon_color(filename, ext, { default = true })
+    local icon, iconhl = devicons.get_icon_color_by_filetype(vim.bo.filetype, { default = true })
 
     local hlname = "SebStatusline" .. iconhl:gsub("#", "Status")
     vim.api.nvim_set_hl(0, hlname, { fg = iconhl })
@@ -145,35 +131,37 @@ local function get_git_branch()
 end
 
 local function get_git_status()
-    local dict = vim.b.gitsigns_status_dict
-    if not dict then
-        return ""
-    end
-
-    local status = vim.iter(GIT_INFO)
+    local dict = vim.b.gitsigns_status_dict or {}
+    return vim.iter(GIT_INFO)
         :map(function(val)
             local status = dict[val[1]]
             return status and status > 0 and (" %s%s %d"):format(hl(val[3]), val[2], status) or nil
         end)
-        :totable()
-
-    return table.concat(status)
+        :join("")
 end
 
 --- @param sections string[][]
 --- @return string
 local function parse_sections(sections)
-    local result = vim.iter(sections)
+    return vim.iter(sections)
         :map(function(s)
             return table.concat(s)
         end)
-        :totable()
-
-    return table.concat(result, "%=")
+        :join("%=")
 end
 
+local group = vim.api.nvim_create_augroup("statusline", { clear = true })
+
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
-    group = vim.api.nvim_create_augroup("statusline", { clear = true }),
+    group = group,
+    callback = function()
+        vim.cmd.redrawstatus()
+    end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "GitSignsUpdate",
+    group = group,
     callback = function()
         vim.cmd.redrawstatus()
     end,

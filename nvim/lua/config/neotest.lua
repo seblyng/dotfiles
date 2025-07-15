@@ -6,8 +6,8 @@ return {
     dependencies = {
         "nvim-neotest/nvim-nio",
         "nvim-lua/plenary.nvim",
-        { "rouge8/neotest-rust", dev = true },
-        { "nsidorenco/neotest-vstest" },
+        "rouge8/neotest-rust",
+        "nsidorenco/neotest-vstest",
     },
     config = function()
         vim.keymap.set("n", "<leader>tt", function()
