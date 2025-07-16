@@ -134,6 +134,7 @@ local runner = {
         end,
         graphql = "hitman $file",
         sql = [[:call feedkeys("\<Plug>(DBUI_ExecuteQuery)", "n")]],
+        zig = "zig build run",
     },
     visual = {
         sql = [[:call feedkeys("\<Plug>(DBUI_ExecuteQuery)", "v")]],

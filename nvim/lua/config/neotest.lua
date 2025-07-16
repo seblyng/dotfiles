@@ -59,9 +59,6 @@ return {
                     },
                 }),
             },
-            floating = {
-                border = vim.o.winborder:find(",") and vim.opt.winborder:get() or vim.o.winborder,
-            },
             icons = {
                 running_animated = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
             },

@@ -54,6 +54,7 @@ return {
             zsh = "beautysh -",
             sh = "beautysh -",
             typst = "typstyle",
+            zig = "zig fmt --stdin",
             _ = "sed s/[[:space:]]*$//",
         },
     },
