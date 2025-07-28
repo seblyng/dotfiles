@@ -9,7 +9,7 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("DefaultLspAttach", { clear = true }),
-    callback = function(args)
+    callback = function()
         keymap("n", "gh", function()
             vim.lsp.buf.hover()
         end, { desc = "Hover" })
@@ -17,8 +17,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         keymap("n", "<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end, { desc = "Toggle inlay hints" })
-
-        vim.lsp.document_color.enable(true, args.buf)
     end,
 })
 
