@@ -20,7 +20,9 @@ return {
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "neotest-output",
-            command = "nnoremap q <cmd>q<CR>",
+            callback = function()
+                vim.keymap.set("n", "q", "<cmd>q<CR>", { buffer = true, desc = "Close output window" })
+            end,
         })
 
         ---@type ProgressHandle?

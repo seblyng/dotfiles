@@ -43,6 +43,7 @@
     ra = rebase --abort
     ma = merge --abort
     ds = diff --staged
+    clj = !git -C "$(git rev-parse --show-toplevel)" checkout '*.lock.json'
     cleanup = "!git branch --merged | grep -Ev '(^\\*|master|main)' | xargs -n1 git branch -d"
 
 [include]

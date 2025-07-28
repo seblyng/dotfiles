@@ -25,6 +25,7 @@ vim.opt.smartcase = true
 vim.opt.undofile = true
 vim.opt.cindent = true
 vim.opt.cinkeys:remove("0#")
+vim.opt.indentkeys:remove("0#")
 vim.opt.shortmess:append("c")
 vim.opt.fillchars:append("diff:╱")
 vim.opt.formatoptions:append("r")
