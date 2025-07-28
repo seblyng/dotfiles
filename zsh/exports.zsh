@@ -16,11 +16,8 @@ path+=(
     /opt/local/sbin
     /usr/local/opt/llvm/bin
     $HOME/.cargo/bin
-    $HOME/.local/ltex/bin
     $HOME/.local/bin
-    /opt/homebrew/opt/dotnet@6/bin
     $HOME/.local/flutter/bin
-    $HOME/.local/share/nvim/mason/bin
     $HOME/.dotnet/tools
     $GOROOT/bin
     $GOPATH/bin

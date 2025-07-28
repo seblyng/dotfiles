@@ -6,8 +6,6 @@ end
 -- Do a very big hack until the plugins I use updates to newer API's
 local deprecations = {
     "client.notify",
-    "client.is_stopped",
-    "vim.lsp.start_client()",
 }
 
 local deprecate = vim.deprecate
