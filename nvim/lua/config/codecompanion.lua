@@ -24,16 +24,6 @@ return {
             },
             inline = {
                 adapter = "copilot",
-                keymaps = {
-                    accept_change = {
-                        modes = { n = "ga" },
-                        opts = { nowait = true, desc = "Accept the suggested change" },
-                    },
-                    reject_change = {
-                        modes = { n = "gr" },
-                        opts = { nowait = true, desc = "Reject the suggested change" },
-                    },
-                },
             },
         },
     },
@@ -75,20 +65,9 @@ return {
                 end
             end,
         })
-
-        vim.keymap.set("n", "g/", function()
-            local name = vim.api.nvim_buf_get_name(0)
-            require("codecompanion").last_chat().references:add({
-                id = name,
-                path = name,
-                source = "codecompanion.strategies.chat.slash_commands.file",
-                opts = { pinned = true },
-            })
-        end)
     end,
     dependencies = {
         { "nvim-lua/plenary.nvim" },
-        { "MeanderingProgrammer/render-markdown.nvim", ft = { "codecompanion" } },
         {
             "echasnovski/mini.diff",
             config = function()

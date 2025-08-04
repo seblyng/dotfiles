@@ -3,7 +3,7 @@ return {
 
     -- TODO: Either make it work with injections or look into only using this if it is a "leptos" file
     -- { "rayliwell/tree-sitter-rstml", opts = {}, dev = true },
-    { "seblyng/nvim-ts-autotag", opts = {}, event = { "BufReadPost", "BufNewFile" }, dev = true },
+    { "seblyng/nvim-ts-autotag", event = { "BufReadPost", "BufNewFile" }, dev = true },
 
     {
         "github/copilot.vim",
