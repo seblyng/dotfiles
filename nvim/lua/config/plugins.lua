@@ -1,18 +1,8 @@
 return {
-    { "seblyng/nvim-tabline", opts = {}, event = "TabNew", dev = true },
-
-    -- TODO: Either make it work with injections or look into only using this if it is a "leptos" file
-    -- { "rayliwell/tree-sitter-rstml", opts = {}, dev = true },
+    { "seblyng/nvim-tabline", event = "TabNew", dev = true },
     { "seblyng/nvim-ts-autotag", event = { "BufReadPost", "BufNewFile" }, dev = true },
 
-    {
-        "github/copilot.vim",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            vim.g.copilot_enabled = 0
-            vim.g.copilot_filetypes = { bigfile = false }
-        end,
-    },
+    { "github/copilot.vim", event = { "BufReadPre", "BufNewFile" } },
 
     -- Git
     { "akinsho/git-conflict.nvim", opts = {}, event = { "BufReadPre", "BufWritePre" } },
@@ -23,7 +13,7 @@ return {
 
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
-    { "Bekaboo/dropbar.nvim", opts = {} },
+    { "Bekaboo/dropbar.nvim" },
     { "j-hui/fidget.nvim", opts = {} },
 
     -- Functionality
