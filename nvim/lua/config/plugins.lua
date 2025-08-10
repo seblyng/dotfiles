@@ -1,11 +1,10 @@
 return {
     { "seblyng/nvim-tabline", event = "TabNew", dev = true },
-    { "seblyng/nvim-ts-autotag", event = { "BufReadPost", "BufNewFile" }, dev = true },
+    { "seblyng/nvim-ts-autotag", dev = true },
 
     { "github/copilot.vim", event = { "BufReadPre", "BufNewFile" } },
 
-    -- Git
-    { "akinsho/git-conflict.nvim", opts = {}, event = { "BufReadPre", "BufWritePre" } },
+    { "seblyng/git-conflict.nvim", dev = true },
 
     -- Packageinfo
     { "saecki/crates.nvim", opts = {}, event = "BufReadPre Cargo.toml" },

@@ -18,6 +18,7 @@ path+=(
     $HOME/.cargo/bin
     $HOME/.local/bin
     $HOME/.local/flutter/bin
+    $HOME/.local/share/nvim/mason/bin
     $HOME/.dotnet/tools
     $GOROOT/bin
     $GOPATH/bin
