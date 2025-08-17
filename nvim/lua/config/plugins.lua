@@ -1,5 +1,4 @@
 return {
-    { "seblyng/nvim-tabline", event = "TabNew", dev = true },
     { "seblyng/nvim-ts-autotag", dev = true },
 
     { "github/copilot.vim", event = { "BufReadPre", "BufNewFile" } },
