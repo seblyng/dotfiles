@@ -108,10 +108,10 @@ local function get_filetype_symbol()
 
     local icon, iconhl = devicons.get_icon_color_by_filetype(vim.bo.filetype, { default = true })
 
-    local hlname = "SebStatusline" .. iconhl:gsub("#", "Status")
+    local hlname = "SebStatusline" .. iconhl:gsub("#", "")
     vim.api.nvim_set_hl(0, hlname, { fg = iconhl })
 
-    return hl(hlname) .. icon
+    return "%#" .. hlname .. "#" .. icon
 end
 
 local function get_file_info()

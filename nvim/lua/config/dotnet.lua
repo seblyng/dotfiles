@@ -1,6 +1,5 @@
 return {
     "seblyng/roslyn.nvim",
-    event = { "BufReadPre", "BufNewFile" },
     opts = {
         broad_search = true,
         ignore_target = function(sln)
