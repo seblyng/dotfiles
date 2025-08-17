@@ -106,7 +106,9 @@ local function get_filetype_symbol()
         return ""
     end
 
-    local icon, iconhl = devicons.get_icon_color_by_filetype(vim.bo.filetype, { default = true })
+    local filetype = vim.bo.buftype == "terminal" and "zsh" or vim.bo.filetype
+
+    local icon, iconhl = devicons.get_icon_color_by_filetype(filetype, { default = true })
 
     local hlname = "SebStatusline" .. iconhl:gsub("#", "")
     vim.api.nvim_set_hl(0, hlname, { fg = iconhl })
