@@ -69,13 +69,6 @@ return {
     dependencies = {
         { "nvim-lua/plenary.nvim" },
         {
-            "echasnovski/mini.diff",
-            config = function()
-                local diff = require("mini.diff")
-                diff.setup({ source = diff.gen_source.none() })
-            end,
-        },
-        {
             "HakonHarnes/img-clip.nvim",
             opts = {
                 filetypes = {
