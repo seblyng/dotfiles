@@ -35,6 +35,11 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Navigate to bottom split" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Navigate to top split" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Navigate to right split" })
 
+vim.keymap.set("n", "<S-Right>", "<C-w>>", { desc = "Resize vertical split larger" })
+vim.keymap.set("n", "<S-Left>", "<C-w><", { desc = "Resize vertical split smaller" })
+vim.keymap.set("n", "<S-Up>", "<C-w>+", { desc = "Resize horizontal split larger" })
+vim.keymap.set("n", "<S-Down>", "<C-w>-", { desc = "Resize horizontal split smaller" })
+
 vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Navigate to left split" })
 vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Navigate to bottom split" })
 vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Navigate to top split" })
@@ -75,7 +80,7 @@ end, { desc = "Save and execute file" })
 
 vim.keymap.set("n", "<leader>z", "<cmd>Inspect<CR>", { desc = "Print syntax under cursor" })
 
-vim.keymap.set("n", "<leader>@", "<cmd>lcd %:p:h<CR><cmd>pwd<CR>", { desc = "cd to directory of open buffer" })
+vim.keymap.set("n", "cd", "<cmd>lcd %:p:h<CR><cmd>pwd<CR>", { desc = "cd to directory of open buffer" })
 
 vim.keymap.set("n", "<leader>tm", function()
     vim.opt.signcolumn = vim.o.mouse == "nvi" and "no" or "auto"

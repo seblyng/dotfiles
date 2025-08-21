@@ -17,7 +17,6 @@ return {
     -- Functionality
     { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", ft = "markdown" },
     { "chomosuke/term-edit.nvim", opts = { prompt_end = "➜" }, event = "TermOpen" },
-    { "ahonn/resize.vim" },
 
     {
         "windwp/nvim-autopairs",
