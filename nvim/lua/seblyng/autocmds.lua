@@ -112,3 +112,20 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
     desc = "Set filetype for term buffer",
 })
+
+local session = "/tmp/_session_restart.vim"
+
+vim.api.nvim_create_user_command("Restart", function()
+    vim.cmd.mksession({ session, bang = true })
+    vim.cmd.restart()
+end, {})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    group = group,
+    callback = vim.schedule_wrap(function()
+        if vim.uv.fs_stat(session) then
+            vim.cmd.source(session)
+            vim.fs.rm(session)
+        end
+    end),
+})
