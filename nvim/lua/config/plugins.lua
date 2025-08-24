@@ -16,11 +16,11 @@ return {
     { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", ft = "markdown" },
     { "chomosuke/term-edit.nvim", opts = { prompt_end = "➜" }, event = "TermOpen" },
 
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        opts = { map_cr = true, ignored_next_char = "[%w%.%{%[%(%\"%']" },
-    },
+    -- {
+    --     "windwp/nvim-autopairs",
+    --     -- event = "InsertEnter",
+    --     opts = { map_cr = true, ignored_next_char = "[%w%.%{%[%(%\"%']" },
+    -- },
     { "lambdalisue/vim-suda", keys = { { "w!!", "SudaWrite", mode = "ca" } }, lazy = false },
 
     { "tpope/vim-repeat" },
