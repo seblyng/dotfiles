@@ -1,20 +1,18 @@
 return {
     { "seblyng/nvim-ts-autotag", dev = true },
 
-    { "github/copilot.vim", event = { "BufReadPre", "BufNewFile" } },
+    { "github/copilot.vim" },
 
     { "seblyng/git-conflict.nvim", dev = true },
 
-    -- Packageinfo
     { "saecki/crates.nvim", opts = {}, event = "BufReadPre Cargo.toml" },
     { "vuki656/package-info.nvim", opts = {}, event = "BufReadPre package.json" },
 
-    { "nvim-tree/nvim-web-devicons", lazy = true },
+    { "nvim-tree/nvim-web-devicons" },
 
     { "Bekaboo/dropbar.nvim" },
     { "j-hui/fidget.nvim", opts = {} },
 
-    -- Functionality
     { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", ft = "markdown" },
     { "chomosuke/term-edit.nvim", opts = { prompt_end = "➜" }, event = "TermOpen" },
 
@@ -25,7 +23,6 @@ return {
     },
     { "lambdalisue/vim-suda", keys = { { "w!!", "SudaWrite", mode = "ca" } }, lazy = false },
 
-    -- Tpope
     { "tpope/vim-repeat" },
     { "tpope/vim-abolish" },
     { "tpope/vim-unimpaired" },
