@@ -64,15 +64,28 @@ end
 
 local function try_insert_quote(typed)
     local char_before, char_after = get_chars()
-    if char_before == typed or char_after == typed then
-        return try_skip(typed)
+
+    if char_before and char_before:match("%s") and char_after and char_after:match("%s") then
+        return try_insert_match(typed)
     end
 
-    if char_before and char_before:match("%w") then
-        return try_skip(typed)
+    if not char_before and not char_after then
+        return try_insert_match(typed)
     end
 
-    try_insert_match(typed)
+    if not char_before and char_after and char_after:match("%s") then
+        return try_insert_match(typed)
+    end
+
+    if char_before and char_before:match("%s") and not char_after then
+        return try_insert_match(typed)
+    end
+
+    if char_before == "[" or char_before == "{" or char_before == "(" then
+        return try_insert_match(typed)
+    end
+
+    return try_skip(typed)
 end
 
 vim.on_key(function(_, typed)
