@@ -156,17 +156,17 @@ local group = vim.api.nvim_create_augroup("statusline", { clear = true })
 
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
     group = group,
-    callback = function()
+    callback = vim.schedule_wrap(function()
         vim.cmd.redrawstatus()
-    end,
+    end),
 })
 
 vim.api.nvim_create_autocmd("User", {
     pattern = "GitSignsUpdate",
     group = group,
-    callback = function()
+    callback = vim.schedule_wrap(function()
         vim.cmd.redrawstatus()
-    end,
+    end),
 })
 
 function M.statusline()
