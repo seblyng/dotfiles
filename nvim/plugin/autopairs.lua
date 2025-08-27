@@ -70,13 +70,19 @@ local function try_insert_quote(typed)
     local closing = matches[typed]
     local char_before, char_after = get_chars()
 
+    if between_brackets() then
+        return feed(string.format("%s<Left>", closing))
+    end
+
     if (not char_before or char_before:match("%s")) and (not char_after or char_after:match("%s")) then
         return feed(string.format("%s<Left>", closing))
     end
 
-    if vim.list_contains({ "[", "{", "(" }, char_before) or vim.list_contains({ "]", "}", ")" }, char_after) then
-        return feed(string.format("%s<Left>", closing))
-    end
+    -- if vim.list_contains({ "[", "{", "(" }, char_before) or vim.list_contains({ "]", "}", ")" }, char_after) then
+    --     if (char_before and char_before:match("%s")) or (char_after and char_after:match("%s")) then
+    --         return feed(string.format("%s<Left>", closing))
+    --     end
+    -- end
 end
 
 vim.on_key(function(_, typed)

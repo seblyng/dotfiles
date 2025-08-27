@@ -16,7 +16,9 @@ function M.term(opts, ...)
         vim.api.nvim_buf_call(terminal.bufnr, function()
             vim.cmd("$")
         end)
-        return vim.api.nvim_chan_send(vim.bo[terminal.bufnr].channel, string.format(opts.cmd .. "\n", ...))
+        local channel = vim.bo[terminal.bufnr].channel
+        vim.api.nvim_chan_send(channel, "\x15")
+        return vim.api.nvim_chan_send(channel, string.format(opts.cmd .. "\n", ...))
     end
 
     local current_win = vim.api.nvim_get_current_win()

@@ -3,11 +3,13 @@ return {
     cmd = { "CodeCompanion", "CodeCompanionCmd", "CodeCompanionChat", "CodeCompanionActions", "MCPHub" },
     opts = {
         adapters = {
-            copilot = function()
-                return require("codecompanion.adapters").extend("copilot", {
-                    schema = { model = { default = "gpt-4.1" } },
-                })
-            end,
+            http = {
+                copilot = function()
+                    return require("codecompanion.adapters").extend("copilot", {
+                        schema = { model = { default = "gpt-4.1" } },
+                    })
+                end,
+            },
         },
         strategies = {
             chat = {
