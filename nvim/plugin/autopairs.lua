@@ -48,49 +48,35 @@ local function try_skip(typed)
 end
 
 local function try_insert_bracket(typed)
-    local closing = matches[typed]
     local char_before, char_after = get_chars()
 
-    if not char_after or between_brackets() then
-        return feed(string.format("%s<Left>", closing))
-    end
-
-    if vim.list_contains({ "]", "}", ")" }, char_after) then
-        return feed(string.format("%s<Left>", closing))
+    if not char_after or vim.list_contains({ "]", "}", ")" }, char_after) then
+        return feed(string.format("%s<Left>", matches[typed]))
     end
 
     if char_after:match("%s") then
-        if char_before and char_before:match("[%s%w]") then
-            return feed(string.format("%s<Left>", closing))
+        if not char_before or char_before:match("[%s%w]") then
+            return feed(string.format("%s<Left>", matches[typed]))
         end
     end
 end
 
 local function try_insert_quote(typed)
-    local closing = matches[typed]
+    if between_brackets() then
+        return feed(string.format("%s<Left>", matches[typed]))
+    end
+
     local char_before, char_after = get_chars()
 
-    if between_brackets() then
-        return feed(string.format("%s<Left>", closing))
+    local before_is_space = not char_before or char_before:match("%s")
+    local after_is_space = not char_after or char_after:match("%s")
+    if before_is_space and after_is_space then
+        return feed(string.format("%s<Left>", matches[typed]))
     end
-
-    if (not char_before or char_before:match("%s")) and (not char_after or char_after:match("%s")) then
-        return feed(string.format("%s<Left>", closing))
-    end
-
-    -- if vim.list_contains({ "[", "{", "(" }, char_before) or vim.list_contains({ "]", "}", ")" }, char_after) then
-    --     if (char_before and char_before:match("%s")) or (char_after and char_after:match("%s")) then
-    --         return feed(string.format("%s<Left>", closing))
-    --     end
-    -- end
 end
 
 vim.on_key(function(_, typed)
-    if vim.fn.mode() ~= "i" then
-        return
-    end
-
-    if vim.bo.buftype == "prompt" then
+    if vim.api.nvim_get_mode().mode ~= "i" or vim.bo.buftype == "prompt" then
         return
     end
 
