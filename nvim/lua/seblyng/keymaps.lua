@@ -66,9 +66,8 @@ vim.keymap.set("n", "k", 'v:count ? "k" : "gk"', { expr = true, desc = "gk" })
 
 vim.keymap.set({ "n", "x" }, "J", "10gj")
 vim.keymap.set({ "n", "x" }, "K", "10gk")
-
-vim.keymap.set({ "n", "x", "o" }, "H", "^", { desc = "Move to beginning of line" })
-vim.keymap.set({ "n", "x", "o" }, "L", "$", { desc = "Move to end of line" })
+vim.keymap.set({ "n", "x" }, "H", "20h")
+vim.keymap.set({ "n", "x" }, "L", "20l")
 
 vim.keymap.set("n", "<leader>x", function()
     require("seblyng.utils").save_and_exec("normal")
