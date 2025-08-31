@@ -1,22 +1,15 @@
 ---------- LSP CONFIG ----------
 
-local function keymap(mode, l, r, opts)
-    opts = opts or {}
-    opts.buffer = true
-    opts.desc = string.format("Lsp: %s", opts.desc)
-    vim.keymap.set(mode, l, r, opts)
-end
-
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("DefaultLspAttach", { clear = true }),
     callback = function()
-        keymap("n", "gh", function()
+        vim.keymap.set("n", "gh", function()
             vim.lsp.buf.hover()
-        end, { desc = "Hover" })
+        end, { desc = "Lsp: Hover", buffer = true })
 
-        keymap("n", "<leader>th", function()
+        vim.keymap.set("n", "<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-        end, { desc = "Toggle inlay hints" })
+        end, { desc = "Lsp: Toggle inlay hints", buffer = true })
     end,
 })
 

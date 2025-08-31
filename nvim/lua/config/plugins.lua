@@ -13,15 +13,11 @@ return {
     { "Bekaboo/dropbar.nvim" },
     { "j-hui/fidget.nvim", opts = {} },
 
-    { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()", ft = "markdown" },
+    { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()" },
     { "chomosuke/term-edit.nvim", opts = { prompt_end = "➜" }, event = "TermOpen" },
 
-    -- {
-    --     "windwp/nvim-autopairs",
-    --     -- event = "InsertEnter",
-    --     opts = { map_cr = true, ignored_next_char = "[%w%.%{%[%(%\"%']" },
-    -- },
-    { "lambdalisue/vim-suda", keys = { { "w!!", "SudaWrite", mode = "ca" } }, lazy = false },
+    -- { "windwp/nvim-autopairs", opts = { map_cr = true, ignored_next_char = "[%w%.%{%[%(%\"%']" } },
+    { "lambdalisue/vim-suda" },
 
     { "tpope/vim-repeat" },
     { "tpope/vim-abolish" },
