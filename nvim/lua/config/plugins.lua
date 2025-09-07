@@ -12,11 +12,7 @@ return {
 
     { "Bekaboo/dropbar.nvim" },
     { "j-hui/fidget.nvim", opts = {} },
-
-    { "iamcco/markdown-preview.nvim", build = ":call mkdp#util#install()" },
     { "chomosuke/term-edit.nvim", opts = { prompt_end = "➜" }, event = "TermOpen" },
-
-    -- { "windwp/nvim-autopairs", opts = { map_cr = true, ignored_next_char = "[%w%.%{%[%(%\"%']" } },
     { "lambdalisue/vim-suda" },
 
     { "tpope/vim-repeat" },
