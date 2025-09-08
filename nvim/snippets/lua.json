@@ -1,0 +1,18 @@
+{
+  "Ignore stylua": {
+    "prefix": [
+      "ignore"
+    ],
+    "body": [
+      "-- stylua: ignore"
+    ]
+  },
+  "Print table": {
+    "prefix": [
+      "pp"
+    ],
+    "body": [
+      "print(vim.inspect($0))"
+    ]
+  }
+}

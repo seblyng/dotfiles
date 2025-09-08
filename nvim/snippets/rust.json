@@ -1,0 +1,42 @@
+{
+  "Rust mod tests": {
+    "prefix": [
+      "modtest"
+    ],
+    "body": [
+      "#[cfg(test)]",
+      "mod tests {",
+      "    use super::*;",
+      "    $0",
+      "}"
+    ]
+  },
+  "Rust test": {
+    "prefix": [
+      "test"
+    ],
+    "body": [
+      "#[test]",
+      "fn $0"
+    ]
+  },
+  "Rust tokio test": {
+    "prefix": [
+      "tokio_test"
+    ],
+    "body": [
+      "#[tokio::test(flavor = \"multi_thread\")]",
+      "async fn $1() -> Result<(), anyhow::Error> {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Rust derive": {
+    "prefix": [
+      "derive"
+    ],
+    "body": [
+      "#[derive($0)]"
+    ]
+  }
+}

@@ -38,7 +38,6 @@ return {
             },
 
             cmdline = { enabled = false },
-            snippets = { preset = "luasnip" },
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
                 per_filetype = {

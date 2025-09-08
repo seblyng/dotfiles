@@ -1,0 +1,15 @@
+{
+  "Print object (C# JsonSerializer)": {
+    "prefix": [
+      "printobject"
+    ],
+    "body": [
+      "System.Console.WriteLine(",
+      "    System.Text.Json.JsonSerializer.Serialize(",
+      "        $0,",
+      "        new System.Text.Json.JsonSerializerOptions { WriteIndented = true }",
+      "    )",
+      ");"
+    ]
+  }
+}
