@@ -20,7 +20,7 @@ vim.keymap.set("n", "<C-i>", "<C-i>")
 vim.keymap.set("n", "<C-t>", "<cmd>tabedit<CR>", { desc = "Create new tab" })
 vim.keymap.set("n", "<Tab>", "gt", { desc = "Next tab" })
 vim.keymap.set("n", "<S-TAB>", "gT", { desc = "Previous tab" })
-vim.keymap.set("n", "<CR>", '{->v:hlsearch ? ":nohl\\<CR>" : "\\<CR>"}()', { expr = true, silent = true })
+vim.keymap.set("n", "<Esc>", "<cmd>nohl<CR>")
 vim.keymap.set("n", "gb", "<C-t>", { desc = "Go back in tag-stack" })
 vim.keymap.set("n", "gp", "`[v`]", { desc = "Reselect pasted text" })
 
