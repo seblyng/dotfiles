@@ -1,8 +1,3 @@
-local ok, _ = pcall(require, "nvim-autopairs")
-if ok then
-    return
-end
-
 local matches = {
     ["("] = ")",
     ["{"] = "}",
