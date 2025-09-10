@@ -4,7 +4,6 @@ return {
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", branch = "main" },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        event = { "BufReadPost", "BufNewFile" },
         branch = "main",
         config = function()
             local function map_select(mode, lhs, query)
