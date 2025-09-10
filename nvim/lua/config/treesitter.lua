@@ -7,7 +7,6 @@ return {
         event = { "BufReadPost", "BufNewFile" },
         branch = "main",
         config = function()
-            require("nvim-treesitter-textobjects").setup()
             local function map_select(mode, lhs, query)
                 vim.keymap.set(mode, lhs, function()
                     require("nvim-treesitter-textobjects.select").select_textobject(query, "textobjects")

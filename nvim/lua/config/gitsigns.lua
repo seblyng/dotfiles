@@ -2,24 +2,17 @@ return {
     "lewis6991/gitsigns.nvim",
     opts = {
         on_attach = function(bufnr)
-            local gs = package.loaded.gitsigns
-            local function map(m, l, r, opts)
-                opts = opts or {}
-                opts.buffer = bufnr
-                opts.desc = string.format("Gitsigns: %s", opts.desc)
-                vim.keymap.set(m, l, r, opts)
-            end
+            local gs = require("gitsigns")
 
             -- stylua: ignore start
-            map("n", "]c", function() gs.nav_hunk("next") end, { desc = "Go to next diff hunk" })
-            map("n", "[c", function() gs.nav_hunk("prev") end, { desc = "Go to previous diff hunk" })
+            vim.keymap.set("n", "]c", function() gs.nav_hunk("next") end, { buffer = bufnr, desc = "Gitsigns: Go to next diff hunk" })
+            vim.keymap.set("n", "[c", function() gs.nav_hunk("prev") end, { buffer = bufnr, desc = "Gitsigns: Go to previous diff hunk" })
+            vim.keymap.set("n", "<leader>gm", gs.blame_line, { buffer = bufnr, desc = "Gitsigns: Git blame current line" })
+            vim.keymap.set("n", "<leader>gb", gs.blame, { buffer = bufnr, desc = "Gitsigns: Git blame entire file" })
+            vim.keymap.set("n", "<leader>gd", gs.preview_hunk, { buffer = bufnr, desc = "Gitsigns: Preview diff hunk" })
+            vim.keymap.set("n", "<leader>grh", gs.reset_hunk, { buffer = bufnr, desc = "Gitsigns: Reset diff hunk over cursor" })
+            vim.keymap.set("n", "<leader>grb", gs.reset_buffer, { buffer = bufnr, desc = "Gitsigns: Reset diff for entire buffer" })
             -- stylua: ignore end
-
-            map("n", "<leader>gm", gs.blame_line, { desc = "Git blame current line" })
-            map("n", "<leader>gb", gs.blame, { desc = "Git blame entire file" })
-            map("n", "<leader>gd", gs.preview_hunk, { desc = "Preview diff hunk" })
-            map("n", "<leader>grh", gs.reset_hunk, { desc = "Reset diff hunk over cursor" })
-            map("n", "<leader>grb", gs.reset_buffer, { desc = "Reset diff for entire buffer" })
         end,
     },
 }

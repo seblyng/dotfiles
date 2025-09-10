@@ -109,17 +109,5 @@ return {
     dependencies = {
         { "nvim-lua/plenary.nvim" },
         { "ravitemer/mcphub.nvim", build = "npm install -g mcp-hub@latest", opts = {} },
-        {
-            "HakonHarnes/img-clip.nvim",
-            opts = {
-                filetypes = {
-                    codecompanion = {
-                        prompt_for_file_name = false,
-                        template = "[Image]($FILE_PATH)",
-                        use_absolute_path = true,
-                    },
-                },
-            },
-        },
     },
 }

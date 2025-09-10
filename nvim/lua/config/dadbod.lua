@@ -1,14 +1,6 @@
 return {
     "kristijanhusak/vim-dadbod-ui",
-    dependencies = {
-        { "tpope/vim-dadbod", lazy = true },
-    },
-    cmd = {
-        "DBUI",
-        "DBUIToggle",
-        "DBUIAddConnection",
-        "DBUIFindBuffer",
-    },
+    dependencies = { "tpope/vim-dadbod" },
     init = function()
         vim.g.db_ui_use_nerd_fonts = 1
         vim.g.db_ui_disable_mappings = 1
@@ -31,24 +23,18 @@ return {
             end
         end, { desc = "Toggle variable width" })
 
-        local function map(mode, lhs, rhs, opts)
-            opts = opts or {}
-            opts.buffer = true
-            vim.keymap.set(mode, lhs, rhs, opts)
-        end
-
         local group = vim.api.nvim_create_augroup("DadbodMappings", { clear = true })
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "dbui",
             group = group,
             callback = function()
-                map("n", "<CR>", "<Plug>(DBUI_SelectLine)")
-                map("n", "R", "<Plug>(DBUI_Redraw)")
-                map("n", "d", "<Plug>(DBUI_DeleteLine)")
-                map("n", "A", "<Plug>(DBUI_AddConnection)")
-                map("n", "H", "<Plug>(DBUI_ToggleDetails)")
-                map("n", "r", "<Plug>(DBUI_RenameLine)")
-                map("n", "q", "<Plug>(DBUI_Quit)")
+                vim.keymap.set("n", "<CR>", "<Plug>(DBUI_SelectLine)", { buffer = true })
+                vim.keymap.set("n", "R", "<Plug>(DBUI_Redraw)", { buffer = true })
+                vim.keymap.set("n", "d", "<Plug>(DBUI_DeleteLine)", { buffer = true })
+                vim.keymap.set("n", "A", "<Plug>(DBUI_AddConnection)", { buffer = true })
+                vim.keymap.set("n", "H", "<Plug>(DBUI_ToggleDetails)", { buffer = true })
+                vim.keymap.set("n", "r", "<Plug>(DBUI_RenameLine)", { buffer = true })
+                vim.keymap.set("n", "q", "<Plug>(DBUI_Quit)", { buffer = true })
             end,
             desc = "Set keymaps for dbui",
         })
@@ -57,9 +43,9 @@ return {
             pattern = "dbout",
             group = group,
             callback = function()
-                map("n", "yh", "<Plug>(DBUI_YankHeader)")
-                map("n", "vic", "<Plug>(DBUI_YankCellValue)")
-                map("n", "gd", "<Plug>(DBUI_JumpToForeignKey)")
+                vim.keymap.set("n", "yh", "<Plug>(DBUI_YankHeader)", { buffer = true })
+                vim.keymap.set("n", "vic", "<Plug>(DBUI_YankCellValue)", { buffer = true })
+                vim.keymap.set("n", "gd", "<Plug>(DBUI_JumpToForeignKey)", { buffer = true })
             end,
             desc = "Set keymaps for dadbod sql",
         })

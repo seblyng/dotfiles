@@ -1,9 +1,7 @@
 return {
     {
         "saghen/blink.cmp",
-        dependencies = {
-            { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
-        },
+        dependencies = { "kristijanhusak/vim-dadbod-completion" },
         version = "1.*",
         opts = {
             keymap = {

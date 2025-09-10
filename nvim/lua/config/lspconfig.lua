@@ -52,8 +52,6 @@ return {
             },
         },
     },
-    { "seblyng/nvim-lsp-extras", dev = true },
-    { "b0o/schemastore.nvim", lazy = true },
     {
         "folke/lazydev.nvim",
         ft = "lua",
