@@ -14,6 +14,16 @@ source $HOME/.config/zsh/completion.zsh
 source $HOME/.config/zsh/functions.zsh
 source $HOME/.config/zsh/aliases.zsh
 
+HISTSIZE=50000
+SAVEHIST=10000
+
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt share_history
+
 installed fnm && eval "$(fnm env --use-on-cd)"
 installed pyenv && eval "$(pyenv init -)"
 installed zoxide && eval "$(zoxide init --cmd cd zsh)"
