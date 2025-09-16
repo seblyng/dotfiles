@@ -1,5 +1,5 @@
 cursor-style-blink = false
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 macos-titlebar-style = tabs
 font-thicken = true
 font-codepoint-map = U+e4ce,U+e4d2,U+e4cf,U+e4d5,U+e4d0,U+e4d3,U+e4d1,U+e4d4,U+e4d7,U+e4d8,U+e4d9,U+e4da=corners
