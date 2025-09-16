@@ -40,5 +40,5 @@ local ghostty = vim.env.TERM == "xterm-ghostty"
 local kitty = vim.env.TERM == "xterm-kitty"
 
 vim.opt.winborder = windows and not kitty and not ghostty and "rounded"
-    or ghostty and { "", "▄", "", "▌", "", "▀", "", "▐" }
+    or ghostty and { "🯮", "▂", "🯭", "▌", "🯯", "🮂", "🯬", "▐" }
     or { "", "", "", "", "", "", "", "" }
