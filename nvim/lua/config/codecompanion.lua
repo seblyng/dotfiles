@@ -2,6 +2,15 @@ return {
     "olimorris/codecompanion.nvim",
     cmd = { "CodeCompanion", "CodeCompanionCmd", "CodeCompanionChat", "CodeCompanionActions", "MCPHub" },
     opts = {
+        display = {
+            diff = {
+                provider_opts = {
+                    inline = {
+                        layout = "buffer",
+                    },
+                },
+            },
+        },
         strategies = {
             chat = {
                 adapter = "copilot",
