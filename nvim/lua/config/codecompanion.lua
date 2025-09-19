@@ -2,6 +2,13 @@ return {
     "olimorris/codecompanion.nvim",
     cmd = { "CodeCompanion", "CodeCompanionCmd", "CodeCompanionChat", "CodeCompanionActions", "MCPHub" },
     opts = {
+        memory = {
+            opts = {
+                chat = {
+                    enabled = true,
+                },
+            },
+        },
         display = {
             diff = {
                 provider_opts = {
@@ -78,39 +85,6 @@ return {
                         handle.message = "Cancelled"
                     end
                     handle:finish()
-                end
-            end,
-        })
-
-        vim.api.nvim_create_autocmd("User", {
-            pattern = "CodeCompanionChatCreated",
-            callback = function(event)
-                local chat = require("codecompanion").buf_get_chat(event.data.bufnr)
-                if not chat then
-                    return
-                end
-
-                local rule_files = {
-                    ".github/copilot-instructions.md",
-                }
-
-                local slash_commands = require("codecompanion.strategies.chat.slash_commands")
-                local start_path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-                local found_files = {}
-
-                local function try_add_context(dir)
-                    for _, rule in ipairs(rule_files) do
-                        local path = vim.fs.joinpath(dir, rule)
-                        if vim.uv.fs_stat(path) and not vim.list_contains(found_files, path) then
-                            table.insert(found_files, path)
-                            slash_commands.context(chat, "file", { path = path })
-                        end
-                    end
-                end
-
-                try_add_context(start_path)
-                for dir in vim.fs.parents(start_path) do
-                    try_add_context(dir)
                 end
             end,
         })
