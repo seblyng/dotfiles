@@ -6,18 +6,6 @@ return {
         opts = {
             keymap = {
                 preset = "default",
-                -- ["<CR>"] = {
-                --     function(cmp)
-                --         if not cmp.is_visible or require("blink.cmp.completion.list").get_selected_item() == nil then
-                --             return
-                --         end
-                --         vim.schedule(function()
-                --             cmp.accept()
-                --         end)
-                --         return vim.api.nvim_replace_termcodes("<ESC>a", true, false, true)
-                --     end,
-                --     "fallback",
-                -- },
                 ["<CR>"] = { "accept", "fallback" },
                 ["<C-d>"] = { "scroll_documentation_down", "fallback" },
                 ["<C-u>"] = { "scroll_documentation_up", "fallback" },
