@@ -51,13 +51,13 @@ vim.keymap.set("n", "<leader>gh", ":help <C-r><C-w><CR>", { desc = "Help for wor
 vim.keymap.set("x", "<", "<gv", { desc = "Keep visual mode on dedent" })
 vim.keymap.set("x", ">", ">gv", { desc = "Keep visual mode on indent" })
 
-vim.keymap.set("n", "<A-j>", ":m.+1<CR>==", { desc = "Move current line down", silent = true })
-vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move current line down", silent = true })
-vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move current line down", silent = true })
+vim.keymap.set("n", "<A-j>", ":m.+1<CR>==", { silent = true })
+vim.keymap.set("x", "<A-j>", "<esc>:silent '<,'>m '>+1<CR>:silent normal gv=gv<CR>", { silent = true })
+vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { silent = true })
 
-vim.keymap.set("n", "<A-k>", ":m.-2<CR>==", { desc = "Move current line up", silent = true })
-vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move current line up", silent = true })
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move current line up", silent = true })
+vim.keymap.set("n", "<A-k>", ":m.-2<CR>==", { silent = true })
+vim.keymap.set("x", "<A-k>", "<esc>:silent '<,'>m '<-2<CR>:silent normal gv=gv<CR>", { silent = true })
+vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { silent = true })
 
 vim.keymap.set("", "<leader>j", "J", { desc = "Join [count] lines" })
 
