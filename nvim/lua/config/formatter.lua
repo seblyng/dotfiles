@@ -36,6 +36,7 @@ return {
             },
             json = "jq",
             cs = "csharpier format",
+            xml = "csharpier format",
             c = "clang-format",
             tex = "latexindent -g /dev/null",
             bib = "latexindent -g /dev/null",

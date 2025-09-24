@@ -116,24 +116,18 @@ local runner = {
         c = "gcc $file -o $output && ./$output; rm $output",
         javascript = "bun $file",
         typescript = "bun $file",
-        rust = function()
-            local command = "rustc $file && ./$output; rm $output"
+        rust = function(file, output)
+            local command = string.format("rustc %s && ./%s; rm %s", file, output, output)
             local match = vim.system({ "cargo", "verify-project" }):wait().stdout:match('{"success":"true"}')
             return match and "cargo run" or command
         end,
-        go = function()
-            local command = "go run $file"
+        go = function(file)
+            local command = string.format("go run %s", file)
             local dir = vim.fs.root(0, { "go.mod" })
-            return dir and "go run " .. dir or command
+            return dir and string.format("go run %s", dir) or command
         end,
         sh = "sh $file",
-        http = function(file)
-            if string.match(file, "mobileapi/login.http") then
-                return "hitman -t master $file"
-            else
-                return "hitman $file"
-            end
-        end,
+        http = "hitman $file",
         graphql = "hitman $file",
         sql = [[:call feedkeys("\<Plug>(DBUI_ExecuteQuery)", "n")]],
         zig = "zig build run",
@@ -151,12 +145,13 @@ function M.save_and_exec(mode)
     vim.notify("Executing file")
     local file = vim.api.nvim_buf_get_name(0)
     M.wrap_lcd(function()
-        local command = type(runner[mode][ft]) == "function" and runner[mode][ft](file) or runner[mode][ft]
+        local output = vim.fn.fnamemodify(file, ":t:r") --[[@as string]]
+
+        local command = type(runner[mode][ft]) == "function" and runner[mode][ft](file, output) or runner[mode][ft]
         if not command then
             return vim.notify(string.format("No config found for %s in %s mode", ft, mode))
         end
 
-        local output = vim.fn.fnamemodify(file, ":t:r") --[[@as string]]
         command = command:gsub("$file", file):gsub("$output", output)
         if command:sub(1, 1) == ":" then
             vim.cmd(command)
