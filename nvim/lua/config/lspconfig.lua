@@ -10,6 +10,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end, { desc = "Lsp: Toggle inlay hints", buffer = true })
+
+        vim.lsp.inline_completion.enable(true)
+
+        vim.keymap.set("i", "<A-]>", function()
+            vim.lsp.inline_completion.select({ count = 1 })
+        end)
+
+        vim.keymap.set("i", "<A-[>", function()
+            vim.lsp.inline_completion.select({ count = -1 })
+        end)
+
+        vim.keymap.set("i", "<Tab>", function()
+            if not vim.lsp.inline_completion.get() then
+                return "<Tab>"
+            end
+        end)
     end,
 })
 
