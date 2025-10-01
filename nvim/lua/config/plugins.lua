@@ -8,6 +8,7 @@ return {
 
     { "b0o/schemastore.nvim" },
     { "nvim-tree/nvim-web-devicons" },
+    { "brianhuster/unnest.nvim" },
 
     { "Bekaboo/dropbar.nvim" },
     { "j-hui/fidget.nvim", opts = {} },
