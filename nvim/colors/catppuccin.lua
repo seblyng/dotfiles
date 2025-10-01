@@ -460,12 +460,5 @@ highlight({
     NeotestWatching = { link = "DiagnosticWarn" },
     NeotestNamespace = { link = "@namespace" },
 
-    -- NeotestExpandMarker = { fg = c.color44 },
-    -- NeotestIndent = { fg = c.color34 },
-    -- NeotestTarget = { fg = c.color23 },
-    -- NeotestWinSelect = { bold = true, fg = c.color21 },
-
-    -- NeotestFocused = { bold = true, underline = true },
-    -- NeotestTest = { link = "Normal" },
-    -- NeotestUnknown = { link = "Normal" },
+    SidekickDiffAdd = { link = "DiffAdd" },
 })
