@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             if not vim.lsp.inline_completion.get() then
                 return "<Tab>"
             end
-        end)
+        end, { expr = true })
     end,
 })
 
