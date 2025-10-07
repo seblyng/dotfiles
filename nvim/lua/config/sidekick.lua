@@ -17,7 +17,7 @@ return {
         end)
 
         vim.keymap.set({ "n", "v" }, "<leader>ap", function()
-            require("sidekick.cli").select_prompt()
+            require("sidekick.cli").prompt()
         end)
     end,
 }
