@@ -3,6 +3,8 @@ return {
     { "seblyng/nvim-lsp-extras", dev = true },
     { "seblyng/git-conflict.nvim", dev = true },
 
+    { "github/copilot.vim" },
+
     { "saecki/crates.nvim", opts = {}, event = "BufReadPre Cargo.toml" },
     { "vuki656/package-info.nvim", opts = {}, event = "BufReadPre package.json" },
 
