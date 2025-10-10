@@ -2,3 +2,4 @@ cursor-style-blink = false
 theme = Catppuccin Mocha
 macos-titlebar-style = tabs
 font-thicken = true
+keybind = shift+enter=text:\x1b\r

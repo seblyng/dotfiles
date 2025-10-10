@@ -91,6 +91,6 @@ return {
     end,
     dependencies = {
         { "nvim-lua/plenary.nvim" },
-        { "ravitemer/mcphub.nvim", build = "npm install -g mcp-hub@latest", opts = {} },
+        { "ravitemer/mcphub.nvim", build = "bundled_build.lua", opts = { use_bundled_binary = true } },
     },
 }

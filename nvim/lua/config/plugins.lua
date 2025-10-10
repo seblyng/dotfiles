@@ -31,5 +31,4 @@ return {
     },
     { "tpope/vim-sleuth" },
     { "tpope/vim-dispatch" },
-    { "tpope/vim-dotenv" },
 }
