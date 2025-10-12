@@ -2,7 +2,10 @@
 
 require("vim._extui").enable({ msg = { target = "msg" } })
 
-require("seblyng.globals")
+P = function(...)
+    vim.print(...)
+end
+
 require("seblyng.options")
 require("seblyng.keymaps")
 require("seblyng.lazy")
