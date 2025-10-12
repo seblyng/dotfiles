@@ -1,7 +1,9 @@
 ---------- OPTIONS ----------
 
-vim.cmd.colorscheme("catppuccin")
+local ghostty = vim.env.TERM == "xterm-ghostty"
 
+vim.opt.winborder = ghostty and { "🯮", "▂", "🯭", "▌", "🯯", "🮂", "🯬", "▐" } or "rounded"
+vim.opt.pumborder = vim.o.winborder
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:ver25"
 vim.opt.completeopt = { "menuone", "noselect", "fuzzy", "popup" }
 vim.opt.completeitemalign = { "kind", "abbr", "menu" }
@@ -35,10 +37,4 @@ vim.opt.title = true
 vim.opt.titlestring = "%F"
 vim.opt.exrc = true
 
-local windows = vim.uv.os_uname().sysname == "Windows_NT"
-local ghostty = vim.env.TERM == "xterm-ghostty"
-local kitty = vim.env.TERM == "xterm-kitty"
-
-vim.opt.winborder = windows and not kitty and not ghostty and "rounded"
-    or ghostty and { "🯮", "▂", "🯭", "▌", "🯯", "🮂", "🯬", "▐" }
-    or { "", "", "", "", "", "", "", "" }
+vim.cmd.colorscheme("catppuccin")
