@@ -34,6 +34,7 @@ return {
                     end,
                 },
             },
+            terraform = "tofu fmt -",
             json = "jq",
             cs = "csharpier format",
             xml = "csharpier format",

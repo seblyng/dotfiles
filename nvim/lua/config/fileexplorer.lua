@@ -22,8 +22,5 @@ return {
         },
         use_default_keymaps = false,
         view_options = { show_hidden = true },
-        preview = {
-            border = vim.o.winborder:find(",") and vim.opt.winborder:get() or vim.o.winborder,
-        },
     },
 }
