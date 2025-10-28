@@ -1,3 +1,6 @@
+if true then
+    return {}
+end
 return {
     "folke/sidekick.nvim",
     opts = {},
@@ -7,17 +10,5 @@ return {
                 return "<Tab>"
             end
         end, { expr = true })
-
-        vim.keymap.set({ "n", "v" }, "<C-.>", function()
-            require("sidekick.cli").focus()
-        end)
-
-        vim.keymap.set({ "n", "v" }, "<leader>aa", function()
-            require("sidekick.cli").toggle({ focus = true })
-        end)
-
-        vim.keymap.set({ "n", "v" }, "<leader>ap", function()
-            require("sidekick.cli").prompt()
-        end)
     end,
 }

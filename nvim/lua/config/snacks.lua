@@ -1,14 +1,3 @@
--- vim.api.nvim_create_autocmd("FileType", {
---     group = vim.api.nvim_create_augroup("SebDashboardGroup", { clear = true }),
---     pattern = "snacks_dashboard",
---     desc = "Hidden cursor for dashboard",
---     callback = function()
---         vim.schedule(function()
---             require("seblyng.utils").setup_hidden_cursor()
---         end)
---     end,
--- })
-
 return {
     "folke/snacks.nvim",
     priority = 1000,
@@ -29,29 +18,6 @@ return {
         })
 
         require("snacks").setup({
-            -- bigfile = { enabled = true },
-            -- dashboard = {
-            --     row = 2,
-            --     col = 4,
-            --     preset = {
-            --         keys = {
-            --             { desc = "Dotfiles", action = "<leader>fd" },
-            --             { desc = "Lazy sync", action = ":Lazy sync" },
-            --             { desc = "Lazy update", action = ":Lazy update" },
-            --             { desc = "Lazy profile", action = ":Lazy profile" },
-            --             { key = "q", action = ":qa", hidden = true },
-            --         },
-            --     },
-            --     sections = {
-            --         -- { section = "terminal", cmd = "fortune -s | cowsay", hl = "header", padding = 1, height = 12 },
-            --         { section = "header" },
-            --         { title = "Commands", padding = 1 },
-            --         { section = "keys" },
-            --         { padding = 1 },
-            --         { title = "MRU", padding = 1 },
-            --         { section = "recent_files", limit = 8, padding = 1 },
-            --     },
-            -- },
             picker = {
                 main = { file = false, current = true },
                 ui_select = false,
