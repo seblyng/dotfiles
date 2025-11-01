@@ -17,22 +17,12 @@ return {
             map_select({ "x", "o" }, "ic", "@class.inner")
             map_select({ "x", "o" }, "ac", "@class.outer")
 
-            -- Swap
-            local swap = require("nvim-treesitter-textobjects.swap")
-
-            ---@param swap_fn fun(query_string_regex: string)
-            ---@param query_string_regex string
-            local function wrap_swap(swap_fn, query_string_regex)
-                return function()
-                    swap_fn(query_string_regex)
-                end
-            end
-
-            vim.keymap.set("n", "<leader>sa", wrap_swap(swap.swap_next, "@parameter.inner"))
-            vim.keymap.set("n", "<leader>sf", wrap_swap(swap.swap_next, "@function.outer"))
-
-            vim.keymap.set("n", "<leader>sA", wrap_swap(swap.swap_previous, "@parameter.inner"))
-            vim.keymap.set("n", "<leader>sF", wrap_swap(swap.swap_previous, "@function.outer"))
+            -- stylua: ignore start
+            vim.keymap.set("n", "<leader>sa", function() require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner") end)
+            vim.keymap.set("n", "<leader>sf", function() require("nvim-treesitter-textobjects.swap").swap_next("@function.outer") end)
+            vim.keymap.set("n", "<leader>sA", function() require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner") end)
+            vim.keymap.set("n", "<leader>sF", function() require("nvim-treesitter-textobjects.swap").swap_previous("@function.outer") end)
+            -- stylua: ignore end
         end,
     },
 }

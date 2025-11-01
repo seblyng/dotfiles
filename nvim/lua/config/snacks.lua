@@ -56,6 +56,7 @@ return {
                             { win = "preview", title = "{preview}", border = "rounded", width = 0.5 },
                         },
                     },
+                    vertical = { layout = { border = "rounded" } },
                 },
                 actions = {
                     cycle_layout_next = function(picker)
