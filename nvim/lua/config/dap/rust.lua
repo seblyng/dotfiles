@@ -1,23 +1,3 @@
-local get_cargo_cmd = function(args)
-    local result = vim.list_extend({ "cargo" }, args.cargoArgs)
-    table.insert(result, "--message-format=json")
-
-    -- Prefer just building either the tests or the bin
-    if result[1] == "run" then
-        result[1] = "build"
-    elseif result[1] == "test" then
-        table.insert(result, 2, "--no-run")
-    end
-
-    for _, value in ipairs(args.cargoExtraArgs or {}) do
-        if not vim.list_contains(args.cargoArgs, value) then
-            table.insert(args.cargoArgs, value)
-        end
-    end
-
-    return result
-end
-
 local function setup()
     local dap = require("dap")
 
@@ -40,15 +20,8 @@ local function setup()
             request = "launch",
             program = function()
                 local client = vim.lsp.get_clients({ name = "rust_analyzer" })[1]
-                if not client then
-                    return
-                end
-                local res = client:request_sync(
-                    "experimental/runnables",
-                    { textDocument = vim.lsp.util.make_text_document_params() },
-                    nil,
-                    0
-                )
+                local params = vim.lsp.util.make_text_document_params()
+                local res = client and client:request_sync("experimental/runnables", { textDocument = params })
 
                 if not res or not res.result then
                     return
@@ -58,7 +31,20 @@ local function setup()
                     return item.label
                 end)
 
-                local result = vim.system(get_cargo_cmd(chosen.args), { cwd = chosen.args.workspaceRoot }):wait()
+                -- Do not run when debugging
+                local sanitize_args = function(args)
+                    if args[1] == "run" then
+                        args[1] = "build"
+                    elseif args[1] == "test" then
+                        table.insert(args, 2, "--no-run")
+                    end
+
+                    return args
+                end
+
+                local args = vim.list_extend(sanitize_args(chosen.args.cargoArgs), { "--message-format=json" })
+                local cmd = vim.list_extend({ "cargo" }, args)
+                local result = vim.system(cmd, { cwd = chosen.args.workspaceRoot }):wait()
 
                 for _, value in pairs(vim.split(result.stdout, "\n")) do
                     local ok, json = pcall(vim.json.decode, value)
