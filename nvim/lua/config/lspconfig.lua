@@ -32,6 +32,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.diagnostic.config({
     virtual_text = { spacing = 4, prefix = "●" },
     float = { source = "if_many" },
+    status = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+        },
+    },
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "✘",

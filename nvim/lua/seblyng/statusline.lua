@@ -37,13 +37,6 @@ local mode_alias = {
     ["null"] = "NONE",
 }
 
-local DIAGNOSTICS = {
-    { "Error", "", "DiagnosticError" },
-    { "Warn", "", "DiagnosticWarn" },
-    { "Info", "I", "DiagnosticInfo" },
-    { "Hint", "", "DiagnosticHint" },
-}
-
 local GIT_INFO = {
     { "added", "", "Added" },
     { "changed", "", "Changed" },
@@ -51,10 +44,6 @@ local GIT_INFO = {
 }
 
 local applied_highlights = {}
-
-local function highlight()
-    return "%#StatusLine#"
-end
 
 --- Only highlight fg for `name`
 --- @param name string
@@ -81,19 +70,6 @@ local function get_os()
     else
         return "  "
     end
-end
-
-local function get_diagnostics()
-    local diags = vim.diagnostic.count(0)
-    return vim.iter(DIAGNOSTICS)
-        :enumerate()
-        :map(function(i, attrs)
-            local n = diags[i] or 0
-            if n > 0 then
-                return ("%s%s %d"):format(hl(attrs[3]), attrs[2], n)
-            end
-        end)
-        :join(" ")
 end
 
 local function get_mode()
@@ -169,22 +145,23 @@ vim.api.nvim_create_autocmd("User", {
     end),
 })
 
+local HIGHLIGHT = "%#StatusLine#"
+
 function M.statusline()
     return parse_sections({
         {
-            highlight(),
+            HIGHLIGHT,
             get_mode(),
             get_filetype_symbol(),
-            highlight(),
+            HIGHLIGHT,
             get_file_info(),
-            highlight(),
+            HIGHLIGHT,
             get_git_branch(),
             get_git_status(),
         },
         {
-            highlight(),
-            get_diagnostics(),
-            highlight(),
+            vim.diagnostic.status():gsub(":", " "),
+            HIGHLIGHT,
             get_os(),
             " %2l:%c %3p%% ",
         },
