@@ -8,4 +8,5 @@ vimspector-config
 .zsh_sessions
 zsh/spaceship-prompt
 nvim/lazy-lock.json
+nvim/nvim-pack-lock.json
 zsh/plugins

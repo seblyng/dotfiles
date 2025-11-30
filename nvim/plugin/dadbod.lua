@@ -1,0 +1,70 @@
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.db_ui_disable_mappings = 1
+vim.g.db_ui_execute_on_save = 0
+
+local original_max_var_type_width = vim.env.SQLCMDMAXVARTYPEWIDTH
+local original_max_fixed_type_width = vim.env.SQLCMDMAXFIXEDTYPEWIDTH
+
+-- Toggle between original and custom width for columns
+local width = 36
+vim.keymap.set("n", "<leader>tc", function()
+    if vim.env.SQLCMDMAXFIXEDTYPEWIDTH == original_max_fixed_type_width then
+        vim.env.SQLCMDMAXFIXEDTYPEWIDTH = width
+        vim.env.SQLCMDMAXVARTYPEWIDTH = width
+        vim.notify("Variable width set to: " .. width)
+    else
+        vim.env.SQLCMDMAXFIXEDTYPEWIDTH = original_max_fixed_type_width
+        vim.env.SQLCMDMAXVARTYPEWIDTH = original_max_var_type_width
+        vim.notify("Variable width set back to original")
+    end
+end, { desc = "Toggle variable width" })
+
+local group = vim.api.nvim_create_augroup("DadbodMappings", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "dbui",
+    group = group,
+    callback = function()
+        vim.keymap.set("n", "<CR>", "<Plug>(DBUI_SelectLine)", { buffer = true })
+        vim.keymap.set("n", "R", "<Plug>(DBUI_Redraw)", { buffer = true })
+        vim.keymap.set("n", "d", "<Plug>(DBUI_DeleteLine)", { buffer = true })
+        vim.keymap.set("n", "A", "<Plug>(DBUI_AddConnection)", { buffer = true })
+        vim.keymap.set("n", "H", "<Plug>(DBUI_ToggleDetails)", { buffer = true })
+        vim.keymap.set("n", "r", "<Plug>(DBUI_RenameLine)", { buffer = true })
+        vim.keymap.set("n", "q", "<Plug>(DBUI_Quit)", { buffer = true })
+    end,
+    desc = "Set keymaps for dbui",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "dbout",
+    group = group,
+    callback = function()
+        vim.keymap.set("n", "yh", "<Plug>(DBUI_YankHeader)", { buffer = true })
+        vim.keymap.set("n", "vic", "<Plug>(DBUI_YankCellValue)", { buffer = true })
+        vim.keymap.set("n", "gd", "<Plug>(DBUI_JumpToForeignKey)", { buffer = true })
+    end,
+    desc = "Set keymaps for dadbod sql",
+})
+
+-- HACK: Override `sqlcmd` just when about to execute a query and restore it after execution
+-- I want to have `-k` argument for sqlcmd: `/path/to/sqlcmd $@ -k 1`
+local path = vim.env.PATH
+vim.api.nvim_create_autocmd({ "User" }, {
+    group = group,
+    pattern = "DBExecutePre",
+    callback = function()
+        path = vim.env.PATH -- Update the path directly before executing
+        vim.env.PATH = vim.fn.expand("~/.local/bin") .. ":" .. vim.env.PATH
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "User" }, {
+    group = group,
+    pattern = "DBExecutePost",
+    callback = function()
+        vim.env.PATH = path
+    end,
+})
+
+-- MSSQL connection string example:
+-- sqlserver://foo:PORT;database=mydbname;user=myuser@foo;password=mypassword;

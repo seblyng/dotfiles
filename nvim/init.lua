@@ -6,9 +6,35 @@ P = function(...)
     vim.print(...)
 end
 
+vim.treesitter.language.register("bash", "zsh")
+
+vim.diagnostic.config({
+    virtual_text = { spacing = 4, prefix = "●" },
+    float = { source = "if_many" },
+    status = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+        },
+    },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "✘",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+        },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+            [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+            [vim.diagnostic.severity.INFO] = "DiagnosticSignHint",
+        },
+    },
+})
+
+require("seblyng.pack")
 require("seblyng.options")
 require("seblyng.keymaps")
-require("seblyng.lazy")
 require("seblyng.autocmds")
 require("seblyng.statusline")
 require("seblyng.tabline")

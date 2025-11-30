@@ -4,9 +4,7 @@ vim.g.startify_change_to_dir = 0
 
 vim.g.startify_commands = {
     { "Dotfiles", 'lua vim.api.nvim_input("<space>fd")' },
-    { "Lazy sync", "Lazy sync" },
-    { "Lazy update", "Lazy update" },
-    { "Lazy profile", "Lazy profile" },
+    { "Pack update", "lua vim.pack.update()" },
 }
 
 vim.g.startify_lists = {
@@ -34,5 +32,3 @@ vim.api.nvim_create_autocmd("FileType", {
         require("seblyng.utils").setup_hidden_cursor()
     end,
 })
-
-return { "mhinz/vim-startify", dependencies = "nvim-tree/nvim-web-devicons" }
