@@ -1,6 +1,6 @@
 vim.pack.add({
-    "https://github.com/kristijanhusak/vim-dadbod-completion",
-    "https://github.com/xzbdmw/colorful-menu.nvim",
+    { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
+    { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
 })
 

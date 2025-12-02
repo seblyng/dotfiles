@@ -1,20 +1,9 @@
 vim.pack.add({
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     {
-        src = "https://github.com/ravitemer/mcphub.nvim",
-        data = {
-            build = "bundled_build.lua",
-            config = function()
-                require("mcphub").setup({
-                    use_bundled_binary = true,
-                })
-            end,
-        },
-    },
-    {
         src = "https://github.com/olimorris/codecompanion.nvim",
         data = {
-            cmd = { "CodeCompanion", "CodeCompanionCmd", "CodeCompanionChat", "CodeCompanionActions", "MCPHub" },
+            cmd = { "CodeCompanion", "CodeCompanionCmd", "CodeCompanionChat", "CodeCompanionActions" },
             opts = {
                 memory = {
                     opts = {
@@ -58,20 +47,6 @@ vim.pack.add({
                                 },
                             })
                         end,
-                    },
-                },
-                extensions = {
-                    mcphub = {
-                        callback = "mcphub.extensions.codecompanion",
-                        opts = {
-                            make_tools = true,
-                            show_server_tools_in_chat = true,
-                            add_mcp_prefix_to_tool_names = false,
-                            show_result_in_chat = true,
-                            format_tool = nil,
-                            make_vars = true,
-                            make_slash_commands = true,
-                        },
                     },
                 },
             },
