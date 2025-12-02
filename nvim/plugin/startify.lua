@@ -4,7 +4,8 @@ vim.g.startify_change_to_dir = 0
 
 vim.g.startify_commands = {
     { "Dotfiles", 'lua vim.api.nvim_input("<space>fd")' },
-    { "Pack update", "lua vim.pack.update()" },
+    { "Pack sync", "Pack sync" },
+    { "Pack update", "Pack update" },
 }
 
 vim.g.startify_lists = {

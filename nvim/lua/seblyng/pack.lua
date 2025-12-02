@@ -147,3 +147,34 @@ vim.pack.add = function(specs, opts)
 
     add(remote, opts)
 end
+
+-- Implement my own `Pack` command to work around features I am missing
+local args = { "sync", "update", "clean" }
+vim.api.nvim_create_user_command("Pack", function(opts)
+    if not vim.list_contains(args, opts.args) then
+        return vim.notify(string.format("Unknown pack command: %s", opts.args), vim.log.levels.ERROR)
+    end
+
+    if opts.args == "clean" or opts.args == "sync" then
+        local inactive = vim.iter(vim.pack.get())
+            :map(function(p)
+                return not p.active and p.spec.name or nil
+            end)
+            :totable()
+
+        if #inactive > 0 then
+            vim.pack.del(inactive)
+        end
+    end
+
+    if opts.args == "sync" or opts.args == "update" then
+        vim.pack.update()
+    end
+end, {
+    nargs = 1,
+    complete = function(arglead)
+        return vim.tbl_filter(function(cmd)
+            return cmd:match("^" .. arglead)
+        end, args)
+    end,
+})
