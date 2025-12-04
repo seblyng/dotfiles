@@ -107,6 +107,8 @@ end
 local local_plugin_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "site", "pack", "seb", "opt")
 local plugin_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "site", "pack", "core", "opt")
 
+vim.fn.mkdir(local_plugin_dir, "p")
+
 -- Always clean up dev plugins which are symlinked
 vim.iter(vim.fs.dir(local_plugin_dir)):each(function(name)
     local link_path = vim.fs.joinpath(local_plugin_dir, name)
@@ -122,21 +124,20 @@ local add = vim.pack.add
 vim.pack.add = function(specs, opts)
     local remote = {}
     for _, spec in ipairs(specs) do
-        if spec.data and spec.data.dev then
-            spec.name = spec.name or spec.src:match("^.+/(.+)$")
+        local src = type(spec) == "string" and spec or spec.src
+        local name = spec.name or src:gsub("%.git$", ""):match("[^/]+$")
+        local path = vim.fs.normalize(vim.fs.joinpath("~/projects/plugins", name))
 
-            local path = vim.fs.normalize(vim.fs.joinpath("~/projects/plugins", spec.name))
-            vim.fn.mkdir(local_plugin_dir, "p")
-            if vim.uv.fs_stat(path) then
-                if vim.uv.fs_stat(vim.fs.joinpath(plugin_dir, spec.name)) then
-                    vim.pack.del({ spec.name })
-                end
-
-                vim.uv.fs_symlink(path, vim.fs.joinpath(local_plugin_dir, spec.name))
-
-                ---@diagnostic disable-next-line: assign-type-mismatch
-                try_lazy_load({ spec = spec, path = path })
+        if spec.data and spec.data.dev and vim.uv.fs_stat(path) then
+            if vim.uv.fs_stat(vim.fs.joinpath(plugin_dir, name)) then
+                vim.pack.del({ name })
             end
+
+            vim.uv.fs_symlink(path, vim.fs.joinpath(local_plugin_dir, name), { junction = true })
+
+            spec.name = name
+            ---@diagnostic disable-next-line: assign-type-mismatch
+            try_lazy_load({ spec = spec, path = path })
         else
             table.insert(remote, spec)
         end
