@@ -2,6 +2,7 @@ vim.pack.add({
     { src = "https://github.com/seblyng/nvim-ts-autotag", data = { dev = true } },
     { src = "https://github.com/seblyng/nvim-lsp-extras", data = { dev = true } },
     { src = "https://github.com/seblyng/git-conflict.nvim", data = { dev = true } },
+    { src = "https://github.com/seblyng/nvim-startuptime", data = { dev = true } },
     { src = "https://github.com/github/copilot.vim" },
     { src = "https://github.com/saecki/crates.nvim", data = { opts = {}, event = "BufReadPre Cargo.toml" } },
     { src = "https://github.com/vuki656/package-info.nvim", data = { opts = {}, event = "BufReadPre package.json" } },

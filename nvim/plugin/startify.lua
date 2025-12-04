@@ -6,6 +6,7 @@ vim.g.startify_commands = {
     { "Dotfiles", 'lua vim.api.nvim_input("<space>fd")' },
     { "Pack sync", "Pack sync" },
     { "Pack update", "Pack update" },
+    { "StartupTime", "StartupTime" },
 }
 
 vim.g.startify_lists = {
