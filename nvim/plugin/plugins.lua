@@ -26,25 +26,22 @@ vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/folke/lazydev.nvim" },
+    { src = "https://github.com/folke/lazydev.nvim", data = { opts = {} } },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main", data = { build = ":TSUpdate" } },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
-    {
-        src = "https://github.com/lewis6991/gitsigns.nvim",
-        data = {
-            opts = {
-                on_attach = function(bufnr)
-                    vim.keymap.set("n", "]c", "<cmd>Gitsigns nav_hunk next<CR>", { buffer = bufnr })
-                    vim.keymap.set("n", "[c", "<cmd>Gitsigns nav_hunk prev<CR>", { buffer = bufnr })
-                    vim.keymap.set("n", "<leader>gm", "<cmd>Gitsigns blame_line<CR>", { buffer = bufnr })
-                    vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<CR>", { buffer = bufnr })
-                    vim.keymap.set("n", "<leader>gd", "<cmd>Gitsigns preview_hunk<CR>", { buffer = bufnr })
-                    vim.keymap.set("n", "<leader>grh", "<cmd>Gitsigns reset_hunk<CR>", { buffer = bufnr })
-                    vim.keymap.set("n", "<leader>grb", "<cmd>Gitsigns reset_buffer<CR>", { buffer = bufnr })
-                end,
-            },
-        },
-    },
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+})
+
+require("gitsigns").setup({
+    on_attach = function(bufnr)
+        vim.keymap.set("n", "]c", "<cmd>Gitsigns nav_hunk next<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "[c", "<cmd>Gitsigns nav_hunk prev<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gm", "<cmd>Gitsigns blame_line<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "<leader>gd", "<cmd>Gitsigns preview_hunk<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "<leader>grh", "<cmd>Gitsigns reset_hunk<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "<leader>grb", "<cmd>Gitsigns reset_buffer<CR>", { buffer = bufnr })
+    end,
 })
 
 require("mason").setup({
@@ -52,15 +49,6 @@ require("mason").setup({
     ui = { backdrop = 100 },
 })
 require("mason-lspconfig").setup()
-require("lazydev").setup({
-    library = {
-        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        { path = "${3rd}/busted/library" },
-        { path = "${3rd}/luassert/library" },
-        { path = "snacks.nvim", words = { "Snacks" } },
-        { path = "nvim-test" },
-    },
-})
 
 vim.keymap.set("n", "s", "<Plug>Ysurround")
 vim.keymap.set("n", "S", "<Plug>Yssurround")
