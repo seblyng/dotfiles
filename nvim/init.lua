@@ -4,10 +4,6 @@ vim.loader.enable()
 
 require("vim._extui").enable({ msg = { target = "msg" } })
 
-P = function(...)
-    vim.print(...)
-end
-
 vim.diagnostic.config({
     virtual_text = { spacing = 4, prefix = "●" },
     float = { source = "if_many" },

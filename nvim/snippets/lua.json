@@ -7,6 +7,14 @@
       "-- stylua: ignore"
     ]
   },
+  "Pretty print": {
+    "prefix": [
+      "P"
+    ],
+    "body": [
+      "vim.print($0)"
+    ]
+  },
   "Print table": {
     "prefix": [
       "pp"
