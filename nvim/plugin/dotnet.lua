@@ -1,17 +1,13 @@
 vim.pack.add({
-    {
-        src = "https://github.com/seblyng/roslyn.nvim",
-        data = {
-            dev = true,
-            opts = {
-                broad_search = true,
-                silent = true,
-                ignore_target = function(sln)
-                    return string.match(sln, "SmartDok.sln") ~= nil
-                end,
-            },
-        },
-    },
+    { src = "https://github.com/seblyng/roslyn.nvim", data = { dev = true } },
+})
+
+require("roslyn").setup({
+    broad_search = true,
+    silent = true,
+    ignore_target = function(sln)
+        return string.match(sln, "SmartDok.sln") ~= nil
+    end,
 })
 
 vim.keymap.set("n", "<leader>ds", function()

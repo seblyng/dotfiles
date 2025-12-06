@@ -79,17 +79,17 @@ vim.keymap.set("n", "<leader>fa", function() Snacks.picker.autocmds() end, { des
 vim.keymap.set("n", "<leader>fh", function() Snacks.picker.help() end, { desc = "Picker: Help" })
 vim.keymap.set("n", "<leader>fc", function() Snacks.picker.command_history() end, { desc = "Picker: Command history" })
 vim.keymap.set("n", "<leader>fn", function() Snacks.picker.files({ cwd = "~/Applications/neovim", title = "Neovim" }) end, { desc = "Picker: Neovim" })
+vim.keymap.set("n", "<leader>nt", function() Snacks.picker.explorer() end, { desc = "Picker: Explorer" })
+vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files({ title = vim.fs.basename(vim.fs.root(0, ".git")) }) end, { desc = "Picker: Git Files" })
+vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files({ title = vim.fs.basename(vim.uv.cwd()) }) end, { desc = "Picker: Files" })
+vim.keymap.set("n", "<leader>dw", function() Snacks.picker.diagnostics() end, { desc = "Picker: Diagnostics" })
+vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Picker: Lsp definition" })
+vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { desc = "Picker: Lsp references" })
+
 vim.keymap.set("n", "<leader>fw", function() Snacks.picker.grep({
     title = vim.fs.basename(vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()),
     cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd(),
 }) end, { desc = "Picker: Grep" })
-
-vim.keymap.set("n", "<leader>nt", function() Snacks.picker.explorer() end, { desc = "Picker: Explorer" })
-vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files({ title = vim.fs.basename(vim.fs.root(0, ".git")) }) end, { desc = "Picker: Git Files" })
-vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files({ title = vim.fs.basename(vim.uv.cwd()) }) end, { desc = "Picker: Files" })
-vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Picker: Lsp definition" })
-vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { desc = "Picker: Lsp references" })
-vim.keymap.set("n", "<leader>dw", function() Snacks.picker.diagnostics() end, { desc = "Picker: Diagnostics" })
 
 vim.keymap.set("n", "<leader>fd", function()
     local exclude = { "hammerspoon[/\\]Spoons", "fonts[\\/]*", "icons[/\\]*" }
