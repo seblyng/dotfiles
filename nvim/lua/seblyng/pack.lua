@@ -1,5 +1,7 @@
 -- Wrapper around vim.pack to get a few extra features I am missing by default
 
+local group = vim.api.nvim_create_augroup("SebPack", { clear = true })
+
 ---@param p {spec: vim.pack.Spec, path: string}
 local function load_plugin(p)
     vim.cmd.packadd({ vim.fn.escape(p.spec.name, " "), bang = vim.v.vim_did_init == 0, magic = { file = false } })
@@ -34,7 +36,7 @@ local function load_plugin(p)
 end
 
 vim.api.nvim_create_autocmd("PackChanged", {
-    group = vim.api.nvim_create_augroup("SebPack", { clear = true }),
+    group = group,
     callback = function(ev)
         local build = ev.data.spec.data and ev.data.spec.data.build
         if not build or not vim.list_contains({ "update", "install" }, ev.data.kind) then
@@ -177,5 +179,37 @@ end, {
         return vim.tbl_filter(function(cmd)
             return cmd:match("^" .. arglead)
         end, args)
+    end,
+})
+
+-- Conceal support to easier get an overview over new commits
+-- I find the default view cluttered with information I barely want to look at
+vim.api.nvim_create_autocmd("FileType", {
+    group = group,
+    pattern = "nvim-pack",
+    callback = function(ev)
+        local lines = vim.api.nvim_buf_get_lines(ev.buf, 0, -1, false)
+        local ns = vim.api.nvim_create_namespace("pack-conceal")
+
+        for i, line in ipairs(lines) do
+            if
+                line:match("^Path:")
+                or line:match("^Source:")
+                or line:match("^Revision")
+                or line:match("^Pending updates:")
+                or lines[i + 1]:match("^Pending updates:")
+            then
+                vim.api.nvim_buf_set_extmark(ev.buf, ns, i - 1, 0, {
+                    conceal_lines = "",
+                })
+            end
+        end
+
+        vim.wo[0].conceallevel = 2
+        vim.wo[0].concealcursor = "nc"
+
+        vim.keymap.set("n", "<leader>tc", function()
+            vim.wo[0].conceallevel = vim.wo[0].conceallevel == 0 and 2 or 0
+        end, { buffer = ev.buf })
     end,
 })
