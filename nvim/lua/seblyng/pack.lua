@@ -203,6 +203,14 @@ vim.api.nvim_create_autocmd("FileType", {
                     conceal_lines = "",
                 })
             end
+
+            local hash_end = line:match("^> %x+ │ ()")
+            if hash_end then
+                vim.api.nvim_buf_set_extmark(ev.buf, ns, i - 1, 2, {
+                    end_col = hash_end - 1,
+                    conceal = "",
+                })
+            end
         end
 
         vim.wo[0].conceallevel = 2
