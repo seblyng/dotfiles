@@ -23,17 +23,6 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("DefaultLspAttach", { clear = true }),
-    callback = function()
-        vim.keymap.set("n", "gh", vim.lsp.buf.hover, { desc = "Lsp: Hover", buffer = true })
-
-        vim.keymap.set("n", "<leader>th", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-        end, { desc = "Lsp: Toggle inlay hints", buffer = true })
-    end,
-})
-
 vim.api.nvim_create_autocmd({ "TermRequest" }, {
     desc = "Handles OSC 7 dir change requests",
     callback = function(ev)

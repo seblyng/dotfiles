@@ -23,10 +23,6 @@ vim.pack.add({
     { src = "https://github.com/tpope/vim-sleuth" },
     { src = "https://github.com/tpope/vim-dispatch" },
     { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/neovim/nvim-lspconfig" },
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-    { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/folke/lazydev.nvim", data = { opts = {} } },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", data = { build = ":TSUpdate" } },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
@@ -43,12 +39,6 @@ require("gitsigns").setup({
         vim.keymap.set("n", "<leader>grb", "<cmd>Gitsigns reset_buffer<CR>", { buffer = bufnr })
     end,
 })
-
-require("mason").setup({
-    registries = { "github:mason-org/mason-registry", "github:Crashdummyy/mason-registry" },
-    ui = { backdrop = 100 },
-})
-require("mason-lspconfig").setup()
 
 vim.keymap.set("n", "s", "<Plug>Ysurround")
 vim.keymap.set("n", "S", "<Plug>Yssurround")
