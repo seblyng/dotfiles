@@ -25,43 +25,6 @@ vim.keymap.set("n", "<leader>ds", function()
     Snacks.picker.files({ dirs = files })
 end)
 
-local restore_handles = {}
-
-vim.api.nvim_create_autocmd("User", {
-    pattern = "RoslynRestoreProgress",
-    callback = function(ev)
-        local token = ev.data.params[1]
-        local handle = restore_handles[token]
-        if handle then
-            handle:report({
-                title = ev.data.params[2].state,
-                message = ev.data.params[2].message,
-            })
-        else
-            restore_handles[token] = require("fidget.progress").handle.create({
-                title = ev.data.params[2].state,
-                message = ev.data.params[2].message,
-                lsp_client = {
-                    name = "roslyn",
-                },
-            })
-        end
-    end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-    pattern = "RoslynRestoreResult",
-    callback = function(ev)
-        local handle = restore_handles[ev.data.token]
-        restore_handles[ev.data.token] = nil
-
-        if handle then
-            handle.message = ev.data.err and ev.data.err.message or "Restore completed"
-            handle:finish()
-        end
-    end,
-})
-
 local init_handles = {}
 vim.api.nvim_create_autocmd("User", {
     pattern = "RoslynOnInit",
