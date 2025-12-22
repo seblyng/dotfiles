@@ -46,12 +46,11 @@ vim.keymap.set("x", "s", "<Plug>VSurround")
 
 vim.keymap.set("n", "-", "<cmd>Oil<CR>")
 require("oil").setup({
+    view_options = { show_hidden = true },
     keymaps = {
         ["<C-l>"] = false,
         ["<C-h>"] = false,
-        ["~"] = false,
     },
-    view_options = { show_hidden = true },
 })
 
 -- stylua: ignore start

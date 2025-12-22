@@ -25,7 +25,7 @@ require("formatter").setup({
         go = "goimports",
         sql = "sql-formatter -l postgresql",
         rust = {
-            "rustfmt +nightly --edition 2021",
+            "rustfmt +nightly --edition 2024",
             {
                 exe = "leptosfmt",
                 args = { "--stdin" },
