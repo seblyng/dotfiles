@@ -46,25 +46,5 @@ vim.api.nvim_create_autocmd("FileType", {
     desc = "Set keymaps for dadbod sql",
 })
 
--- HACK: Override `sqlcmd` just when about to execute a query and restore it after execution
--- I want to have `-k` argument for sqlcmd: `/path/to/sqlcmd $@ -k 1`
-local path = vim.env.PATH
-vim.api.nvim_create_autocmd({ "User" }, {
-    group = group,
-    pattern = "DBExecutePre",
-    callback = function()
-        path = vim.env.PATH -- Update the path directly before executing
-        vim.env.PATH = vim.fn.expand("~/.local/bin") .. ":" .. vim.env.PATH
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "User" }, {
-    group = group,
-    pattern = "DBExecutePost",
-    callback = function()
-        vim.env.PATH = path
-    end,
-})
-
 -- MSSQL connection string example:
 -- sqlserver://foo:PORT;database=mydbname;user=myuser@foo;password=mypassword;

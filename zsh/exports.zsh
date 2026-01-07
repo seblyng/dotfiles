@@ -1,6 +1,7 @@
 # Exports
 
 export DOTFILES="$HOME/dotfiles"
+export EDITOR="nvim"
 export OS=$(uname -s)
 export XDG_CONFIG_HOME="$HOME/.config"
 
@@ -9,6 +10,7 @@ export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=
 
 export FZF_DEFAULT_OPTS='--height 40%'
 export GOPATH=$HOME/go
+export PATH="$DOTFILES/scripts:$PATH"
 
 typeset -U path
 path+=(
