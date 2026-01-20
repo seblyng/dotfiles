@@ -221,3 +221,16 @@ vim.api.nvim_create_autocmd("FileType", {
         end, { buffer = ev.buf })
     end,
 })
+
+local plugins = vim.fs.joinpath(vim.fn.stdpath("config"), "lua", "config")
+
+local mod = vim.fs.basename(plugins)
+for name, t in vim.fs.dir(plugins) do
+    if name == "init.lua" then
+        require(mod)
+    elseif (t == "file" or t == "link") and name:sub(-4) == ".lua" then
+        require(mod .. "." .. name:sub(1, -5))
+    elseif t == "directory" and vim.uv.fs_stat(vim.fs.joinpath(plugins, name, "init.lua")) then
+        require(mod .. "." .. name)
+    end
+end

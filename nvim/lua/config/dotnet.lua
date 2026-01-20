@@ -5,9 +5,6 @@ vim.pack.add({
 require("roslyn").setup({
     broad_search = true,
     silent = true,
-    ignore_target = function(sln)
-        return string.match(sln, "SmartDok.sln") ~= nil
-    end,
 })
 
 vim.keymap.set("n", "<leader>ds", function()

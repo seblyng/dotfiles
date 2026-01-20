@@ -32,9 +32,9 @@ vim.diagnostic.config({
     },
 })
 
-require("seblyng.pack")
 require("seblyng.options")
 require("seblyng.keymaps")
+require("seblyng.pack")
 require("seblyng.autocmds")
 require("seblyng.statusline")
 require("seblyng.tabline")
