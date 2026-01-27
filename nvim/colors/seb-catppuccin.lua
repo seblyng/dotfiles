@@ -1,4 +1,4 @@
-vim.g.colors_name = "catppuccin"
+vim.g.colors_name = "seb-catppuccin"
 
 local function highlight(colors)
     for name, opts in pairs(colors) do

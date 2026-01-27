@@ -37,4 +37,4 @@ vim.opt.title = true
 vim.opt.titlestring = "%F"
 vim.opt.exrc = true
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("seb-catppuccin")
