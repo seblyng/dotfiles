@@ -1,0 +1,35 @@
+[[remap]]
+from = "caps_lock"
+to = "hyper"
+
+[[remap]]
+from = "hyper+enter"
+to = "caps_lock"
+
+[[remap]]
+from = "non_us_backslash"
+to = "grave"
+
+[[remap]]
+from = "cmd+;"
+to = "alt+o"
+
+[[remap]]
+from = "cmd+shift+;"
+to = "alt+shift+o"
+
+[[remap]]
+from = "cmd+["
+to = "alt+a"
+
+[[remap]]
+from = "cmd+shift+["
+to = "alt+shift+a"
+
+[[remap]]
+from = "cmd+'"
+to = "alt+'"
+
+[[remap]]
+from = "cmd+shift+'"
+to = "alt+shift+'"

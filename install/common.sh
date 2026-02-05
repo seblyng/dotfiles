@@ -21,6 +21,7 @@ ln -sf $HOME/dotfiles/helix $HOME/.config
 ln -sf $HOME/dotfiles/ghostty $HOME/.config
 ln -sf $HOME/dotfiles/bat $HOME/.config
 ln -sf $HOME/dotfiles/delta $HOME/.config
+ln -sf $HOME/dotfiles/keycast $HOME/.config
 
 symlink_files_in_dir home
 symlink_files_in_dir git
