@@ -6,7 +6,6 @@ vim.pack.add({
     { src = "https://github.com/github/copilot.vim" },
     { src = "https://github.com/saecki/crates.nvim", data = { opts = {}, event = "BufReadPre Cargo.toml" } },
     { src = "https://github.com/vuki656/package-info.nvim", data = { opts = {}, event = "BufReadPre package.json" } },
-    { src = "https://github.com/b0o/schemastore.nvim" },
     { src = "https://github.com/mhinz/vim-startify" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons" },
     { src = "https://github.com/brianhuster/unnest.nvim" },
