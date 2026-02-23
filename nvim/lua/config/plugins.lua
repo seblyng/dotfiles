@@ -23,7 +23,7 @@ vim.pack.add({
     { src = "https://github.com/tpope/vim-dispatch" },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", data = { build = ":TSUpdate" } },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
 })
 
