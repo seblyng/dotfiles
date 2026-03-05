@@ -38,6 +38,8 @@
     rb = !git branch --no-color --sort=-committerdate --format='%(refname:short)' | fzf --multi --height 40% --header='Rebase with branch' | xargs -r git rebase
     bsa = !git branch -r --no-color --sort=-committerdate --format='%(refname:short)' | fzf --height 40% --header='Switch branch' | xargs -r git switch --track
     blg = !git branch --no-color --sort=-committerdate --format='%(refname:short)' | fzf --height 40% --header='Switch branch' | xargs -r git lg
+    wd = !git worktree list | tail -n +2 | fzf --multi --height 40% --header='Delete worktree' | awk '{print $1}' | xargs -r -n1 git worktree remove
+    wa = "!f() { path=\"$(git rev-parse --show-toplevel)/.worktrees/$1\"; if git show-ref --verify --quiet refs/heads/$1; then git worktree add \"$path\" \"$1\"; else git worktree add -b \"$1\" \"$path\"; fi; }; f"
     pc = !gh pr list -L 500 | fzf --height 40% --header='Checkout PR'| awk '{print $1}' | xargs -r gh pr checkout
     rc = rebase --continue
     ra = rebase --abort
