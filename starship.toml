@@ -17,22 +17,6 @@ show_always = true
 [git_branch]
 format = "→ [$symbol$branch]($style) "
 
-[cmd_duration]
-format = "[$duration]($style) "
-
-[rust]
-format = "[$symbol$version]($style) "
-
-[nodejs]
-format = "[$symbol$version]($style) "
-
-[docker_context]
-format = "[$symbol$context]($style) "
-
-[python]
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-style = "bold cyan"
-
 [character]
 success_symbol = "[→](bold green)"
 error_symbol = "[→](bold red)"
