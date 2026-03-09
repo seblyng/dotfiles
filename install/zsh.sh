@@ -37,4 +37,5 @@ install_plugins() {
 install_zsh
 install_plugins
 install_spaceship
+curl -sS https://starship.rs/install.sh | sh
 setup_zsh
