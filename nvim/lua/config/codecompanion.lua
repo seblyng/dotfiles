@@ -5,21 +5,12 @@ vim.pack.add({
         data = {
             cmd = { "CodeCompanion", "CodeCompanionCmd", "CodeCompanionChat", "CodeCompanionActions" },
             opts = {
-                display = {
-                    diff = {
-                        provider_opts = {
-                            inline = {
-                                layout = "buffer",
-                            },
-                        },
-                    },
-                },
                 interactions = {
                     chat = {
                         tools = {
                             opts = {
                                 default_tools = {
-                                    "files",
+                                    "agent",
                                 },
                             },
                         },
@@ -39,7 +30,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
     callback = function(request)
         local adapter = request.data.adapter
         handles[request.data.id] = require("fidget.progress").handle.create({
-            title = (" Requesting assistance (%s)"):format(request.data.strategy),
+            title = (" Requesting assistance (%s)"):format(request.data.interaction),
             message = "In progress...",
             lsp_client = {
                 name = ("%s (%s)"):format(adapter.formatted_name, adapter.model),

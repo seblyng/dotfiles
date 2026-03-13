@@ -105,7 +105,7 @@ vim.ui.input = function(opts, on_confirm)
         local calculated_with = math.max(30, #opts.prompt + #options.prefix, default_length + #options.prefix)
         local width = math.min(calculated_with, options.max_width)
 
-        local lines = { opts.prompt, string.rep(options.border_line, width), opts.default or "" }
+        local lines = { opts.prompt, string.rep(options.border_line, width), opts.default or " " }
 
         local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, opts.syntax, {
             width = width,
