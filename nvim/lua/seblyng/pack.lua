@@ -43,17 +43,22 @@ vim.api.nvim_create_autocmd("PackChanged", {
             return
         end
 
-        if type(build) == "string" and build:sub(1, 1) == ":" then
-            if not ev.data.active then
-                load_plugin(ev.data)
+        if not ev.data.active then
+            load_plugin(ev.data)
+        end
+
+        if type(build) == "string" then
+            if build:sub(1, 1) == ":" then
+                vim.cmd(build)
+            elseif build:match("%.lua$") then
+                local chunk, err = loadfile(vim.fs.joinpath(ev.data.path, build))
+                if not chunk or err then
+                    error(err)
+                end
+                chunk()
             end
-            vim.cmd(build)
-        elseif build:match("%.lua$") then
-            local chunk, err = loadfile(vim.fs.joinpath(ev.data.path, build))
-            if not chunk or err then
-                error(err)
-            end
-            chunk()
+        elseif type(build) == "function" then
+            build()
         end
     end,
 })
