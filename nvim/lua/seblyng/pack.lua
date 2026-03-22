@@ -218,7 +218,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
         vim.keymap.set("n", "<leader>tc", function()
             vim.wo[0].conceallevel = vim.wo[0].conceallevel == 0 and 2 or 0
-        end, { buffer = ev.buf })
+        end, { buf = ev.buf })
     end,
 })
 
