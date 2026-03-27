@@ -24,9 +24,6 @@ require("snacks").setup({
         win = {
             input = {
                 keys = {
-                    ["<c-x>"] = { "edit_split", mode = { "i", "n" } },
-                    ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" } },
-
                     ["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
                     ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
                     ["<c-.>"] = { "toggle_hidden", mode = { "i", "n" } },
