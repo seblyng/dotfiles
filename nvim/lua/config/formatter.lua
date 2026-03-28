@@ -24,16 +24,7 @@ require("formatter").setup({
         lua = "stylua --search-parent-directories -",
         go = "goimports",
         sql = "sql-formatter -l postgresql",
-        rust = {
-            "rustfmt +nightly --edition 2024",
-            {
-                exe = "leptosfmt",
-                args = { "--stdin" },
-                cond = function()
-                    return vim.fs.root(0, "leptosfmt.toml") ~= nil
-                end,
-            },
-        },
+        rust = "rustfmt +nightly --edition 2024",
         terraform = "tofu fmt -",
         json = "jq",
         cs = "csharpier format",
