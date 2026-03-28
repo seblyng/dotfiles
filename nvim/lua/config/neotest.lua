@@ -21,7 +21,7 @@ vim.pack.add({
                 vim.api.nvim_create_autocmd("FileType", {
                     pattern = "neotest-output",
                     callback = function()
-                        vim.keymap.set("n", "q", "<cmd>q<CR>", { buf = true, desc = "Close output window" })
+                        vim.keymap.set("n", "q", "<cmd>q<CR>", { buf = 0, desc = "Close output window" })
                     end,
                 })
 

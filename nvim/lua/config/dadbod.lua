@@ -24,13 +24,13 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "dbui",
     group = group,
     callback = function()
-        vim.keymap.set("n", "<CR>", "<Plug>(DBUI_SelectLine)", { buf = true })
-        vim.keymap.set("n", "R", "<Plug>(DBUI_Redraw)", { buf = true })
-        vim.keymap.set("n", "d", "<Plug>(DBUI_DeleteLine)", { buf = true })
-        vim.keymap.set("n", "A", "<Plug>(DBUI_AddConnection)", { buf = true })
-        vim.keymap.set("n", "H", "<Plug>(DBUI_ToggleDetails)", { buf = true })
-        vim.keymap.set("n", "r", "<Plug>(DBUI_RenameLine)", { buf = true })
-        vim.keymap.set("n", "q", "<Plug>(DBUI_Quit)", { buf = true })
+        vim.keymap.set("n", "<CR>", "<Plug>(DBUI_SelectLine)", { buf = 0 })
+        vim.keymap.set("n", "R", "<Plug>(DBUI_Redraw)", { buf = 0 })
+        vim.keymap.set("n", "d", "<Plug>(DBUI_DeleteLine)", { buf = 0 })
+        vim.keymap.set("n", "A", "<Plug>(DBUI_AddConnection)", { buf = 0 })
+        vim.keymap.set("n", "H", "<Plug>(DBUI_ToggleDetails)", { buf = 0 })
+        vim.keymap.set("n", "r", "<Plug>(DBUI_RenameLine)", { buf = 0 })
+        vim.keymap.set("n", "q", "<Plug>(DBUI_Quit)", { buf = 0 })
     end,
     desc = "Set keymaps for dbui",
 })
@@ -39,9 +39,9 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "dbout",
     group = group,
     callback = function()
-        vim.keymap.set("n", "yh", "<Plug>(DBUI_YankHeader)", { buf = true })
-        vim.keymap.set("n", "vic", "<Plug>(DBUI_YankCellValue)", { buf = true })
-        vim.keymap.set("n", "gd", "<Plug>(DBUI_JumpToForeignKey)", { buf = true })
+        vim.keymap.set("n", "yh", "<Plug>(DBUI_YankHeader)", { buf = 0 })
+        vim.keymap.set("n", "vic", "<Plug>(DBUI_YankCellValue)", { buf = 0 })
+        vim.keymap.set("n", "gd", "<Plug>(DBUI_JumpToForeignKey)", { buf = 0 })
     end,
     desc = "Set keymaps for dadbod sql",
 })

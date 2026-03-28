@@ -10,7 +10,7 @@ local function set_close_mapping(key)
     vim.keymap.set("n", key, function()
         vim.api.nvim_win_close(0, true)
     end, {
-        buf = true,
+        buf = 0,
         desc = "Close popup",
     })
 end
@@ -23,7 +23,7 @@ local function setup_confirm_mapping(mapping_key, items, on_choice, key)
         vim.api.nvim_win_close(0, true)
         on_choice(items[choice], choice)
     end, {
-        buf = true,
+        buf = 0,
         desc = "Confirm selection",
     })
 end
@@ -69,8 +69,8 @@ vim.ui.select = function(items, opts, on_choice)
         set_close_mapping("<Esc>")
         set_close_mapping("q")
 
-        vim.keymap.set("n", "j", "j", { buf = true })
-        vim.keymap.set("n", "k", "k", { buf = true })
+        vim.keymap.set("n", "j", "j", { buf = 0 })
+        vim.keymap.set("n", "k", "k", { buf = 0 })
 
         vim.schedule(function()
             require("seblyng.utils").setup_hidden_cursor()
@@ -124,7 +124,7 @@ vim.ui.input = function(opts, on_confirm)
             on_confirm(input)
             vim.cmd.stopinsert()
         end, {
-            buf = true,
+            buf = 0,
             desc = "Confirm selection",
         })
 
