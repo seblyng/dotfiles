@@ -1,17 +1,16 @@
 #!/bin/bash
-# Neovim installation
 
 source ~/dotfiles/install/utils.sh
 
 install_neovim_dependencies() {
     printf "\n${BLUE}Installing neovim dependencies ${NC}\n\n"
     case "$OS" in
-    Linux*) $INSTALL ninja-build gettext cmake curl build-essential ;;
-    Darwin*) $INSTALL ninja cmake gettext curl ;;
-    *)
-        echo "$OS not supported to download dependencies for neovim"
-        return
-        ;;
+        Linux*) $INSTALL ninja-build gettext cmake curl build-essential ;;
+        Darwin*) $INSTALL ninja cmake gettext curl ;;
+        *)
+            echo "$OS not supported to download dependencies for neovim"
+            return
+            ;;
     esac
 }
 

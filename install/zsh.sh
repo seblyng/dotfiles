@@ -1,17 +1,6 @@
 #!/bin/bash
-# Installation of ZSH
 
 source ~/dotfiles/install/utils.sh
-
-# Install spaceship prompt
-install_spaceship() {
-    if [[ ! -d "$HOME/dotfiles/zsh/spaceship-prompt" ]]; then
-        printf "\n${BLUE}Configuring prompt ${NC}\n\n"
-        git clone https://github.com/spaceship-prompt/spaceship-prompt.git $HOME/dotfiles/zsh/spaceship-prompt
-        sudo mkdir -p /usr/local/share/zsh/site-functions
-        sudo ln -sf $HOME/dotfiles/zsh/spaceship-prompt/spaceship.zsh /usr/local/share/zsh/site-functions/prompt_spaceship_setup
-    fi
-}
 
 setup_zsh() {
     printf "\n${BLUE}Setting up ZSH config ${NC}\n\n"
@@ -36,6 +25,5 @@ install_plugins() {
 
 install_zsh
 install_plugins
-install_spaceship
 curl -sS https://starship.rs/install.sh | sh
 setup_zsh

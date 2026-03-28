@@ -7,8 +7,10 @@ OS=$(uname -s)
 source ~/dotfiles/install/utils.sh
 
 # Installs homebrew and symlinks .macos if OS is macOS. Needs to be sourced before doing $UPDATE
-if [[ $OS == "Darwin" ]]; then
-    source ~/dotfiles/install/mac.sh
+if [[ $OS == "Darwin" ]] && ! installed brew; then
+    printf "\n${BLUE}Installing homebrew ${NC}\n\n"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Runs 'brew update' or 'apt-get update' based on OS
