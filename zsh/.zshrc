@@ -6,10 +6,9 @@ PROMPT_EOL_MARK=""
 [ -f ~/.linuxbrew/bin/brew ] && eval $(~/.linuxbrew/bin/brew shellenv)
 [ -f /opt/homebrew/bin/brew ] && eval $(/opt/homebrew/bin/brew shellenv)
 
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 [ -z "$NVIM" ] && source $HOME/.config/zsh/vim.zsh
 source $HOME/.config/zsh/exports.zsh
-source $HOME/.config/zsh/spaceship.zsh
 source $HOME/.config/zsh/completion.zsh
 source $HOME/.config/zsh/functions.zsh
 source $HOME/.config/zsh/aliases.zsh
