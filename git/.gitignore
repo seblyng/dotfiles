@@ -81,5 +81,4 @@ _minted-*
 *.bcf
 
 # Ai sthuff
-.claude
 .worktrees
