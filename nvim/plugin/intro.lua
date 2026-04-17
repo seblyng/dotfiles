@@ -76,11 +76,13 @@ require("vim._core.intro").display = function()
         elseif key == "K" then
             selected = math.max(selected - 10, 1)
         elseif key == vim.keycode("<CR>") then
-            vim.api.nvim_input("<Left>")
             vim.cmd(items[selected].action)
+            require("vim._core.intro").dismiss()
+        elseif key == vim.keycode("<Esc>") then
+            return ""
         elseif num and num >= 0 and num < #items then
-            vim.api.nvim_input("<Left>")
             vim.cmd(items[num + 1].action)
+            require("vim._core.intro").dismiss()
         else
             return
         end
@@ -97,8 +99,6 @@ require("vim._core.intro").display = function()
     })
 end
 
-vim.api.nvim_create_autocmd("IntroLeave", {
-    callback = function()
-        vim.on_key(nil, ns_id)
-    end,
-})
+require("vim._core.intro").on_close = function()
+    vim.on_key(nil, ns_id)
+end
