@@ -43,7 +43,27 @@ local function build_selection()
 end
 
 local ns_id = vim.api.nvim_create_namespace("seb_intro")
+local saved_guicursor = vim.o.guicursor
+local group = vim.api.nvim_create_augroup("IntroCursor", { clear = true })
+
 require("vim._core.intro").display = function()
+    vim.api.nvim_set_hl(0, "CursorTransparent", { strikethrough = true, blend = 100 })
+    vim.opt.guicursor = vim.opt.guicursor + "a:CursorTransparent/lCursor"
+
+    vim.api.nvim_create_autocmd({ "CmdwinEnter", "CmdlineEnter" }, {
+        group = group,
+        callback = function()
+            vim.schedule(function()
+                vim.o.guicursor = saved_guicursor
+            end)
+        end,
+    })
+    vim.api.nvim_create_autocmd({ "CmdwinLeave", "CmdlineLeave" }, {
+        group = group,
+        callback = function()
+            vim.opt.guicursor = vim.opt.guicursor + "a:CursorTransparent/lCursor"
+        end,
+    })
     if #items == 0 then
         items = vim.list_extend({}, commands)
         local devicons = require("nvim-web-devicons")
@@ -101,4 +121,6 @@ end
 
 require("vim._core.intro").on_close = function()
     vim.on_key(nil, ns_id)
+    vim.o.guicursor = saved_guicursor
+    vim.api.nvim_clear_autocmds({ group = "IntroCursor" })
 end
