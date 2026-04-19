@@ -20,6 +20,31 @@ vim.api.nvim_create_autocmd("FileType", {
         if vim.treesitter.query.get(lang, "indents") then
             vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
         end
+
+        ---@param query string
+        local function select(query)
+            return function()
+                require("nvim-treesitter-textobjects.select").select_textobject(query)
+            end
+        end
+
+        ---@param dir "swap_next" | "swap_previous"
+        ---@param query string
+        local function swap(dir, query)
+            return function()
+                require("nvim-treesitter-textobjects.swap")[dir](query)
+            end
+        end
+
+        vim.keymap.set({ "x", "o" }, "if", select("@function.inner"), { buf = args.buf })
+        vim.keymap.set({ "x", "o" }, "af", select("@function.outer"), { buf = args.buf })
+        vim.keymap.set({ "x", "o" }, "ic", select("@class.inner"), { buf = args.buf })
+        vim.keymap.set({ "x", "o" }, "ac", select("@class.outer"), { buf = args.buf })
+
+        vim.keymap.set("n", "<leader>sa", swap("swap_next", "@parameter.inner"), { buf = args.buf })
+        vim.keymap.set("n", "<leader>sf", swap("swap_next", "@function.outer"), { buf = args.buf })
+        vim.keymap.set("n", "<leader>sA", swap("swap_previous", "@parameter.inner"), { buf = args.buf })
+        vim.keymap.set("n", "<leader>sF", swap("swap_previous", "@function.outer"), { buf = args.buf })
     end,
 })
 
