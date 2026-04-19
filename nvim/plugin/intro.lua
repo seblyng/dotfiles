@@ -14,6 +14,11 @@ local commands = {
 
 local items = {}
 local selected = 1
+local hide = true
+
+local ns_id = vim.api.nvim_create_namespace("seb_intro")
+local saved_guicursor = vim.o.guicursor
+local group = vim.api.nvim_create_augroup("IntroCursor", { clear = true })
 
 local function build_selection()
     local max_width = 0
@@ -42,13 +47,12 @@ local function build_selection()
     return sel, sep
 end
 
-local ns_id = vim.api.nvim_create_namespace("seb_intro")
-local saved_guicursor = vim.o.guicursor
-local group = vim.api.nvim_create_augroup("IntroCursor", { clear = true })
-
 require("vim._core.intro").display = function()
     vim.api.nvim_set_hl(0, "CursorTransparent", { strikethrough = true, blend = 100 })
-    vim.opt.guicursor = vim.opt.guicursor + "a:CursorTransparent/lCursor"
+    if hide then
+        vim.opt.guicursor = vim.opt.guicursor + "a:CursorTransparent/lCursor"
+    end
+    hide = false
 
     vim.api.nvim_create_autocmd({ "CmdwinEnter", "CmdlineEnter" }, {
         group = group,
@@ -123,4 +127,6 @@ require("vim._core.intro").on_close = function()
     vim.on_key(nil, ns_id)
     vim.o.guicursor = saved_guicursor
     vim.api.nvim_clear_autocmds({ group = "IntroCursor" })
+    selected = 1
+    hide = true
 end
