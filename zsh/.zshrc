@@ -27,7 +27,7 @@ installed fnm && eval "$(fnm env --use-on-cd)"
 installed pyenv && eval "$(pyenv init -)"
 installed zoxide && eval "$(zoxide init --cmd cd zsh)"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 [ -f ~/.local.zsh ] && source ~/.local.zsh
 
 # bun completions
