@@ -146,6 +146,23 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 local HIGHLIGHT = "%#StatusLine#"
+local signs = {
+    [vim.diagnostic.severity.ERROR] = "",
+    [vim.diagnostic.severity.WARN] = "",
+    [vim.diagnostic.severity.HINT] = "",
+}
+
+vim.diagnostic.config({
+    status = {
+        format = function(counts)
+            return vim.iter(pairs(counts))
+                :map(function(level, value)
+                    return ("%%#%s#%s %s"):format(vim.diagnostic.config().signs.numhl[level], signs[level], value)
+                end)
+                :join(" ")
+        end,
+    },
+})
 
 function M.statusline()
     return parse_sections({
@@ -160,7 +177,7 @@ function M.statusline()
             get_git_status(),
         },
         {
-            vim.diagnostic.status():gsub(":", " "),
+            vim.diagnostic.status(),
             HIGHLIGHT,
             get_os(),
             " %2l:%c %3p%% ",

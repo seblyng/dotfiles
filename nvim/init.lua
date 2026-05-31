@@ -11,18 +11,6 @@ end
 vim.diagnostic.config({
     virtual_text = { spacing = 4, prefix = "●" },
     float = { source = "if_many" },
-    status = {
-        format = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.HINT] = "",
-        },
-        text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.HINT] = "",
-        },
-    },
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "✘",
