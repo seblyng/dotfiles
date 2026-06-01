@@ -2,7 +2,7 @@
 
 vim.loader.enable()
 
-require("vim._core.ui2").enable({ msg = { target = "msg" } })
+require("vim._core.ui2").enable({ msg = { targets = { default = "msg" } } })
 
 P = function(v)
     vim.print(v)

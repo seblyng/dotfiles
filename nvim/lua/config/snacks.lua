@@ -80,6 +80,8 @@ vim.keymap.set("n", "<leader>nt", function() Snacks.picker.explorer() end, { des
 vim.keymap.set("n", "<leader>fg", function() Snacks.picker.git_files({ title = vim.fs.basename(vim.fs.root(0, ".git")) }) end, { desc = "Picker: Git Files" })
 vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files({ title = vim.fs.basename(vim.uv.cwd()) }) end, { desc = "Picker: Files" })
 vim.keymap.set("n", "<leader>dw", function() Snacks.picker.diagnostics() end, { desc = "Picker: Diagnostics" })
+vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Picker: Git status" })
+vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Picker: Git diff" })
 vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Picker: Lsp definition" })
 vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { desc = "Picker: Lsp references" })
 
