@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("User", {
 require("snacks").setup({
     picker = {
         main = { file = false, current = true },
-        ui_select = false,
+        ui_select = true,
         win = {
             input = {
                 keys = {
@@ -54,6 +54,7 @@ require("snacks").setup({
                 },
             },
             vertical = { layout = { border = "rounded" } },
+            select = { layout = { border = "rounded", relative = "cursor" } },
         },
         actions = {
             cycle_layout_next = function(picker)
