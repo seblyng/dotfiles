@@ -1,7 +1,15 @@
 vim.pack.add({
     { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
     { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
+    { src = "https://github.com/saghen/blink.lib" },
+    {
+        src = "https://github.com/saghen/blink.cmp",
+        data = {
+            build = function()
+                require("blink.cmp").build():pwait()
+            end,
+        },
+    },
 })
 
 require("colorful-menu").setup({
@@ -17,25 +25,7 @@ require("colorful-menu").setup({
 require("blink-cmp").setup({
     keymap = {
         preset = "default",
-        ["<CR>"] = {
-            function(cmp)
-                local list = require("blink.cmp.completion.list")
-                local item = list.get_selected_item()
-                if not cmp.is_visible() or item == nil then
-                    return
-                end
-
-                vim.schedule(function()
-                    list.undo_preview()
-                    require("blink.cmp.completion.accept")(list.context, item, function()
-                        list.accept_emitter:emit({ item = item, context = list.context })
-                    end)
-                end)
-
-                return vim.api.nvim_replace_termcodes("<ESC>a", true, false, true)
-            end,
-            "fallback",
-        },
+        ["<CR>"] = { "accept", "fallback" },
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
     },
