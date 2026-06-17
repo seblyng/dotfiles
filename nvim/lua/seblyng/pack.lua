@@ -4,6 +4,9 @@ local group = vim.api.nvim_create_augroup("SebPack", { clear = true })
 
 ---@param p {spec: vim.pack.Spec, path: string}
 local function load_plugin(p)
+    if p.spec.data and p.spec.data.dependencies then
+        vim.pack.add(p.spec.data.dependencies)
+    end
     vim.cmd.packadd({ vim.fn.escape(p.spec.name, " "), bang = vim.v.vim_did_init == 0, magic = { file = false } })
 
     if p.spec.data and p.spec.data.config then

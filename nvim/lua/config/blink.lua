@@ -1,10 +1,12 @@
 vim.pack.add({
     { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
     { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
-    { src = "https://github.com/saghen/blink.lib" },
     {
         src = "https://github.com/saghen/blink.cmp",
         data = {
+            dependencies = {
+                { src = "https://github.com/saghen/blink.lib" },
+            },
             build = function()
                 require("blink.cmp").build():pwait()
             end,
