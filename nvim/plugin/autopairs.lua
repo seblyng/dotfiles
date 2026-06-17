@@ -8,7 +8,10 @@ local matches = {
 }
 
 local function feed(keys)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
+    -- Always vim.schedule to allow blink fallback feedkeys to run before this
+    vim.schedule(function()
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
+    end)
 end
 
 local function get_chars()
