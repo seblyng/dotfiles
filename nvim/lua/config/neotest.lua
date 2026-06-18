@@ -4,6 +4,7 @@ vim.pack.add({
     "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/rouge8/neotest-rust",
     "https://github.com/nsidorenco/neotest-vstest",
+    "https://github.com/fredrikaverpil/neotest-golang",
     {
         src = "https://github.com/nvim-neotest/neotest",
         data = {
@@ -54,6 +55,14 @@ vim.pack.add({
                     },
                     adapters = {
                         require("neotest-rust"),
+                        require("neotest-golang")({
+                            dap_mode = "manual",
+                            dap_manual_config = {
+                                type = "delve",
+                                request = "launch",
+                                mode = "test",
+                            },
+                        }),
                         require("neotest-vstest")({
                             dap_settings = {
                                 type = "coreclr",

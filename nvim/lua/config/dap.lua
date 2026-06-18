@@ -44,7 +44,8 @@ dap.configurations.cs = {
             end)
 
             if not project_path then
-                return vim.notify("Couldn't find the csproj path")
+                vim.notify("Couldn't find the csproj path")
+                return dap.ABORT
             end
 
             return require("dap.utils").pick_file({
@@ -94,12 +95,16 @@ dap.configurations.rust = {
             local res = client and client:request_sync("experimental/runnables", { textDocument = params })
 
             if not res or not res.result then
-                return vim.notify("No runnables available")
+                vim.notify("No runnables available")
+                return dap.ABORT
             end
 
             local chosen = require("dap.ui").pick_one(res.result, "Select runnable", function(item)
                 return item.label
             end)
+            if not chosen then
+                return dap.ABORT
+            end
 
             -- Do not run when debugging
             local sanitize_args = function(args)
@@ -125,5 +130,60 @@ dap.configurations.rust = {
                 end
             end
         end,
+    },
+}
+
+-- Go config
+dap.adapters.delve = function(callback, config)
+    if config.mode == "remote" and config.request == "attach" then
+        callback({
+            type = "server",
+            host = config.host or "127.0.0.1",
+            port = config.port or "38697",
+        })
+    else
+        callback({
+            type = "server",
+            port = "${port}",
+            executable = {
+                command = "dlv",
+                args = { "dap", "-l", "127.0.0.1:${port}", "--log", "--log-output=dap" },
+                detached = vim.fn.has("win32") == 0,
+            },
+        })
+    end
+end
+
+dap.configurations.go = {
+    {
+        type = "delve",
+        name = "Debug",
+        request = "launch",
+        program = function()
+            return vim.fs.root(0, { { "go.mod" }, ".git" }) or "${file}"
+        end,
+    },
+    {
+        type = "delve",
+        name = "Attach",
+        mode = "local",
+        request = "attach",
+        processId = function()
+            return require("dap.utils").pick_process()
+        end,
+    },
+    {
+        type = "delve",
+        name = "Debug test",
+        request = "launch",
+        mode = "test",
+        program = "${file}",
+    },
+    {
+        type = "delve",
+        name = "Debug test (go.mod)",
+        request = "launch",
+        mode = "test",
+        program = "./${relativeFileDirname}",
     },
 }

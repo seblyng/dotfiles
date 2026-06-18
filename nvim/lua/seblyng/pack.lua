@@ -205,7 +205,7 @@ vim.api.nvim_create_autocmd("FileType", {
                 or line:match("^Source:")
                 or line:match("^Revision")
                 or line:match("^Pending updates:")
-                or lines[i + 1]:match("^Pending updates:")
+                or (lines[i + 1] and lines[i + 1]:match("^Pending updates:"))
             then
                 vim.api.nvim_buf_set_extmark(ev.buf, ns, i - 1, 0, {
                     conceal_lines = "",
