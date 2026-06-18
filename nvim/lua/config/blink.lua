@@ -1,17 +1,8 @@
 vim.pack.add({
     { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
     { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
-    {
-        src = "https://github.com/saghen/blink.cmp",
-        data = {
-            dependencies = {
-                { src = "https://github.com/saghen/blink.lib" },
-            },
-            build = function()
-                require("blink.cmp").build():pwait()
-            end,
-        },
-    },
+    { src = "https://github.com/saghen/blink.lib" },
+    { src = "https://github.com/saghen/blink.cmp" },
 })
 
 require("colorful-menu").setup({
@@ -24,7 +15,8 @@ require("colorful-menu").setup({
     max_width = 90,
 })
 
-require("blink-cmp").setup({
+require("blink.cmp").build():pwait()
+require("blink.cmp").setup({
     keymap = {
         preset = "default",
         ["<CR>"] = { "accept", "fallback" },
