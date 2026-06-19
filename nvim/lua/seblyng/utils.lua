@@ -167,13 +167,23 @@ end
 
 local guicursor_saved = vim.opt.guicursor
 
+local function add_winhighlight(window, value)
+    local winhighlight = vim.wo[window][0].winhighlight
+    if winhighlight == "" then
+        vim.wo[window][0].winhighlight = value
+    else
+        vim.wo[window][0].winhighlight = winhighlight .. "," .. value
+    end
+end
+
 function M.setup_hidden_cursor()
     local bufnr = vim.api.nvim_get_current_buf()
+    local win = vim.api.nvim_get_current_win()
 
     vim.api.nvim_set_hl(0, "CursorTransparent", { strikethrough = true, blend = 100 })
     vim.opt.guicursor = vim.opt.guicursor + "a:CursorTransparent/lCursor"
-    vim.wo[0][0].cursorline = true
-    vim.wo[0][0].winhighlight = "CursorLine:Error"
+    vim.wo[win][0].cursorline = true
+    add_winhighlight(win, "CursorLine:Error")
 
     local group = vim.api.nvim_create_augroup("HiddenCursor", { clear = true })
     vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter", "CmdwinLeave", "CmdlineLeave" }, {
