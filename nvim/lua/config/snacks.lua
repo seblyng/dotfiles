@@ -21,6 +21,15 @@ require("snacks").setup({
     picker = {
         main = { file = false, current = true },
         ui_select = true,
+        formatters = {
+            file = {
+                ---@type "left"|"center"|"right"
+                truncate = "left",
+                filename_first = false,
+                min_width = 40,
+                filename_only = false,
+            },
+        },
         win = {
             input = {
                 keys = {
