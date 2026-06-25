@@ -61,6 +61,7 @@
     hunk-header-decoration-style = white box
     hunk-header-file-style = white
     hunk-header-line-number-style = white
+    tabs = 4
 
 [interactive]
     diffFilter = delta --color-only
