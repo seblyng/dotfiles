@@ -123,10 +123,12 @@ local function grpc_template()
             return vim.notify("No gRPC services found in " .. protoset, vim.log.levels.ERROR, { title = "gRPC" })
         end
 
-        vim.ui.select(services, { prompt = "gRPC service" }, function(service)
-            if service then
-                pick_method(protoset, service)
-            end
+        vim.schedule(function()
+            vim.ui.select(services, { prompt = "gRPC service" }, function(service)
+                if service then
+                    pick_method(protoset, service)
+                end
+            end)
         end)
     end)
 end
