@@ -16,6 +16,7 @@ local names = vim.iter(packages):map(function(pack)
 end)
 
 vim.lsp.enable(names:totable())
+vim.lsp.enable("hitman_ls")
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("DefaultLspAttach", { clear = true }),
