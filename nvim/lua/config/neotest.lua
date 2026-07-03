@@ -1,7 +1,6 @@
 ---@diagnostic disable: missing-fields
 vim.pack.add({
     "https://github.com/nvim-neotest/nvim-nio",
-    "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/rouge8/neotest-rust",
     "https://github.com/nsidorenco/neotest-vstest",
     "https://github.com/fredrikaverpil/neotest-golang",

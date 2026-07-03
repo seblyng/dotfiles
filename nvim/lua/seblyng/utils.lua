@@ -176,6 +176,10 @@ local function add_winhighlight(window, value)
     end
 end
 
+function M.restore_cursor()
+    vim.opt.guicursor = guicursor_saved
+end
+
 function M.setup_hidden_cursor()
     local bufnr = vim.api.nvim_get_current_buf()
     local win = vim.api.nvim_get_current_win()

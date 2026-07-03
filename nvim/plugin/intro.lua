@@ -1,16 +1,3 @@
-vim.pack.add({
-    "https://github.com/mhinz/vim-startify",
-})
-if true then
-    return
-end
-
-if vim.fn.argc() > 0 then
-    return
-end
-
-vim.opt.shortmess:append("I")
-
 local MIN_WIDTH = 74
 
 local version_line = ("NVIM v%s"):format(tostring(vim.version()))
@@ -113,7 +100,6 @@ local function show_intro()
     require("seblyng.utils").setup_hidden_cursor()
     vim.bo[0].bufhidden = "wipe"
     vim.bo[0].buflisted = false
-    vim.bo[0].buftype = "nofile"
     vim.bo[0].swapfile = false
     vim.bo[0].filetype = "intro"
     vim.bo[0].matchpairs = ""
@@ -160,7 +146,6 @@ local function show_intro()
 
         vim.bo[buf].modifiable = true
         vim.api.nvim_buf_set_lines(buf, 0, -1, false, padded_lines)
-        vim.bo[buf].modifiable = false
         vim.bo[buf].modified = false
 
         vim.api.nvim_buf_clear_namespace(buf, ns_id, 0, -1)
@@ -219,6 +204,17 @@ local function show_intro()
         end,
     })
 
+    vim.api.nvim_create_autocmd("InsertEnter", {
+        group = group,
+        buffer = buf,
+        once = true,
+        callback = function()
+            vim.cmd.enew()
+            require("seblyng.utils").restore_cursor()
+            pcall(vim.api.nvim_del_augroup_by_id, group)
+        end,
+    })
+
     vim.api.nvim_create_autocmd("BufWipeout", {
         group = group,
         buffer = buf,
@@ -228,5 +224,16 @@ local function show_intro()
     })
 end
 
-vim.api.nvim_create_autocmd("VimEnter", { once = true, callback = show_intro })
+vim.api.nvim_create_autocmd("VimEnter", {
+    once = true,
+    callback = function()
+        if vim.fn.argc() > 0 or vim.fn.line("$") ~= 1 or vim.fn.getline(".") ~= "" then
+            return
+        end
+
+        vim.opt.shortmess:append("I")
+
+        show_intro()
+    end,
+})
 vim.api.nvim_create_user_command("Intro", show_intro, {})
