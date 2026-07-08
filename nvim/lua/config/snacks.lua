@@ -94,11 +94,15 @@ vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { d
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Picker: Git diff" })
 vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Picker: Lsp definition" })
 vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { desc = "Picker: Lsp references" })
+vim.keymap.set("n", "gO", function() Snacks.picker.lsp_symbols() end, { desc = "Picker: Lsp references" })
+-- stylua: ignore end
 
-vim.keymap.set("n", "<leader>fw", function() Snacks.picker.grep({
-    title = vim.fs.basename(vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()),
-    cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd(),
-}) end, { desc = "Picker: Grep" })
+vim.keymap.set("n", "<leader>fw", function()
+    Snacks.picker.grep({
+        title = vim.fs.basename(vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()),
+        cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd(),
+    })
+end, { desc = "Picker: Grep" })
 
 vim.keymap.set("n", "<leader>fd", function()
     local exclude = { "hammerspoon[/\\]Spoons", "fonts[\\/]*", "icons[/\\]*" }
@@ -106,7 +110,25 @@ vim.keymap.set("n", "<leader>fd", function()
 end, { desc = "Picker: Dotfiles" })
 
 vim.keymap.set("n", "<leader>fp", function()
-    local plugins = vim.iter(vim.pack.get()):map(function(it) return it.path end):totable()
+    local plugins = vim.iter(vim.pack.get())
+        :map(function(it)
+            return it.path
+        end)
+        :totable()
     Snacks.picker.files({ title = "Plugins", dirs = plugins })
 end, { desc = "Picker: Plugins" })
--- stylua: ignore end
+
+vim.keymap.set("n", "<leader>fs", function()
+    if not vim.g.roslyn_nvim_selected_solution then
+        return vim.notify("No solution file found")
+    end
+
+    local projects = require("roslyn.sln.api").projects(vim.g.roslyn_nvim_selected_solution)
+    local files = vim.iter(projects)
+        :map(function(it)
+            return vim.fs.dirname(it)
+        end)
+        :totable()
+
+    Snacks.picker.files({ dirs = files })
+end)

@@ -2,7 +2,9 @@
 vim.pack.add({
     "https://github.com/nvim-neotest/nvim-nio",
     "https://github.com/rouge8/neotest-rust",
+    "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/nsidorenco/neotest-vstest",
+    "https://github.com/marilari88/neotest-vitest",
     "https://github.com/fredrikaverpil/neotest-golang",
     {
         src = "https://github.com/nvim-neotest/neotest",
@@ -53,6 +55,7 @@ vim.pack.add({
                         end,
                     },
                     adapters = {
+                        require("neotest-vitest"),
                         require("neotest-rust"),
                         require("neotest-golang")({
                             dap_mode = "manual",
