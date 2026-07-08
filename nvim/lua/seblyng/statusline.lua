@@ -43,23 +43,10 @@ local GIT_INFO = {
     { "removed", "", "Removed" },
 }
 
-local applied_highlights = {}
-
---- Only highlight fg for `name`
 --- @param name string
 --- @return string
 local function hl(name)
-    if applied_highlights[name] then
-        name = applied_highlights[name]
-    else
-        local colors = vim.api.nvim_get_hl(0, { name = name })
-
-        local statusline_hl = "SebStatusline" .. name
-        vim.api.nvim_set_hl(0, statusline_hl, { fg = colors.fg })
-        applied_highlights[name] = statusline_hl
-        name = statusline_hl
-    end
-    return "%#" .. name .. "#"
+    return "%$" .. name .. "$"
 end
 
 local function get_os()
@@ -84,12 +71,9 @@ local function get_filetype_symbol()
 
     local filetype = vim.bo.buftype == "terminal" and "zsh" or vim.bo.filetype
 
-    local icon, iconhl = devicons.get_icon_color_by_filetype(filetype, { default = true })
+    local icon, iconhl = devicons.get_icon_by_filetype(filetype, { default = true })
 
-    local hlname = "SebStatusline" .. iconhl:gsub("#", "")
-    vim.api.nvim_set_hl(0, hlname, { fg = iconhl })
-
-    return "%#" .. hlname .. "#" .. icon
+    return hl(iconhl) .. icon
 end
 
 local function get_file_info()
@@ -152,14 +136,17 @@ function M.statusline()
         {
             HIGHLIGHT,
             get_mode(),
+            HIGHLIGHT,
             get_filetype_symbol(),
             HIGHLIGHT,
             get_file_info(),
             HIGHLIGHT,
             get_git_branch(),
+            HIGHLIGHT,
             get_git_status(),
         },
         {
+            HIGHLIGHT,
             vim.diagnostic.status():gsub(":", " "),
             HIGHLIGHT,
             get_os(),

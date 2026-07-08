@@ -2,9 +2,7 @@ local function highlight(name)
     return "%#" .. name .. "#"
 end
 
-local devicon_hl = {}
-
-local function devicon(bufnr, base)
+local function devicon(bufnr)
     local ok, devicons = pcall(require, "nvim-web-devicons")
     if not ok then
         return ""
@@ -15,18 +13,9 @@ local function devicon(bufnr, base)
 
     filetype = buftype == "terminal" and "zsh" or filetype
 
-    local icon, iconhl = devicons.get_icon_color_by_filetype(filetype, { default = true })
+    local icon, iconhl = devicons.get_icon_by_filetype(filetype, { default = true })
 
-    local hlname = "SebTabline" .. base .. iconhl:gsub("#", "")
-    if not devicon_hl[hlname] then
-        devicon_hl[hlname] = true
-        vim.api.nvim_set_hl(0, hlname, {
-            fg = iconhl,
-            bg = vim.api.nvim_get_hl(0, { name = base }).bg,
-        })
-    end
-
-    return "%#" .. hlname .. "#" .. icon
+    return "%$" .. iconhl .. "$" .. icon
 end
 
 local function get_file_info(bufnr)
@@ -52,45 +41,14 @@ local function close_icon(index, bufnr, base)
     return "%" .. index .. "X" .. highlight(base) .. " %*%X"
 end
 
-local DIAGNOSTICS = {
-    { "Error", "", "DiagnosticError" },
-    { "Warn", "", "DiagnosticWarn" },
-    { "Info", "I", "DiagnosticInfo" },
-    { "Hint", "", "DiagnosticHint" },
-}
-
-local function get_diagnostics(bufnr, base)
-    local diags = vim.diagnostic.count(bufnr)
-    local res = vim.iter(DIAGNOSTICS)
-        :enumerate()
-        :map(function(i, attrs)
-            local n = diags[i] or 0
-            if n > 0 then
-                return ("%s%s %d"):format(highlight(attrs[3] .. base), attrs[2], n)
-            end
-        end)
-        :join(" ")
-
-    return res == "" and "" or " " .. res
-end
-
-local function hldefs()
-    for _, hl_base in ipairs({ "TabLineSel", "TabLineFill" }) do
-        local bg = vim.api.nvim_get_hl(0, { name = hl_base }).bg
-        for _, ty in ipairs({ "Warn", "Error", "Info", "Hint" }) do
-            local fg = vim.api.nvim_get_hl(0, { name = "Diagnostic" .. ty }).fg
-            local name = ("Diagnostic%s%s"):format(ty, hl_base)
-            vim.api.nvim_set_hl(0, name, { fg = fg, bg = bg })
-        end
+local function get_diagnostics(bufnr)
+    local status = vim.diagnostic.status(bufnr)
+    if status == "" then
+        return ""
     end
+
+    return " " .. status:gsub(":", " "):gsub("#", "$")
 end
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-    group = vim.api.nvim_create_augroup("SebTabline", { clear = true }),
-    callback = hldefs,
-})
-
-hldefs()
 
 local M = {}
 
@@ -107,10 +65,10 @@ function M.tabline()
             "%s%%%dT %s %s%s%s %s",
             highlight(base),
             index,
-            devicon(bufnr, base),
+            devicon(bufnr),
             highlight(base),
             get_file_info(bufnr),
-            get_diagnostics(bufnr, base),
+            get_diagnostics(bufnr) .. highlight(base),
             close_icon(index, bufnr, base)
         )
     end
