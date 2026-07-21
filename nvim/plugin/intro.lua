@@ -14,6 +14,31 @@ local get_icons = function(path)
     return icon and icon .. " " or "", hl
 end
 
+local function filtered_oldfiles(limit)
+    local seen = {}
+    local files = {}
+
+    for _, path in ipairs(vim.v.oldfiles) do
+        if #files >= limit then
+            break
+        end
+
+        if type(path) == "string" and path ~= "" then
+            local ok, absolute_path = pcall(function()
+                return vim.fn.fnamemodify(vim.fn.resolve(path), ":p")
+            end)
+
+            local stat = ok and absolute_path ~= "" and vim.uv.fs_stat(absolute_path) or nil
+            if stat and stat.type == "file" and not seen[absolute_path] and vim.uv.fs_access(absolute_path, "R") then
+                seen[absolute_path] = true
+                files[#files + 1] = absolute_path
+            end
+        end
+    end
+
+    return files
+end
+
 local function build_rows()
     local rows = {
         { text = "│ ╲ ││", align = "center" },
@@ -30,8 +55,7 @@ local function build_rows()
     }
 
     local start = 4
-    for i = 1, 5 do
-        local path = vim.v.oldfiles[i]
+    for i, path in ipairs(filtered_oldfiles(5)) do
         local icon, hl = get_icons(path)
         table.insert(rows, {
             text = string.format("[%s] %s%s", i + start - 1, icon, vim.fn.fnamemodify(path, ":~:.")),
