@@ -58,6 +58,7 @@ vim.pack.add({
                         require("neotest-vitest"),
                         require("neotest-rust"),
                         require("neotest-golang")({
+                            warn_test_name_dupes = false,
                             dap_mode = "manual",
                             dap_manual_config = {
                                 type = "delve",

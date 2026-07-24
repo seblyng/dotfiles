@@ -142,7 +142,7 @@ vim.keymap.set("ia", "TODO:", "TODO(seb):")
 local function create_command(key, direction)
     vim.api.nvim_create_user_command(key, function(x)
         local utils = require("seblyng.utils")
-        utils.wrap_lcd(function()
+        vim._with({ cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) }, function()
             utils.term({ direction = direction, focus = true, cmd = x.args, new = true })
         end)
     end, {
@@ -150,7 +150,7 @@ local function create_command(key, direction)
         bang = true,
         complete = function(_, cmdline, _)
             local utils = require("seblyng.utils")
-            local completions = utils.wrap_lcd(function()
+            local completions = vim._with({ cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) }, function()
                 local run_command = vim.split(cmdline, key .. " ")[2]
                 return utils.get_zsh_completion(run_command)
             end)

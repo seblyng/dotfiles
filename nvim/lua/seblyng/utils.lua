@@ -34,17 +34,6 @@ function M.term(opts, ...)
     end
 end
 
----@param fn function
----@param dir? string
-function M.wrap_lcd(fn, dir)
-    local current_cwd = vim.uv.cwd()
-    local _dir = dir or vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-    vim.cmd.lcd({ args = { _dir }, mods = { silent = true } })
-    local ret = fn()
-    vim.cmd.lcd({ args = { current_cwd }, mods = { silent = true } })
-    return ret
-end
-
 function M.get_zsh_completion(args, prefix)
     return vim.iter(vim.split(vim.trim(vim.system({ "capture", args }, { text = true }):wait().stdout), "\n"))
         :map(function(v)
@@ -79,7 +68,7 @@ vim.api.nvim_create_user_command("RunOnSave", function(opts)
         pattern = get_root_dir_pattern(),
         callback = function()
             vim.schedule(function()
-                M.wrap_lcd(function()
+                vim._with({ cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) }, function()
                     if opts.args:sub(1, 1) == "!" then
                         M.term({ direction = "new", focus = false, cmd = string.sub(opts.args, 2) })
                     else
@@ -96,7 +85,7 @@ end, {
     nargs = "*",
     bang = true,
     complete = function(arg_lead, cmdline, _)
-        return M.wrap_lcd(function()
+        return vim._with({ cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) }, function()
             local command = vim.split(cmdline, "RunOnSave ")[2]
             if command:sub(1, 1) == "!" then
                 return M.get_zsh_completion(string.sub(command, 2), arg_lead:sub(1, 1) == "!" and "!" or nil)
@@ -144,7 +133,7 @@ function M.save_and_exec(mode)
     vim.cmd.write({ mods = { emsg_silent = true, noautocmd = true } })
     vim.notify("Executing file")
     local file = vim.api.nvim_buf_get_name(0)
-    M.wrap_lcd(function()
+    vim._with({ cwd = vim.fs.dirname(file) }, function()
         local output = vim.fn.fnamemodify(file, ":t:r") --[[@as string]]
 
         local command = type(runner[mode][ft]) == "function" and runner[mode][ft](file, output) or runner[mode][ft]
