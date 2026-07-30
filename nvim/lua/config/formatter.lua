@@ -48,6 +48,7 @@ require("formatter").setup({
         sh = "beautysh -",
         typst = "typstyle",
         zig = "zig fmt --stdin",
+        rego = "opa fmt",
         _ = "sed s/[[:space:]]*$//",
     },
 })

@@ -41,6 +41,8 @@ local c = {
     color36 = "#25293d",
 }
 
+local custom_border = vim.o.winborder:find(",")
+
 highlight({
     Added = { fg = c.color21 },
     Bold = { bold = true },
@@ -122,7 +124,7 @@ highlight({
     ErrorMsg = { bold = true, fg = c.color6, italic = true },
     Exception = { fg = c.color7 },
     Float = { link = "Number" },
-    FloatBorder = { fg = vim.o.winborder:find(",") and c.color15 or c.color2 },
+    FloatBorder = { fg = custom_border and c.color15 or c.color2, bg = custom_border and c.color5 or c.color15 },
     FloatFooter = { link = "FloatTitle" },
     FloatShadow = { bg = c.color23, blend = 80 },
     FloatShadowThrough = { bg = c.color23, blend = 100 },
@@ -157,12 +159,12 @@ highlight({
     MsgSeparator = {},
     NonText = { fg = c.color13 },
     Normal = { bg = c.color5, fg = c.color2 },
-    NormalFloat = { bg = vim.o.winborder:find(",") and c.color15 or c.color5 },
+    NormalFloat = { bg = custom_border and c.color15 or c.color5 },
     NormalNC = { bg = c.color5, fg = c.color2 },
     Number = { fg = c.color8 },
     Operator = { fg = c.color17 },
-    Pmenu = { bg = vim.o.winborder:find(",") and c.color15 or c.color5 },
-    PmenuBorder = { fg = vim.o.winborder:find(",") and c.color15 or c.color2 },
+    Pmenu = { bg = custom_border and c.color15 or c.color5 },
+    PmenuBorder = { fg = custom_border and c.color15 or c.color2 },
     PmenuExtra = { link = "Pmenu" },
     PmenuExtraSel = { link = "PmenuSel" },
     PmenuKind = { link = "Pmenu" },
