@@ -40,10 +40,12 @@ vim.ui.input = function(opts, on_confirm)
             desc = "Confirm selection",
         })
 
-        vim.cmd.startinsert()
         vim.bo[popup_bufnr].modifiable = true
         vim.bo[popup_bufnr].buftype = "prompt"
         vim.fn.prompt_setprompt(popup_bufnr, options.prefix)
+
+        vim.cmd.startinsert()
+
         if opts.default and #opts.default ~= 0 then
             vim.api.nvim_input(string.format("%s<Esc>0wv$h<C-g>", opts.default))
         end
