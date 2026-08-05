@@ -228,6 +228,24 @@ local function show_intro()
         end,
     })
 
+    vim.api.nvim_create_autocmd("CmdwinLeave", {
+        group = group,
+        callback = function()
+            local cmdwin = vim.api.nvim_get_current_win()
+
+            vim.schedule(function()
+                if
+                    vim.api.nvim_win_is_valid(cmdwin)
+                    and vim.api.nvim_buf_is_valid(buf)
+                    and #vim.fn.win_findbuf(buf) > 0
+                    and #vim.api.nvim_list_wins() > 1
+                then
+                    pcall(vim.api.nvim_win_close, cmdwin, true)
+                end
+            end)
+        end,
+    })
+
     vim.api.nvim_create_autocmd("InsertEnter", {
         group = group,
         buffer = buf,
