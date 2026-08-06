@@ -1,6 +1,8 @@
 vim.g.db_ui_use_nerd_fonts = 1
 vim.g.db_ui_disable_mappings = 1
 vim.g.db_ui_execute_on_save = 0
+vim.g.db_ui_tmp_query_location = "~/.local/share/db_ui"
+vim.g.db_ui_drawer_sections = { "new_query", "buffers", "schemas" }
 
 local original_max_var_type_width = vim.env.SQLCMDMAXVARTYPEWIDTH
 local original_max_fixed_type_width = vim.env.SQLCMDMAXFIXEDTYPEWIDTH
@@ -26,10 +28,10 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         vim.keymap.set("n", "<CR>", "<Plug>(DBUI_SelectLine)", { buf = 0 })
         vim.keymap.set("n", "R", "<Plug>(DBUI_Redraw)", { buf = 0 })
-        vim.keymap.set("n", "d", "<Plug>(DBUI_DeleteLine)", { buf = 0 })
+        vim.keymap.set("n", "dd", "<Plug>(DBUI_DeleteLine)", { buf = 0 })
         vim.keymap.set("n", "A", "<Plug>(DBUI_AddConnection)", { buf = 0 })
         vim.keymap.set("n", "H", "<Plug>(DBUI_ToggleDetails)", { buf = 0 })
-        vim.keymap.set("n", "r", "<Plug>(DBUI_RenameLine)", { buf = 0 })
+        vim.keymap.set("n", "grn", "<Plug>(DBUI_RenameLine)", { buf = 0 })
         vim.keymap.set("n", "q", "<Plug>(DBUI_Quit)", { buf = 0 })
     end,
     desc = "Set keymaps for dbui",
