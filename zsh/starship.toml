@@ -1,5 +1,6 @@
 format = """
 $username\
+$hostname\
 $directory\
 $git_branch\
 $git_status\
@@ -12,6 +13,9 @@ $character"""
 
 [username]
 show_always = true
+
+[hostname]
+style = "bold green"
 
 [git_branch]
 format = "→ [$symbol$branch]($style) "
