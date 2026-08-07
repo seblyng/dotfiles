@@ -80,6 +80,40 @@ share() {
     done &
 }
 
+function opencode() {
+  local dir="$PWD"
+  local found_config=""
+
+  # Find the git worktree root (if any), so we only inject configs from above it
+  local git_root
+  git_root="$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null)"
+
+  # Walk from cwd up to HOME looking for opencode.json outside the worktree
+  while [[ "$dir" != "$HOME" && "$dir" != "/" ]]; do
+    # Skip dirs inside the git worktree — opencode already handles those natively
+    if [[ -n "$git_root" && "$dir" == "$git_root"* ]]; then
+      dir="${dir:h}"
+      continue
+    fi
+    if [[ -f "$dir/opencode.json" ]]; then
+      found_config="$dir/opencode.json"
+      break
+    fi
+    dir="${dir:h}"
+  done
+
+  # Also check HOME itself (only if outside any worktree)
+  if [[ -z "$found_config" && ( -z "$git_root" || "$HOME" != "$git_root"* ) && -f "$HOME/opencode.json" ]]; then
+    found_config="$HOME/opencode.json"
+  fi
+
+  if [[ -n "$found_config" ]]; then
+    OPENCODE_CONFIG="$found_config" command opencode "$@"
+  else
+    command opencode "$@"
+  fi
+}
+
 install_neovim() {
     mkdir -p ~/Applications
     cd ~/Applications
