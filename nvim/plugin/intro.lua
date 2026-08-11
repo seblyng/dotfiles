@@ -29,7 +29,13 @@ local function filtered_oldfiles(limit)
             end)
 
             local stat = ok and absolute_path ~= "" and vim.uv.fs_stat(absolute_path) or nil
-            if stat and stat.type == "file" and not seen[absolute_path] and vim.uv.fs_access(absolute_path, "R") then
+            if
+                stat
+                and stat.type == "file"
+                and not seen[absolute_path]
+                and vim.uv.fs_access(absolute_path, "R")
+                and not absolute_path:find("/.git/", 1, true)
+            then
                 seen[absolute_path] = true
                 files[#files + 1] = absolute_path
             end
