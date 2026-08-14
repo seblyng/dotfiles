@@ -46,7 +46,7 @@
     ma = merge --abort
     ds = diff --staged
     clj = !git -C "$(git rev-parse --show-toplevel)" checkout '*.lock.json'
-    cleanup = "!git branch --merged | grep -Ev '(^\\*|master|main)' | xargs -n1 git branch -d"
+    cleanup = "!f() { git fetch --prune --quiet; current=$(git branch --show-current); { git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads | while read -r branch track; do [ \"$track\" = '[gone]' ] && printf '%s\\n' \"$branch\"; done; git for-each-ref --merged HEAD --format='%(refname:short)' refs/heads; } | sort -u | while read -r branch; do case \"$branch\" in \"$current\"|main|master) continue ;; esac; printf '%s\\n' \"$branch\"; done | fzf --multi --bind 'load:select-all,ctrl-t:toggle-all' --height 40% --header='Delete gone or merged branches: tab toggles branch, ctrl-t toggles all' | xargs -r git branch -D; }; f"
 
 [include]
     path = ~/dotfiles/delta/themes/catppuccin.gitconfig
