@@ -9,22 +9,15 @@ require("dap-view").setup({
     windows = { terminal = { hide = { "coreclr" } } },
 })
 
-local function keymap(mode, lhs, rhs, opts)
-    vim.keymap.set(mode, lhs, function()
-        rhs()
-        vim.fn["repeat#set"](vim.keycode(lhs))
-    end, opts)
-end
-
 vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "Error", linehl = "", numhl = "" })
 vim.fn.sign_define("DapStopped", { text = "→", texthl = "Error", linehl = "DiffAdd", numhl = "" })
 
 local dap = require("dap")
 
-keymap("n", "<leader>db", dap.toggle_breakpoint, { desc = "Dap: Add breakpoint" })
-keymap("n", "<leader>d<leader>", dap.continue, { desc = "Dap: Continue debugging" })
-keymap("n", "<leader>dl", dap.step_into, { desc = "Dap: Step into" })
-keymap("n", "<leader>dj", dap.step_over, { desc = "Dap: Step over" })
+vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Dap: Add breakpoint" })
+vim.keymap.set("n", "<leader>d<leader>", dap.continue, { desc = "Dap: Continue debugging" })
+vim.keymap.set("n", "<leader>dl", dap.step_into, { desc = "Dap: Step into" })
+vim.keymap.set("n", "<leader>dj", dap.step_over, { desc = "Dap: Step over" })
 
 -- C# config
 dap.adapters.coreclr = {

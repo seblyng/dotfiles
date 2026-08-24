@@ -13,7 +13,6 @@ vim.pack.add({
     { src = "https://github.com/j-hui/fidget.nvim", data = { opts = {} } },
     { src = "https://github.com/chomosuke/term-edit.nvim", data = { opts = { prompt_end = "➜" } } },
     { src = "https://github.com/lambdalisue/vim-suda" },
-    { src = "https://github.com/tpope/vim-repeat" },
     { src = "https://github.com/tpope/vim-abolish" },
     { src = "https://github.com/tpope/vim-unimpaired" },
     { src = "https://github.com/tpope/vim-surround" },
