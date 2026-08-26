@@ -106,7 +106,9 @@ end, { desc = "Picker: Grep" })
 
 vim.keymap.set("n", "<leader>fd", function()
     local exclude = { "hammerspoon[/\\]Spoons", "fonts[\\/]*", "icons[/\\]*" }
-    Snacks.picker.files({ cwd = "~/dotfiles", exclude = exclude, title = "Dotfiles", hidden = true })
+    -- Set dirs to include the gitignored local folder
+    local dirs = { "~/dotfiles", "~/dotfiles/nvim/lua/seblyng/local" }
+    Snacks.picker.files({ cwd = "~/dotfiles", exclude = exclude, title = "Dotfiles", hidden = true, dirs = dirs })
 end, { desc = "Picker: Dotfiles" })
 
 vim.keymap.set("n", "<leader>fp", function()
