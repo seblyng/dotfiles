@@ -73,11 +73,7 @@ vim.keymap.set("n", "<leader>x", function()
 end, { desc = "Save and execute file" })
 
 vim.keymap.set("x", "<leader>x", function()
-    vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
-
-    vim.schedule(function()
-        require("seblyng.utils").save_and_exec("visual")
-    end)
+    require("seblyng.utils").save_and_exec("visual")
 end, { desc = "Save and execute file" })
 
 vim.keymap.set("n", "<leader>z", "<cmd>Inspect<CR>", { desc = "Print syntax under cursor" })

@@ -138,7 +138,6 @@ local runner = {
     },
     visual = {
         sql = [[:call feedkeys("\<Plug>(DBUI_ExecuteQuery)", "v")]],
-        lua = ":'<,'>lua",
     },
 }
 
