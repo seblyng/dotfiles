@@ -10,3 +10,4 @@ zsh/spaceship-prompt
 nvim/lazy-lock.json
 nvim/nvim-pack-lock.json
 zsh/plugins
+nvim/lua/seblyng/local

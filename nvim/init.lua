@@ -33,3 +33,5 @@ require("seblyng.pack")
 require("seblyng.autocmds")
 require("seblyng.statusline")
 require("seblyng.tabline")
+
+require("seblyng.utils").source(vim.fs.joinpath(vim.fn.stdpath("config"), "lua", "seblyng", "local"))

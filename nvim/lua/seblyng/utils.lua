@@ -43,6 +43,21 @@ function M.get_zsh_completion(args, prefix)
         :totable()
 end
 
+---@param dir string
+function M.source(dir)
+    local mod = vim.fs.normalize(dir):match("[/\\]lua[/\\](.*)$") or vim.fs.basename(dir)
+    mod = mod:gsub("[/\\]", ".")
+    for name, t in vim.fs.dir(dir) do
+        if name == "init.lua" then
+            require(mod)
+        elseif (t == "file" or t == "link") and name:sub(-4) == ".lua" then
+            require(mod .. "." .. name:sub(1, -5))
+        elseif t == "directory" and vim.uv.fs_stat(vim.fs.joinpath(dir, name, "init.lua")) then
+            require(mod .. "." .. name)
+        end
+    end
+end
+
 -- Creates a user_command to run a command each time a buffer is saved. By
 -- default it will try to find the root of the current buffer using LSP, and run
 -- the command on save for all files in the project.
