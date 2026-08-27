@@ -138,6 +138,7 @@ local runner = {
     },
     visual = {
         sql = [[:call feedkeys("\<Plug>(DBUI_ExecuteQuery)", "v")]],
+        lua = ":'<,'>lua",
     },
 }
 
@@ -145,6 +146,15 @@ local runner = {
 ---@param mode "normal" | "visual"
 function M.save_and_exec(mode)
     local ft = vim.bo.filetype
+
+    if mode == "visual" then
+        local anchor = vim.fn.getpos("v")
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local anchor_before_cursor = anchor[2] < cursor[2] or (anchor[2] == cursor[2] and anchor[3] <= cursor[3])
+        vim.fn.setpos("'<", anchor_before_cursor and anchor or cursor)
+        vim.fn.setpos("'>", anchor_before_cursor and cursor or anchor)
+    end
+
     vim.cmd.write({ mods = { emsg_silent = true, noautocmd = true } })
     vim.notify("Executing file")
     local file = vim.api.nvim_buf_get_name(0)
