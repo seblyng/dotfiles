@@ -1,7 +1,7 @@
 [user]
     username = seblyng
-    email = sebastian@lyngjohansen.com
-    name = Sebastian Lyng Johansen
+    email = sebastian@lyngwinther.com
+    name = Sebastian Lyng Winther
 
 [include]
     path = ~/.gitconfig_local
