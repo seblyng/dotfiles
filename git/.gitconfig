@@ -77,3 +77,6 @@
 
 [push]
     useForceIfIncludes = true
+
+[rerere]
+    enabled = true
