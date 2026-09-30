@@ -51,6 +51,9 @@
 [include]
     path = ~/dotfiles/delta/themes/catppuccin.gitconfig
 
+[includeIf "gitdir:~/work/"]
+    path = ~/work/.gitconfig
+
 [delta]
     features = catppuccin-mocha
     line-numbers = true
