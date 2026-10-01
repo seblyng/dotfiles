@@ -28,7 +28,7 @@ vim.keymap.set({ "n", "x" }, "x", '"_x')
 vim.keymap.set({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete into black hole register" })
 vim.keymap.set({ "n", "x" }, "<leader>c", '"_c', { desc = "Change into black hole register" })
 
-vim.keymap.set("n", "<leader>=", "<C-w>=", { desc = "Resize all splits" })
+vim.keymap.set("n", "<C-=>", "<C-w>=", { desc = "Resize all splits" })
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Navigate to left split" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Navigate to bottom split" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Navigate to top split" })
@@ -90,9 +90,9 @@ end, {
 })
 
 vim.keymap.set("n", "<leader>tg", function()
-    vim.g.use_git_root = not vim.g.use_git_root
-    local cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()
-    vim.notify(string.format("Searching from %s", cwd))
+    vim.g.use_grep = not vim.g.use_grep
+    local res = vim.g.use_grep and "grep" or "git_grep"
+    vim.notify(string.format("Using %s", res))
 end)
 
 vim.keymap.set("n", "<leader>tf", function()

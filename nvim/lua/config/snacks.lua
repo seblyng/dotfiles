@@ -98,10 +98,9 @@ vim.keymap.set("n", "gO", function() Snacks.picker.lsp_symbols() end, { desc = "
 -- stylua: ignore end
 
 vim.keymap.set("n", "<leader>fw", function()
-    Snacks.picker.grep({
-        title = vim.fs.basename(vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()),
-        cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd(),
-    })
+    local root = vim.g.use_grep and vim.uv.cwd() or vim.fs.root(0, ".git")
+    local grep = vim.g.use_grep and "grep" or "git_grep"
+    Snacks.picker[grep]({ cwd = root, title = vim.fs.basename(root) })
 end, { desc = "Picker: Grep" })
 
 vim.keymap.set("n", "<leader>fd", function()
