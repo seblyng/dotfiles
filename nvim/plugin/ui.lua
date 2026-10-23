@@ -1,63 +1,49 @@
 local ns = vim.api.nvim_create_namespace("seblyng_ui")
 
-local options = {
-    prefix = " ",
-    border_line = "─",
-    max_width = 80,
-}
+local prefix = " "
 
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.ui.input = function(opts, on_confirm)
+    opts = opts or {}
     vim.schedule(function()
-        local default_length = opts.default and #opts.default or 0
-        local calculated_with = math.max(30, #opts.prompt + #options.prefix, default_length + #options.prefix)
-        local width = math.min(calculated_with, options.max_width)
+        local prompt = opts.prompt or "Input: "
+        local default = opts.default or ""
+        local prompt_width = vim.api.nvim_strwidth(prompt)
+        local default_width = vim.api.nvim_strwidth(prefix .. default)
 
-        local lines = { opts.prompt, string.rep(options.border_line, width), opts.default or " " }
-
-        local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, opts.syntax, {
-            width = width,
-            height = math.ceil(#opts.prompt / width) + 2,
-            wrap = false,
-        })
+        local width = math.min(80, math.max(30, prompt_width, default_width))
+        local lines = { prompt, string.rep("─", width), " " }
+        local buf, winnr = vim.lsp.util.open_floating_preview(lines, "", { width = width, height = 3, wrap = false })
 
         vim.api.nvim_set_current_win(winnr)
 
-        vim.keymap.set("n", "<Esc>", function()
-            vim.api.nvim_win_close(0, true)
-        end, {
-            buf = popup_bufnr,
-            desc = "Close popup",
-        })
-
-        vim.keymap.set({ "i", "n" }, "<CR>", function()
-            local input = vim.trim(vim.fn.getline("."):sub(#options.prefix + 1, -1))
-            vim.api.nvim_win_close(0, true)
-            on_confirm(input)
+        local function finish(value)
             vim.cmd.stopinsert()
-        end, {
-            buf = popup_bufnr,
-            desc = "Confirm selection",
-        })
+            vim.api.nvim_win_close(winnr, true)
+            on_confirm(value)
+        end
 
-        vim.bo[popup_bufnr].modifiable = true
-        vim.bo[popup_bufnr].buftype = "prompt"
-        vim.fn.prompt_setprompt(popup_bufnr, options.prefix)
+        local function cancel()
+            finish(nil)
+        end
+
+        vim.bo[buf].modifiable = true
+        vim.bo[buf].buftype = "prompt"
+
+        vim.fn.prompt_setprompt(buf, prefix)
+        vim.fn.prompt_setcallback(buf, finish)
+        vim.fn.prompt_setinterrupt(buf, cancel)
+
+        vim.keymap.set("n", "<Esc>", cancel, { buf = buf })
+        vim.keymap.set("n", "<CR>", "A<CR>", { buf = buf })
+
+        vim.api.nvim_buf_set_extmark(buf, ns, 0, 0, { end_col = #lines[1], hl_group = "Title" })
+        vim.api.nvim_buf_set_extmark(buf, ns, 1, 0, { end_col = #lines[2], hl_group = "@punctuation.special.markdown" })
+        vim.api.nvim_buf_set_extmark(buf, ns, 2, 0, { virt_text_win_col = 0, virt_text = { { prefix, "Title" } } })
 
         vim.cmd.startinsert()
-
-        if opts.default and #opts.default ~= 0 then
-            vim.api.nvim_input(string.format("%s<Esc>0wv$h<C-g>", opts.default))
+        if default ~= "" then
+            vim.api.nvim_input(string.format("%s<Esc>0wv$h<C-g>", default))
         end
-        vim.api.nvim_buf_set_extmark(popup_bufnr, ns, 0, 0, { end_col = #lines[1], hl_group = "Title" })
-        vim.api.nvim_buf_set_extmark(popup_bufnr, ns, 1, 0, {
-            virt_text_win_col = 0,
-            virt_text = { { string.rep(options.border_line, width), "@punctuation.special.markdown" } },
-            priority = 100,
-        })
-        vim.api.nvim_buf_set_extmark(popup_bufnr, ns, 2, 0, {
-            virt_text_win_col = 0,
-            virt_text = { { options.prefix, "Title" } },
-        })
     end)
 end
