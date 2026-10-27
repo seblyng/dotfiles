@@ -22,6 +22,7 @@
     st = status
     aa = add -A .
     cm = commit -m
+    co = checkout
     aacm = !git add -A . && git commit -m
     start = !git checkout master && git pull origin
     lg = "!f() { git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold cyan)%an%Creset' --abbrev-commit $@; }; f"

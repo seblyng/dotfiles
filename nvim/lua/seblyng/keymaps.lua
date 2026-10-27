@@ -90,9 +90,9 @@ end, {
 })
 
 vim.keymap.set("n", "<leader>tg", function()
-    vim.g.use_grep = not vim.g.use_grep
-    local res = vim.g.use_grep and "grep" or "git_grep"
-    vim.notify(string.format("Using %s", res))
+    vim.g.use_git_root = not vim.g.use_git_root
+    local cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()
+    vim.notify(string.format("Searching from %s", cwd))
 end)
 
 vim.keymap.set("n", "<leader>tf", function()

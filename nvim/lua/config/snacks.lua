@@ -92,15 +92,15 @@ vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files({ title = vim.f
 vim.keymap.set("n", "<leader>dw", function() Snacks.picker.diagnostics() end, { desc = "Picker: Diagnostics" })
 vim.keymap.set("n", "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Picker: Git status" })
 vim.keymap.set("n", "<leader>gd", function() Snacks.picker.git_diff() end, { desc = "Picker: Git diff" })
+vim.keymap.set("n", "<leader>gg", function() Snacks.picker.git_grep() end, { desc = "Picker: Git grep" })
 vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Picker: Lsp definition" })
 vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { desc = "Picker: Lsp references" })
 vim.keymap.set("n", "gO", function() Snacks.picker.lsp_symbols() end, { desc = "Picker: Lsp references" })
 -- stylua: ignore end
 
 vim.keymap.set("n", "<leader>fw", function()
-    local root = vim.g.use_grep and vim.uv.cwd() or vim.fs.root(0, ".git")
-    local grep = vim.g.use_grep and "grep" or "git_grep"
-    Snacks.picker[grep]({ cwd = root, title = vim.fs.basename(root) })
+    local cwd = vim.g.use_git_root and vim.fs.root(0, ".git") or vim.uv.cwd()
+    Snacks.picker.grep({ title = vim.fs.basename(cwd), cwd = cwd })
 end, { desc = "Picker: Grep" })
 
 vim.keymap.set("n", "<leader>fd", function()
