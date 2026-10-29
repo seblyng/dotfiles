@@ -1,4 +1,3 @@
 cursor-style-blink = false
 theme = Catppuccin Mocha
 font-thicken = true
-keybind = shift+enter=text:\x1b\r
