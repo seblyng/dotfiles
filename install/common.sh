@@ -23,5 +23,7 @@ ln -sf $HOME/dotfiles/bat $HOME/.config
 ln -sf $HOME/dotfiles/delta $HOME/.config
 ln -sf $HOME/dotfiles/keycast $HOME/.config
 
+installed bat && bat cache --build
+
 symlink_files_in_dir home
 symlink_files_in_dir git
